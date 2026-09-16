@@ -1,6 +1,6 @@
 <?php
 /**
- * Paksa IT Solutions — Contact Form
+ * Nexus Business Theme — Contact Form
  *
  * Provides a theme-native contact form with no third-party dependencies.
  *

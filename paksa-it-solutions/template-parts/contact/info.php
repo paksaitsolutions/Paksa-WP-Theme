@@ -145,7 +145,7 @@ $whatsapp  = paksa_get_option( 'paksa_whatsapp_url', '' );
                  * Hook: paksa_contact_form
                  *
                  * Plugins or child themes can hook here to output a contact form.
-                 * Example: add_action( 'paksa_contact_form', 'my_contact_form_shortcode' );
+                 * Example: add_action( 'paksa_contact_form', 'paksa_contact_form_shortcode' );
                  *
                  * If no form is hooked, a neutral placeholder is shown.
                  */

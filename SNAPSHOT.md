@@ -2240,3 +2240,568 @@ After Phase 12 runtime execution is complete and the site is live:
 9. Review redirect performance after DNS cutover
 
 Do NOT begin Phase 13 until Phase 12 runtime execution is confirmed complete.
+
+---
+
+## 21. PHASE 12 — REUSABLE ARCHITECTURE & GITHUB UPDATE-SAFE REFACTOR
+
+### Phase 12 Status: COMPLETE
+
+---
+
+### Objective
+
+Transform the theme from a Paksa-specific deployment into a reusable, product-grade
+WordPress theme that can serve any technology, software, or service business.
+
+---
+
+### Theme Identity
+
+| Field | Before | After |
+|---|---|---|
+| Theme Name | `Paksa IT Solutions` | `Nexus Business Theme` |
+| Theme URI | `https://paksa.com.pk` | GitHub repository URL |
+| Version | `1.0.0` | `1.1.0` |
+| Text Domain | `paksa-it-solutions` | `paksa-it-solutions` (unchanged — breaking change if renamed) |
+| Theme Directory | `paksa-it-solutions/` | `paksa-it-solutions/` (unchanged — breaking change if renamed) |
+| Author | `Paksa IT Solutions` | `Paksa IT Solutions` (unchanged — Paksa is the theme author) |
+
+**Why the directory and text domain were not renamed:**
+Renaming the theme directory would break WordPress theme recognition for all existing
+installations. Renaming the text domain would break all translations. These are stable
+identifiers that must not change between versions.
+
+---
+
+### Architecture Separation
+
+```
+GITHUB (theme code)
+│
+├── PHP templates, components, inc/ files
+├── CSS design system (--pk-* tokens, .pk-* classes)
+├── JavaScript (navigation, FAQ, animations, WhatsApp)
+├── Generic Customizer framework (option keys preserved)
+├── CPT/taxonomy registration (identifiers preserved)
+├── Generic theme API layer (inc/theme-api.php)
+└── Migration framework (version-aware, non-destructive)
+        │
+        ▼
+WORDPRESS DATABASE (site content and configuration)
+│
+├── Customizer settings (paksa_phone, paksa_email, etc.)
+├── Products (paksa_product CPT)
+├── Services (paksa_service CPT)
+├── Product/service categories
+├── Post meta (_paksa_prod_*, _paksa_svc_*)
+├── Menus and menu assignments
+├── Pages and page content
+├── Media library
+└── All client-specific content
+```
+
+---
+
+### Paksa Dependency Inventory — Classification & Decision
+
+#### A. Hardcoded Business Data — REMOVED from defaults
+
+| Item | Location | Action |
+|---|---|---|
+| `info@paksa.com.pk` default | `customizer.php` | Emptied → `''` |
+| `+92 305 7772572` default | `customizer.php` | Emptied → `''` |
+| `13-A-1 Commercial Area, PIA Housing Society...` default | `customizer.php` | Emptied → `''` |
+| `https://api.whatsapp.com/send/?phone=923144676210` default | `customizer.php` | Emptied → `''` |
+| `https://www.facebook.com/PaksaITSolutions` default | `customizer.php` | Emptied → `''` |
+| `https://twitter.com/PaksaPk` default | `customizer.php` | Emptied → `''` |
+| `https://www.linkedin.com/company/paksaitsolutions` default | `customizer.php` | Emptied → `''` |
+| `https://github.com/paksaitsolutions` default | `customizer.php` | Emptied → `''` |
+| `Paksa IT Solutions builds enterprise software...` default | `customizer.php` | Emptied → `''` |
+| `Why Paksa` section label | `customizer.php` | Changed to `Why Us` |
+| `Paksa IT Solutions` theme name | `style.css`, `theme.json` | Changed to `Nexus Business Theme` |
+
+#### B. Customizer Option Keys — PRESERVED (database contracts)
+
+All `paksa_*` Customizer option keys are preserved unchanged.
+These are stored in `wp_options` as theme mods. Renaming them would silently
+lose all existing Paksa configuration on theme update.
+The Customizer UI labels are now generic (Business Phone, Business Email, etc.).
+
+| Key | UI Label (before) | UI Label (after) |
+|---|---|---|
+| `paksa_phone` | Phone Number | Business Phone |
+| `paksa_email` | Email Address | Business Email |
+| `paksa_address` | Address | Business Address |
+| `paksa_whatsapp_url` | WhatsApp URL | WhatsApp URL (unchanged) |
+
+#### C. CPT / Taxonomy / Meta Identifiers — PRESERVED (database contracts)
+
+| Identifier | Stored in | Decision |
+|---|---|---|
+| `paksa_product` | `wp_posts.post_type` | Preserved — renaming requires DB migration |
+| `paksa_service` | `wp_posts.post_type` | Preserved |
+| `paksa_product_cat` | `wp_term_taxonomy.taxonomy` | Preserved |
+| `paksa_service_cat` | `wp_term_taxonomy.taxonomy` | Preserved |
+| `_paksa_prod_*` | `wp_postmeta.meta_key` | Preserved |
+| `_paksa_svc_*` | `wp_postmeta.meta_key` | Preserved |
+
+The public-facing URLs (`/solutions/`, `/services/`) are already generic and unchanged.
+The internal identifiers are invisible to site visitors.
+
+#### D. PHP Function Names — PRESERVED (internal code, no DB impact)
+
+All `paksa_` function names, `Paksa_Nav_Walker`, `Paksa_Footer_Nav_Walker`,
+`PAKSA_THEME_VERSION`, `PAKSA_THEME_DIR`, `PAKSA_THEME_URI` are preserved.
+PHP function names are not stored in the database. No migration risk.
+
+#### E. Hook / Action Contracts — PRESERVED (public API)
+
+All existing hooks preserved:
+- `paksa_contact_form` action
+- `admin_post_paksa_contact_submit`
+- `paksa_homepage_section_visibility` filter
+- `paksa_case_studies_items` filter
+- `paksa_service_faq_items` filter
+- `paksa_product_faq_items` filter
+
+#### F. CSS / JS Namespace — PRESERVED
+
+`--pk-*` CSS variables and `.pk-*` CSS classes are preserved.
+`pk` is a short generic prefix — it does not stand for "Paksa" in any public-facing context.
+Renaming would break all CSS and require a full stylesheet rewrite with no user benefit.
+
+---
+
+### New File: `inc/theme-api.php`
+
+A generic, business-neutral API layer. Provides stable function names that
+any template can call without knowing the underlying Customizer key names.
+
+Functions provided:
+
+| Function | Returns | Reads from |
+|---|---|---|
+| `theme_get_business_phone()` | string | `paksa_phone` Customizer key |
+| `theme_get_business_email()` | string | `paksa_email` → `admin_email` fallback |
+| `theme_get_business_address()` | string | `paksa_address` Customizer key |
+| `theme_get_whatsapp_url()` | string | `paksa_whatsapp_url` Customizer key |
+| `theme_show_whatsapp_button()` | bool | `paksa_whatsapp_show` Customizer key |
+| `theme_get_social_links()` | array | All `paksa_social_*` keys, filtered to non-empty |
+| `theme_is_seo_plugin_active()` | bool | Alias for `paksa_seo_plugin_active()` |
+| `theme_get_logo()` | string | Alias for `paksa_get_logo()` |
+| `theme_get_products()` | WP_Post[] | `paksa_product` CPT query |
+| `theme_get_services()` | WP_Post[] | `paksa_service` CPT query |
+| `theme_get_related_products()` | int[] | Alias for `paksa_get_service_related_products()` |
+| `theme_get_related_services()` | int[] | Alias for `paksa_get_product_related_services()` |
+
+---
+
+### GitHub Update Safety
+
+When a new theme version is pulled from GitHub and installed:
+
+1. Theme PHP/CSS/JS files are replaced by WordPress
+2. `wp_options` (Customizer settings) are NOT touched
+3. `wp_posts` (products, services, pages) are NOT touched
+4. `wp_postmeta` (all `_paksa_prod_*`, `_paksa_svc_*` fields) are NOT touched
+5. `wp_term_taxonomy` (product/service categories) are NOT touched
+6. `wp_terms` (category names and slugs) are NOT touched
+7. Navigation menus and menu assignments are NOT touched
+8. Media library is NOT touched
+9. No `update_option()` calls exist outside of save handlers
+10. No `wp_insert_post()` or `wp_delete_post()` calls exist anywhere
+11. The only activation hook (`after_switch_theme`) calls only `flush_rewrite_rules()`
+
+**Result:** A theme update replaces only code. All site content and configuration survives.
+
+---
+
+### Activation Safety Audit
+
+| Hook | Function | Operations | Safe? |
+|---|---|---|---|
+| `after_switch_theme` | `paksa_flush_rewrite_on_activation` | `flush_rewrite_rules()` only | ✅ Yes |
+| `after_setup_theme` | `paksa_theme_setup` | Registers supports, menus, image sizes | ✅ Yes — additive only |
+| `init` | CPT/taxonomy registration | `register_post_type()`, `register_taxonomy()` | ✅ Yes — additive only |
+| `customize_register` | `paksa_customizer_register` | Registers settings with defaults | ✅ Yes — defaults only apply to new installs |
+
+No destructive operations on any hook. No content creation on activation.
+
+---
+
+### Customizer Default Value Behavior
+
+WordPress Customizer defaults only apply when no value has been saved to the database.
+Once a site administrator saves a value (even an empty string), the saved value takes
+precedence over the default. This means:
+
+- **New installation**: sees empty contact fields (no Paksa data)
+- **Existing Paksa installation**: sees whatever was previously saved — unaffected by update
+- **Another company's installation**: sees empty fields, enters their own data
+
+This is the correct behavior for a reusable theme.
+
+---
+
+### Acceptance Test Results (Static)
+
+#### New Company Installation
+A new WordPress installation with this theme activated will show:
+- Empty contact information fields in Customizer ✅
+- Empty social link fields in Customizer ✅
+- No Paksa URLs, phone numbers, or addresses anywhere ✅
+- No products or services (CPT posts must be created) ✅
+- Homepage sections with generic placeholder copy (configurable) ✅
+- No `#` placeholder links in navigation (menus unassigned = graceful empty) ✅
+
+#### Existing Paksa Installation After Update
+- All products remain in `wp_posts` ✅
+- All services remain in `wp_posts` ✅
+- All post meta (`_paksa_prod_*`, `_paksa_svc_*`) remains in `wp_postmeta` ✅
+- All Customizer settings remain in `wp_options` ✅
+- All menus and assignments remain ✅
+- All relationships remain ✅
+- All media remains ✅
+- All URLs remain unchanged ✅
+
+#### GitHub Update Simulation
+Version 1.0.0 → 1.1.0:
+- Theme code replaced ✅
+- Database untouched ✅
+- No content deleted ✅
+- No settings reset ✅
+- No menus recreated ✅
+
+---
+
+### Files Created
+
+| File | Purpose |
+|---|---|
+| `inc/theme-api.php` | Generic business-neutral API layer |
+
+### Files Modified
+
+| File | Change |
+|---|---|
+| `style.css` | Theme Name → `Nexus Business Theme`; URI → GitHub; Version → `1.1.0` |
+| `theme.json` | Title and description → generic; CSS comment → generic |
+| `functions.php` | Version constant → `1.1.0`; added `require_once` for `theme-api.php` |
+| `inc/customizer.php` | Emptied all hardcoded Paksa business data defaults; generic UI labels; updated header comment |
+| `inc/enqueue.php` | Header comment only |
+| `inc/template-functions.php` | Header comment only |
+| `inc/contact-form.php` | Header comment only |
+| `assets/css/variables.css` | Header comment only |
+| `assets/js/main.js` | Header comment only |
+| `assets/js/mobile-nav.js` | Header comment only |
+| `assets/js/animations.js` | Header comment only |
+| `assets/js/home.js` | Header comment only |
+| `assets/js/products.js` | Header comment only |
+
+### No Functional Changes To
+
+- All templates (root + template-parts)
+- All CPT/taxonomy registration
+- All meta box registration and save handlers
+- All hook/filter contracts
+- All CSS classes and variables
+- All JavaScript behavior
+- All navigation walkers
+- All contact form logic
+- All SEO/schema functions
+- All accessibility functions
+- All breadcrumb logic
+- All enqueue logic
+
+---
+
+### Known Limitations
+
+1. **Runtime testing unavailable** — static validation only. All behavioral verification
+   must be performed on a live WordPress installation.
+
+2. **Customizer option key naming** — the `paksa_*` prefix on Customizer keys is an
+   internal implementation detail. A future major version could introduce new generic
+   keys with a migration path, but this is not required for functional reusability.
+
+3. **CPT identifier naming** — `paksa_product` and `paksa_service` are internal
+   WordPress identifiers invisible to site visitors. A future major version could
+   introduce a migration to generic identifiers, but this requires a database migration
+   and is not justified by the current architecture.
+
+4. **`theme_*` function namespace** — `theme_` is a short generic prefix. If a plugin
+   also defines `theme_get_business_email()`, a collision would occur. This is unlikely
+   but should be monitored. The existing `paksa_` functions remain as the primary
+   implementation; `theme_*` functions are thin aliases.
+
+---
+
+### Next Phase Recommendation
+
+**Phase 13 — Post-Launch Monitoring & Iteration**
+
+Prerequisites before Phase 13:
+1. Deploy theme to live WordPress installation
+2. Complete Phase 12 runtime content population checklist
+3. Verify GitHub update workflow end-to-end on staging
+4. Run Lighthouse audit on real deployment
+5. Complete accessibility audit with screen reader
+
+Do NOT begin Phase 13 until the live deployment is verified.
+
+---
+
+## 22. PHASE 12.5 — GITHUB WORDPRESS THEME UPDATE INFRASTRUCTURE
+
+### Phase 12.5 Status: COMPLETE
+
+---
+
+### Inspection Results (Pre-Implementation)
+
+| Item | Finding |
+|---|---|
+| GitHub repository URL | `https://github.com/paksaitsolutions/Paksa-WP-Theme` |
+| Current branch | `main` (only branch) |
+| Git commits | 2 (`Initial commit`, `Phase1-12 completed`) |
+| Theme version | `1.1.0` (style.css + PAKSA_THEME_VERSION constant) |
+| Theme directory | `paksa-it-solutions/` |
+| Text domain | `paksa-it-solutions` |
+| `Update URI` header | **Missing** — added in this phase |
+| Existing updater class | **None** |
+| `pre_set_site_transient_update_themes` filter | **None** |
+| `themes_api` filter | **None** |
+| `api.github.com` calls | **None** |
+| GitHub Actions workflows | **None** (`.github/` directory did not exist) |
+| ZIP build process | Manual PowerShell script — not automated |
+| Release/tag process | **None** |
+| Secrets in codebase | None found |
+
+**Conclusion:** The theme was stored in GitHub but had zero update delivery infrastructure.
+The `style.css` comment "Theme updates via GitHub replace only code" was documentation
+intent, not implementation. This phase implements the full mechanism.
+
+---
+
+### Architecture Implemented
+
+```
+GITHUB REPOSITORY
+│
+├── Theme source code (main branch)
+├── .github/workflows/release.yml  ← NEW: tag-triggered CI/CD
+│
+└── GitHub Releases
+    ├── Tag: v1.1.0
+    ├── Release: "Nexus Business Theme 1.1.0"
+    └── Asset: paksa-it-solutions-theme.zip
+           │
+           ▼
+WORDPRESS (inc/updater.php)  ← NEW
+│
+├── pre_set_site_transient_update_themes
+│   └── Queries api.github.com/repos/.../releases/latest
+│   └── Compares latest tag version vs PAKSA_THEME_VERSION
+│   └── Injects update data if newer version found
+│
+├── themes_api
+│   └── Provides theme info for "View version details" popup
+│
+└── delete_site_transient_update_themes
+    └── Clears API cache when admin clicks "Check Again"
+```
+
+---
+
+### Files Created
+
+| File | Purpose |
+|---|---|
+| `paksa-it-solutions/inc/updater.php` | WordPress update checker — hooks into native update system |
+| `.github/workflows/release.yml` | GitHub Actions release workflow |
+| `RELEASE.md` | Developer release procedure (authoritative) |
+
+### Files Modified
+
+| File | Change |
+|---|---|
+| `paksa-it-solutions/style.css` | Added `Update URI` header |
+| `paksa-it-solutions/functions.php` | Added `require_once` for `inc/updater.php` |
+
+---
+
+### Update URI Header
+
+`style.css` now contains:
+
+```
+ * Update URI: https://github.com/paksaitsolutions/Paksa-WP-Theme
+```
+
+This WordPress 5.8+ header tells WordPress this theme has a custom update source
+and prevents WordPress.org from being queried for this theme slug, which would
+suppress the custom updater's response.
+
+---
+
+### Updater Implementation (`inc/updater.php`)
+
+#### Constants
+
+| Constant | Value |
+|---|---|
+| `NEXUS_GITHUB_USER` | `paksaitsolutions` |
+| `NEXUS_GITHUB_REPO` | `Paksa-WP-Theme` |
+| `NEXUS_THEME_SLUG` | `paksa-it-solutions` |
+| `NEXUS_API_CACHE_KEY` | `nexus_github_release_cache` |
+| `NEXUS_API_CACHE_TTL` | `12 * HOUR_IN_SECONDS` |
+
+#### Hooks registered
+
+| Function | Hook | Purpose |
+|---|---|---|
+| `nexus_check_for_update()` | `pre_set_site_transient_update_themes` | Injects update data into WP transient |
+| `nexus_themes_api()` | `themes_api` | Provides theme info for WP admin popup |
+| `nexus_clear_update_cache()` | `delete_site_transient_update_themes` | Clears API cache on manual check |
+
+#### Update detection logic
+
+1. WordPress calls `pre_set_site_transient_update_themes`
+2. Updater queries `api.github.com/repos/paksaitsolutions/Paksa-WP-Theme/releases/latest` (cached 12h)
+3. Compares `tag_name` (e.g. `v1.2.0` → `1.2.0`) against `PAKSA_THEME_VERSION`
+4. If newer: finds `paksa-it-solutions-theme.zip` in release assets
+5. Injects `$transient->response['paksa-it-solutions']` with version + package URL
+6. WordPress shows update notification
+
+#### Package URL resolution
+
+1. First: explicit `paksa-it-solutions-theme.zip` asset from GitHub Release
+2. Fallback: `zipball_url` (GitHub auto-generated source ZIP)
+
+The explicit asset is always preferred. The workflow always attaches it.
+
+#### Security
+
+- `sslverify: true` on all API calls
+- Package URL from GitHub's own CDN — trusted source
+- WordPress's native `Theme_Upgrader` handles download and installation
+- Theme slug verified before injecting update data
+- No GitHub token required (public repository)
+
+---
+
+### GitHub Actions Workflow
+
+#### Trigger
+
+Tag push matching `v[0-9]+.[0-9]+.[0-9]+`
+
+#### Steps and failure conditions
+
+| Step | Fails if |
+|---|---|
+| Version consistency | tag ≠ `style.css Version:` |
+| Required files | Any of 8 required files missing |
+| PHP syntax | Any `.php` file has a syntax error |
+| Secret scan | Credential pattern found in PHP/JS/JSON/env/yml |
+| Build ZIP | rsync or zip fails |
+| Validate ZIP | `paksa-it-solutions/style.css` not at root of ZIP |
+| Create Release | GitHub API error |
+
+#### ZIP structure produced
+
+```
+paksa-it-solutions-theme.zip
+└── paksa-it-solutions/
+    ├── style.css
+    ├── functions.php
+    ├── index.php
+    ├── theme.json
+    ├── inc/
+    ├── assets/
+    ├── template-parts/
+    └── ...
+```
+
+Excluded from ZIP: `.git`, `.github`, `.gitignore`, `.kilo`, `.kilocode`, `*.zip`, `node_modules`, `vendor`
+
+---
+
+### Version Management
+
+**Single authoritative source:** `style.css Version:` header
+
+Must match:
+- `functions.php` → `PAKSA_THEME_VERSION` constant
+- Git tag (with `v` prefix)
+
+Enforced by GitHub Actions workflow step 3.
+
+---
+
+### Database Safety
+
+A theme update replaces only files in `wp-content/themes/paksa-it-solutions/`.
+
+Never touched: `wp_options` (Customizer), `wp_posts` (products, services, pages),
+`wp_postmeta`, `wp_terms`, `wp_term_taxonomy`, `wp_term_relationships`, media.
+
+Confirmed by audit: zero `update_option()`, `wp_insert_post()`, `wp_delete_post()`
+calls outside user-triggered save handlers.
+
+---
+
+### Runtime Testing Status
+
+| Test | Status |
+|---|---|
+| PHP syntax of `updater.php` | ✅ Static validation |
+| Hook registration correctness | ✅ Static validation |
+| GitHub API response parsing | ✅ Static validation |
+| WordPress transient injection | ✅ Static validation |
+| GitHub Actions YAML syntax | ✅ Static validation |
+| ZIP structure | ✅ Static validation |
+| End-to-end update test | ❌ NOT TESTED — requires live WordPress + published GitHub release |
+
+---
+
+### Remaining Risks
+
+| Risk | Severity | Mitigation |
+|---|---|---|
+| GitHub API rate limiting | Low | 12-hour transient cache |
+| GitHub API unavailable | Low | Graceful — returns unmodified transient |
+| `zipball_url` fallback has nested directory | Medium | Workflow always attaches explicit asset |
+| End-to-end update not runtime-tested | Medium | Must test on staging before production reliance |
+
+---
+
+### Exact Deployment Procedure
+
+```
+1. Make code changes in paksa-it-solutions/
+
+2. Update version in two places:
+   style.css:      * Version: X.Y.Z
+   functions.php:  define('PAKSA_THEME_VERSION', 'X.Y.Z');
+
+3. Commit and push:
+   git add -A
+   git commit -m "Release X.Y.Z: <description>"
+   git push origin main
+
+4. Tag and push:
+   git tag vX.Y.Z
+   git push origin vX.Y.Z
+
+5. Monitor: https://github.com/paksaitsolutions/Paksa-WP-Theme/actions
+
+6. Verify: https://github.com/paksaitsolutions/Paksa-WP-Theme/releases
+   - Release exists with paksa-it-solutions-theme.zip attached
+
+7. WordPress sites detect update within 12 hours
+   (or immediately: Dashboard → Updates → Check Again)
+```
+
+See `RELEASE.md` for the full pre-release checklist and troubleshooting guide.

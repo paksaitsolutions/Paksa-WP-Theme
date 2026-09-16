@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('PAKSA_THEME_VERSION', '1.0.0');
+define('PAKSA_THEME_VERSION', '1.1.0');
 define('PAKSA_THEME_DIR', get_template_directory());
 define('PAKSA_THEME_URI', get_template_directory_uri());
 
@@ -58,6 +58,8 @@ function paksa_theme_setup() {
 add_action('after_setup_theme', 'paksa_theme_setup');
 
 require_once __DIR__ . '/inc/enqueue.php';
+require_once __DIR__ . '/inc/theme-api.php';
+require_once __DIR__ . '/inc/updater.php';
 require_once __DIR__ . '/inc/security.php';
 require_once __DIR__ . '/inc/performance.php';
 require_once __DIR__ . '/inc/accessibility.php';
@@ -74,3 +76,74 @@ require_once __DIR__ . '/inc/service-meta.php';
 require_once __DIR__ . '/inc/page-meta.php';
 require_once __DIR__ . '/inc/products-listing-meta.php';
 require_once __DIR__ . '/inc/contact-form.php';
+
+/**
+ * Register Block Patterns
+ */
+function paksa_register_block_patterns() {
+    if ( ! function_exists( 'register_block_pattern' ) ) {
+        return;
+    }
+
+    $pattern_files = array(
+        'hero-standard',
+        'hero-split',
+        'hero-dark',
+        'hero-minimal',
+        'heading-display',
+        'heading-section',
+        'heading-section-left',
+        'heading-compact',
+        'paragraph-lead',
+        'paragraph-callout',
+        'paragraph-highlight',
+        'paragraph-cta',
+        'heading-paragraph-hero',
+        'heading-paragraph-section',
+        'services-grid',
+        'services-process',
+        'services-tabs',
+        'services-features',
+        'services-stats',
+        'services-cta',
+        'services-categories',
+        'services-categories-grid',
+        'service-detail',
+    );
+
+    foreach ( $pattern_files as $file ) {
+        $path = __DIR__ . '/patterns/' . $file . '.php';
+        if ( file_exists( $path ) ) {
+            require_once $path;
+        }
+    }
+}
+add_action( 'init', 'paksa_register_block_patterns' );
+
+/**
+ * Register custom block pattern categories
+ */
+function paksa_block_categories( $categories ) {
+    return array_merge(
+        $categories,
+        array(
+            'paksa-hero'     => array(
+                'title'  => __( 'Paksa Hero', 'paksa-it-solutions' ),
+                'slug'   => 'paksa-hero',
+            ),
+            'paksa-headings' => array(
+                'title'  => __( 'Paksa Headings', 'paksa-it-solutions' ),
+                'slug'   => 'paksa-headings',
+            ),
+            'paksa-paragraphs' => array(
+                'title'  => __( 'Paksa Paragraphs', 'paksa-it-solutions' ),
+                'slug'   => 'paksa-paragraphs',
+            ),
+            'paksa-services' => array(
+                'title'  => __( 'Paksa Services', 'paksa-it-solutions' ),
+                'slug'   => 'paksa-services',
+            ),
+        )
+    );
+}
+add_filter( 'block_categories_all', 'paksa_block_categories' );

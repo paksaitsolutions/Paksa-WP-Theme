@@ -1,8 +1,8 @@
 {
     "$schema": "https://developer.wordpress.org/wp-json/wp/v2/schema.json",
     "version": 2,
-    "title": "Paksa IT Solutions",
-    "description": "A custom enterprise technology WordPress theme for Paksa IT Solutions.",
+    "title": "Nexus Business Theme",
+    "description": "A reusable enterprise WordPress theme for technology, software, and service businesses.",
     "textDomain": "paksa-it-solutions",
     "color": {
         "palette": [
@@ -297,6 +297,6 @@
                 }
             }
         },
-        "css": "/* Paksa IT Solutions — Additional Styles */\n/* Design tokens are loaded from assets/css/variables.css */\n/* Animations are loaded from assets/css/animations.css */"
+        "css": "/* Nexus Business Theme — Additional Styles */\n/* Design tokens are loaded from assets/css/variables.css */\n/* Animations are loaded from assets/css/animations.css */"
     }
 }

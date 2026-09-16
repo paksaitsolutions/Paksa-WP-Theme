@@ -1,5 +1,5 @@
 /**
- * Paksa IT Solutions — Scroll Animations
+ * Nexus Business Theme — Scroll Animations
  * IntersectionObserver-based reveal animations
  */
 

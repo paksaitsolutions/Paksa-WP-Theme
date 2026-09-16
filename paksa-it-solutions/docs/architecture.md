@@ -39,14 +39,36 @@ paksa-it-solutions/
 │
 ├── inc/
 │   ├── enqueue.php        # Asset loading
+│   ├── theme-api.php      # Theme API helpers
+│   ├── updater.php        # Theme updater
 │   ├── security.php       # Theme-level security (version, embeds)
 │   ├── performance.php    # Lazy loading, DNS prefetch, emoji removal, script optimization
 │   ├── accessibility.php  # Skip link, body classes, title filter
 │   ├── template-functions.php  # Logo, SEO (with plugin guards), breadcrumbs, schema
-│   └── template-tags.php  # Post meta, thumbnail, excerpt, navigation
+│   ├── template-tags.php  # Post meta, thumbnail, excerpt, navigation
+│   ├── nav-walker.php     # Custom navigation walker
+│   ├── icons.php          # SVG icon registry
+│   ├── customizer.php     # Customizer settings and sanitization
+│   ├── services-meta.php  # Services page post meta
+│   ├── service-meta.php   # Service post meta
+│   ├── service-cpt.php    # Service CPT and taxonomy registration
+│   ├── product-meta.php   # Product post meta
+│   ├── products-listing-meta.php # Products listing meta
+│   ├── cpt.php            # Product CPT and taxonomy registration, rewrite flush
+│   └── contact-form.php   # Contact form integration
+│
 │
 ├── header/                # (Empty — header.php moved to root)
 ├── footer/                # (Empty — footer.php moved to root)
+│
+├── template-parts/
+│   ├── components/        # Reusable components (service-card, section-header, product-card, faq-item, breadcrumbs, whatsapp-fab)
+│   ├── home/              # Home page sections (hero, capabilities, process, industries, technology, intelligence, outcomes, case-studies, differentiation, challenge, final-cta, faq, trust-strip)
+│   ├── about/             # About page sections (hero, story, mission, values, cta)
+│   ├── products/          # Products page sections (hero, industries, grid, faq, cta)
+│   ├── contact/           # Contact page sections (hero, info, cta)
+│   └── services/          # Services page sections (hero, overview, portfolio, capabilities, process, industries, technology, faq, cta)
+│
 │
 ├── docs/
 │   ├── architecture.md    # This file
@@ -56,8 +78,41 @@ paksa-it-solutions/
 │
 ├── languages/             # Translation files (.pot)
 ├── parts/                 # Template parts (for future block editor use)
-├── patterns/              # Block patterns (for future)
-├── templates/             # Page-specific templates (for future)
+├── patterns/              # Block patterns (23 total)
+│   ├── hero-standard.php
+│   ├── hero-split.php
+│   ├── hero-dark.php
+│   ├── hero-minimal.php
+│   ├── heading-display.php
+│   ├── heading-section.php
+│   ├── heading-section-left.php
+│   ├── heading-compact.php
+│   ├── paragraph-lead.php
+│   ├── paragraph-callout.php
+│   ├── paragraph-highlight.php
+│   ├── paragraph-cta.php
+│   ├── heading-paragraph-hero.php
+│   ├── heading-paragraph-section.php
+│   ├── services-grid.php
+│   ├── services-process.php
+│   ├── services-tabs.php
+│   ├── services-features.php
+│   ├── services-stats.php
+│   ├── services-cta.php
+│   ├── services-categories.php
+│   ├── services-categories-grid.php
+│   └── service-detail.php
+├── templates/             # Page-specific templates
+│   ├── page-services.php  # Services page (orchestrator)
+│   ├── page-products.php  # Products page
+│   ├── page-about.php     # About page
+│   ├── page-contact.php   # Contact page
+│   ├── single-paksa_service.php   # Single service
+│   ├── single-paksa_product.php   # Single product
+│   ├── archive-paksa_service.php  # Service archive
+│   ├── archive-paksa_product.php  # Product archive
+│   ├── taxonomy-paksa_service_cat.php # Service category taxonomy
+│   └── taxonomy-paksa_product_cat.php # Product category taxonomy
 ├── styles/                # Theme styles (for future)
 └── screenshot.png         # Theme preview image
 ```

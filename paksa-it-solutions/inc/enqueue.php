@@ -1,6 +1,6 @@
 <?php
 /**
- * Paksa IT Solutions — Asset Enqueueing
+ * Nexus Business Theme — Asset Enqueueing
  *
  * @package paksa-it-solutions
  */

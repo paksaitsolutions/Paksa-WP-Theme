@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Paksa IT Solutions — Index Template
  * 404 Not Found Template

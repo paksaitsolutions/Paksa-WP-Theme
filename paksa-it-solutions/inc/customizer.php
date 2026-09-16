@@ -1,7 +1,16 @@
 <?php
 /**
- * Paksa IT Solutions — Customizer Settings
- * All homepage content is controlled from here. Nothing is hardcoded.
+ * Nexus Business Theme — Customizer Settings
+ *
+ * All option KEYS (paksa_phone, paksa_email, etc.) are intentionally preserved.
+ * These keys are stored in wp_options as theme mods and must not be renamed —
+ * renaming them would silently lose all existing site configuration on update.
+ *
+ * Default VALUES for business-specific data (contact info, social URLs, copy)
+ * are intentionally empty so a new installation does not show another company's data.
+ *
+ * Paksa IT Solutions configures these values through Appearance → Customize.
+ * Any other company installs the theme and configures their own values.
  *
  * @package paksa-it-solutions
  */
@@ -45,7 +54,7 @@ function paksa_customizer_register( $wp_customize ) {
     );
     paksa_customizer_textarea( $wp_customize, 'paksa_hero_description', 'paksa_hero',
         __( 'Description', 'paksa-it-solutions' ),
-        __( 'Paksa IT Solutions builds enterprise software, AI-powered solutions and intelligent digital systems designed around real business challenges.', 'paksa-it-solutions' )
+        ''
     );
     paksa_customizer_text( $wp_customize, 'paksa_hero_cta_primary_text', 'paksa_hero',
         __( 'Primary CTA Text', 'paksa-it-solutions' ),
@@ -154,16 +163,16 @@ function paksa_customizer_register( $wp_customize ) {
     );
 
     // ---------------------------------------------------------
-    // SECTION: Why Paksa
+    // SECTION: Why Us
     // ---------------------------------------------------------
     $wp_customize->add_section( 'paksa_why', array(
-        'title' => __( 'Why Paksa Section', 'paksa-it-solutions' ),
+        'title' => __( 'Why Us Section', 'paksa-it-solutions' ),
         'panel' => 'paksa_homepage',
     ) );
 
     paksa_customizer_text( $wp_customize, 'paksa_why_eyebrow', 'paksa_why',
         __( 'Eyebrow', 'paksa-it-solutions' ),
-        __( 'Why Paksa', 'paksa-it-solutions' )
+        __( 'Why Us', 'paksa-it-solutions' )
     );
     paksa_customizer_text( $wp_customize, 'paksa_why_heading', 'paksa_why',
         __( 'Heading', 'paksa-it-solutions' ),
@@ -352,7 +361,7 @@ function paksa_customizer_register( $wp_customize ) {
         'paksa_home_show_products'        => __( 'Featured Products', 'paksa-it-solutions' ),
         'paksa_home_show_intelligence'    => __( 'AI & Business Intelligence', 'paksa-it-solutions' ),
         'paksa_home_show_process'         => __( 'How We Work', 'paksa-it-solutions' ),
-        'paksa_home_show_why_paksa'       => __( 'Why Paksa', 'paksa-it-solutions' ),
+        'paksa_home_show_why_paksa'       => __( 'Why Us', 'paksa-it-solutions' ),
         'paksa_home_show_differentiation' => __( 'How We Are Different', 'paksa-it-solutions' ),
         'paksa_home_show_industries'      => __( 'Industries', 'paksa-it-solutions' ),
         'paksa_home_show_case_studies'    => __( 'Case Studies', 'paksa-it-solutions' ),
@@ -392,13 +401,13 @@ function paksa_customizer_register( $wp_customize ) {
     ) );
 
     paksa_customizer_text( $wp_customize, 'paksa_phone', 'paksa_contact_info',
-        __( 'Phone Number', 'paksa-it-solutions' ), '+92 305 7772572' );
+        __( 'Business Phone', 'paksa-it-solutions' ), '' );
     paksa_customizer_text( $wp_customize, 'paksa_email', 'paksa_contact_info',
-        __( 'Email Address', 'paksa-it-solutions' ), 'info@paksa.com.pk' );
+        __( 'Business Email', 'paksa-it-solutions' ), '' );
     paksa_customizer_text( $wp_customize, 'paksa_address', 'paksa_contact_info',
-        __( 'Address', 'paksa-it-solutions' ), '13-A-1 Commercial Area, PIA Housing Society, Lahore, Pakistan' );
+        __( 'Business Address', 'paksa-it-solutions' ), '' );
     paksa_customizer_text( $wp_customize, 'paksa_whatsapp_url', 'paksa_contact_info',
-        __( 'WhatsApp URL', 'paksa-it-solutions' ), 'https://api.whatsapp.com/send/?phone=923144676210' );
+        __( 'WhatsApp URL', 'paksa-it-solutions' ), '' );
 
     // WhatsApp floating button visibility
     $wp_customize->add_setting( 'paksa_whatsapp_show', array(
@@ -422,13 +431,13 @@ function paksa_customizer_register( $wp_customize ) {
     ) );
 
     paksa_customizer_text( $wp_customize, 'paksa_social_facebook', 'paksa_social_section',
-        __( 'Facebook URL', 'paksa-it-solutions' ), 'https://www.facebook.com/PaksaITSolutions' );
+        __( 'Facebook URL', 'paksa-it-solutions' ), '' );
     paksa_customizer_text( $wp_customize, 'paksa_social_twitter', 'paksa_social_section',
-        __( 'Twitter/X URL', 'paksa-it-solutions' ), 'https://twitter.com/PaksaPk' );
+        __( 'Twitter/X URL', 'paksa-it-solutions' ), '' );
     paksa_customizer_text( $wp_customize, 'paksa_social_linkedin', 'paksa_social_section',
-        __( 'LinkedIn URL', 'paksa-it-solutions' ), 'https://www.linkedin.com/company/paksaitsolutions' );
+        __( 'LinkedIn URL', 'paksa-it-solutions' ), '' );
     paksa_customizer_text( $wp_customize, 'paksa_social_github', 'paksa_social_section',
-        __( 'GitHub URL', 'paksa-it-solutions' ), 'https://github.com/paksaitsolutions' );
+        __( 'GitHub URL', 'paksa-it-solutions' ), '' );
 }
 add_action( 'customize_register', 'paksa_customizer_register' );
 

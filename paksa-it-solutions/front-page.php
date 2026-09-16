@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Paksa IT Solutions — Front Page (Homepage)
  * Orchestrates all homepage sections via template parts.

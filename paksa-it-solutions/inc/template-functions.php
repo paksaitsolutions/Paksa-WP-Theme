@@ -1,6 +1,6 @@
 <?php
 /**
- * Paksa IT Solutions — Template Functions
+ * Nexus Business Theme — Template Functions
  *
  * @package paksa-it-solutions
  */

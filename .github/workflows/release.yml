@@ -1,0 +1,225 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Validate, Build & Release
+    runs-on: ubuntu-latest
+
+    steps:
+      # ------------------------------------------------------------------ #
+      # 1. Checkout
+      # ------------------------------------------------------------------ #
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ------------------------------------------------------------------ #
+      # 2. Extract version from tag
+      # ------------------------------------------------------------------ #
+      - name: Extract version from tag
+        id: version
+        run: |
+          TAG="${GITHUB_REF_NAME}"          # e.g. v1.1.0
+          VERSION="${TAG#v}"                # strip leading v → 1.1.0
+          echo "tag=$TAG"       >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      # ------------------------------------------------------------------ #
+      # 3. Validate version consistency
+      #    style.css Version: must match the Git tag.
+      # ------------------------------------------------------------------ #
+      - name: Validate version consistency
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          STYLE_VERSION=$(grep -m1 '^ \* Version:' paksa-it-solutions/style.css \
+            | sed 's/.*Version:[[:space:]]*//' | tr -d '[:space:]')
+          echo "Tag version   : $VERSION"
+          echo "style.css     : $STYLE_VERSION"
+          if [ "$VERSION" != "$STYLE_VERSION" ]; then
+            echo "::error::Version mismatch — tag is $VERSION but style.css says $STYLE_VERSION"
+            exit 1
+          fi
+
+      # ------------------------------------------------------------------ #
+      # 4. Validate required theme files exist
+      # ------------------------------------------------------------------ #
+      - name: Validate required theme files
+        run: |
+          REQUIRED=(
+            "paksa-it-solutions/style.css"
+            "paksa-it-solutions/functions.php"
+            "paksa-it-solutions/index.php"
+            "paksa-it-solutions/theme.json"
+            "paksa-it-solutions/front-page.php"
+            "paksa-it-solutions/header.php"
+            "paksa-it-solutions/footer.php"
+            "paksa-it-solutions/inc/updater.php"
+          )
+          MISSING=0
+          for FILE in "${REQUIRED[@]}"; do
+            if [ ! -f "$FILE" ]; then
+              echo "::error::Required file missing: $FILE"
+              MISSING=1
+            fi
+          done
+          if [ "$MISSING" -eq 1 ]; then
+            exit 1
+          fi
+          echo "All required files present."
+
+      # ------------------------------------------------------------------ #
+      # 5. PHP syntax check
+      # ------------------------------------------------------------------ #
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: none
+
+      - name: PHP syntax check
+        run: |
+          ERRORS=0
+          while IFS= read -r -d '' FILE; do
+            if ! php -l "$FILE" > /dev/null 2>&1; then
+              echo "::error::PHP syntax error in $FILE"
+              php -l "$FILE"
+              ERRORS=1
+            fi
+          done < <(find paksa-it-solutions -name '*.php' -print0)
+          if [ "$ERRORS" -eq 1 ]; then
+            exit 1
+          fi
+          echo "PHP syntax OK."
+
+      # ------------------------------------------------------------------ #
+      # 6. Secret scan — fail if any known secret patterns are found
+      # ------------------------------------------------------------------ #
+      - name: Secret scan
+        run: |
+          PATTERNS=(
+            "password\s*="
+            "secret\s*="
+            "api_key\s*="
+            "access_token\s*="
+            "smtp_pass"
+            "DB_PASSWORD"
+            "AUTH_KEY"
+            "SECURE_AUTH_KEY"
+            "LOGGED_IN_KEY"
+            "NONCE_KEY"
+          )
+          FOUND=0
+          for PATTERN in "${PATTERNS[@]}"; do
+            MATCHES=$(grep -rniE "$PATTERN" paksa-it-solutions/ \
+              --include="*.php" --include="*.js" --include="*.json" \
+              --include="*.env" --include="*.yml" 2>/dev/null || true)
+            if [ -n "$MATCHES" ]; then
+              echo "::warning::Possible secret pattern '$PATTERN' found:"
+              echo "$MATCHES"
+              FOUND=1
+            fi
+          done
+          if [ "$FOUND" -eq 1 ]; then
+            echo "::error::Secret scan found potential credentials. Review the warnings above."
+            exit 1
+          fi
+          echo "Secret scan passed."
+
+      # ------------------------------------------------------------------ #
+      # 7. Build release ZIP
+      #    Structure: paksa-it-solutions/<theme files>
+      #    Excludes: .git, .github, .kilo, .kilocode, *.zip, dev files
+      # ------------------------------------------------------------------ #
+      - name: Build release ZIP
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          ZIP_NAME="paksa-it-solutions-theme.zip"
+
+          # Create a clean staging directory
+          mkdir -p /tmp/theme-build/paksa-it-solutions
+
+          # Copy theme files, excluding dev/CI artifacts
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.gitignore' \
+            --exclude='.kilo' \
+            --exclude='.kilocode' \
+            --exclude='*.zip' \
+            --exclude='node_modules' \
+            --exclude='vendor' \
+            --exclude='.DS_Store' \
+            --exclude='Thumbs.db' \
+            paksa-it-solutions/ \
+            /tmp/theme-build/paksa-it-solutions/
+
+          # Build ZIP from the staging directory
+          cd /tmp/theme-build
+          zip -r "$ZIP_NAME" paksa-it-solutions/
+
+          # Move ZIP to workspace for upload
+          mv "$ZIP_NAME" "$GITHUB_WORKSPACE/$ZIP_NAME"
+
+          echo "ZIP built: $ZIP_NAME"
+          ls -lh "$GITHUB_WORKSPACE/$ZIP_NAME"
+
+      # ------------------------------------------------------------------ #
+      # 8. Validate ZIP structure
+      #    Must contain paksa-it-solutions/style.css at the root level.
+      # ------------------------------------------------------------------ #
+      - name: Validate ZIP structure
+        run: |
+          ZIP_NAME="paksa-it-solutions-theme.zip"
+          ENTRIES=$(unzip -l "$ZIP_NAME" | awk '{print $4}')
+
+          # Check that style.css is at paksa-it-solutions/style.css
+          if ! echo "$ENTRIES" | grep -q '^paksa-it-solutions/style\.css$'; then
+            echo "::error::ZIP structure invalid — paksa-it-solutions/style.css not found at expected path."
+            echo "ZIP contents:"
+            unzip -l "$ZIP_NAME"
+            exit 1
+          fi
+
+          # Check that no nested directory structure exists
+          if echo "$ENTRIES" | grep -q '^paksa-it-solutions/paksa-it-solutions/'; then
+            echo "::error::ZIP structure invalid — nested paksa-it-solutions/ directory detected."
+            exit 1
+          fi
+
+          echo "ZIP structure valid."
+          echo "Entry count: $(unzip -l "$ZIP_NAME" | tail -1)"
+
+      # ------------------------------------------------------------------ #
+      # 9. Create GitHub Release and attach ZIP
+      # ------------------------------------------------------------------ #
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: "Nexus Business Theme ${{ steps.version.outputs.version }}"
+          body: |
+            ## Nexus Business Theme ${{ steps.version.outputs.version }}
+
+            ### Installation
+            Download `paksa-it-solutions-theme.zip` and install via **Appearance → Themes → Add New → Upload Theme**.
+
+            ### Update (existing installations)
+            WordPress will detect this release automatically via the built-in update checker.
+            Go to **Dashboard → Updates** to apply.
+
+            ### Database Safety
+            This update replaces theme code only. All WordPress content (products, services,
+            pages, menus, Customizer settings, media) is preserved.
+
+            ### Changelog
+            See commit history for detailed changes.
+          files: paksa-it-solutions-theme.zip
+          draft: false
+          prerelease: false

@@ -1,5 +1,5 @@
 /**
- * Paksa IT Solutions — Products JavaScript
+ * Nexus Business Theme — Products JavaScript
  * Category filter pill interaction for the products listing page.
  * Vanilla JS, no jQuery, no external libraries.
  *
