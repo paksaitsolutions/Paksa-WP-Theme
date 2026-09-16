@@ -1,0 +1,113 @@
+/* ============================================================
+   Paksa IT Solutions — Animations
+   ============================================================ */
+
+/* --- Keyframes --- */
+@keyframes pk-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pk-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pk-scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pk-slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* --- Animation Classes (progressive enhancement) --- */
+/* Elements are visible by default; only hide when JS adds .js class */
+.js .pk-animate-fade-up {
+    animation: pk-fade-up 0.5s ease forwards;
+    opacity: 0;
+}
+
+.js .pk-animate-fade-in {
+    animation: pk-fade-in 0.4s ease forwards;
+    opacity: 0;
+}
+
+.js .pk-animate-scale-in {
+    animation: pk-scale-in 0.4s ease forwards;
+    opacity: 0;
+}
+
+.js .pk-animate-slide-right {
+    animation: pk-slide-in-right 0.5s ease forwards;
+    opacity: 0;
+}
+
+/* --- Hover Animations --- */
+.pk-hover-lift {
+    transition: transform var(--pk-transition-base), box-shadow var(--pk-transition-base);
+}
+
+.pk-hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--pk-shadow-md);
+}
+
+.pk-hover-glow {
+    transition: box-shadow var(--pk-transition-base);
+}
+
+.pk-hover-glow:hover {
+    box-shadow: 0 0 0 3px rgba(0, 181, 216, 0.15), var(--pk-shadow-md);
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .js .pk-animate-fade-up,
+    .js .pk-animate-fade-in,
+    .js .pk-animate-scale-in,
+    .js .pk-animate-slide-right {
+        opacity: 1;
+    }
+
+    .pk-hover-lift:hover {
+        transform: none;
+    }
+}

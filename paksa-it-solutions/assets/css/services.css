@@ -1,0 +1,480 @@
+/* ============================================================
+   PAKSA IT SOLUTIONS — Services Page Styles
+   Loaded only on page-services.php template.
+   All values use --pk-* design tokens. No hardcoded hex or px.
+   home.css is also loaded on this page — .pk-process-steps,
+   .pk-faq-*, .pk-industries-grid, .pk-final-cta are NOT repeated here.
+   ============================================================ */
+
+/* ============================================================
+   SERVICES HERO
+   ============================================================ */
+
+.pk-svc-hero {
+    padding-top: var(--pk-space-20);
+    padding-bottom: var(--pk-space-20);
+    background-color: var(--pk-bg);
+    overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+    .pk-svc-hero {
+        padding-top: var(--pk-space-24);
+        padding-bottom: var(--pk-space-24);
+    }
+}
+
+.pk-svc-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--pk-space-12);
+    align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .pk-svc-hero-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--pk-space-16);
+    }
+}
+
+.pk-svc-hero-heading {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--pk-text);
+    margin-bottom: var(--pk-space-4);
+    letter-spacing: -0.02em;
+}
+
+.pk-svc-hero-desc {
+    color: var(--pk-text-secondary);
+    margin-bottom: var(--pk-space-8);
+    max-width: 520px;
+}
+
+.pk-svc-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pk-space-3);
+}
+
+/* --- Hero Visual: Service Tile Grid --- */
+
+.pk-svc-hero-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pk-svc-hero-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--pk-space-3);
+    width: 100%;
+    max-width: 420px;
+}
+
+@media (min-width: 640px) {
+    .pk-svc-hero-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.pk-svc-tile {
+    background-color: var(--pk-bg-alt);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-lg);
+    padding: var(--pk-space-5) var(--pk-space-4);
+    text-align: center;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--pk-text-secondary);
+    transition: border-color var(--pk-transition-base), background-color var(--pk-transition-base);
+}
+
+.pk-svc-tile--accent {
+    background-color: var(--pk-primary);
+    border-color: var(--pk-primary);
+    color: var(--pk-text-inverse);
+}
+
+/* ============================================================
+   SERVICES OVERVIEW
+   ============================================================ */
+
+.pk-svc-overview-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--pk-space-12);
+    align-items: start;
+}
+
+@media (min-width: 1024px) {
+    .pk-svc-overview-inner {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.pk-svc-overview-text h2 {
+    margin-bottom: var(--pk-space-6);
+}
+
+.pk-svc-overview-body p {
+    color: var(--pk-text-secondary);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+}
+
+/* Stats (populated via filter — empty by default) */
+
+.pk-svc-overview-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--pk-space-6);
+}
+
+.pk-svc-stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pk-space-2);
+    padding: var(--pk-space-6);
+    background-color: var(--pk-surface);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-lg);
+}
+
+.pk-svc-stat-value {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--pk-primary);
+    line-height: 1;
+}
+
+.pk-svc-stat-label {
+    font-size: 0.875rem;
+    color: var(--pk-text-secondary);
+    line-height: 1.4;
+}
+
+/* ============================================================
+   SERVICE PORTFOLIO GRID
+   ============================================================ */
+
+.pk-svc-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--pk-space-5);
+}
+
+@media (min-width: 640px) {
+    .pk-svc-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .pk-svc-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.pk-svc-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pk-space-3);
+    padding: var(--pk-space-8);
+    background-color: var(--pk-surface);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow var(--pk-transition-base), transform var(--pk-transition-base), border-color var(--pk-transition-base);
+    position: relative;
+}
+
+.pk-svc-card:hover {
+    box-shadow: var(--pk-shadow-md);
+    transform: translateY(-2px);
+    border-color: var(--pk-accent);
+}
+
+.pk-svc-card--featured {
+    border-color: var(--pk-primary);
+    background: linear-gradient(135deg, var(--pk-bg) 0%, var(--pk-accent-light) 100%);
+}
+
+.pk-svc-card-category {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--pk-accent);
+}
+
+.pk-svc-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--pk-radius-md);
+    background-color: var(--pk-accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pk-primary);
+    flex-shrink: 0;
+}
+
+.pk-svc-card--featured .pk-svc-card-icon {
+    background-color: var(--pk-primary);
+    color: var(--pk-text-inverse);
+}
+
+.pk-svc-card-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--pk-text);
+    margin: 0;
+}
+
+.pk-svc-card-desc {
+    font-size: 0.9375rem;
+    color: var(--pk-text-secondary);
+    line-height: 1.6;
+    flex: 1;
+    margin: 0;
+}
+
+.pk-svc-card-arrow {
+    color: var(--pk-accent);
+    display: flex;
+    align-items: center;
+    margin-top: var(--pk-space-2);
+    transition: transform var(--pk-transition-fast);
+}
+
+.pk-svc-card:hover .pk-svc-card-arrow {
+    transform: translateX(4px);
+}
+
+/* ============================================================
+   CAPABILITIES DETAIL
+   ============================================================ */
+
+.pk-svc-cap-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--pk-space-6);
+}
+
+@media (min-width: 768px) {
+    .pk-svc-cap-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.pk-svc-cap-item {
+    display: flex;
+    gap: var(--pk-space-5);
+    align-items: flex-start;
+    padding: var(--pk-space-8);
+    background-color: var(--pk-surface);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-lg);
+    transition: box-shadow var(--pk-transition-base), border-color var(--pk-transition-base);
+}
+
+.pk-svc-cap-item:hover {
+    box-shadow: var(--pk-shadow-md);
+    border-color: var(--pk-accent);
+}
+
+.pk-svc-cap-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--pk-radius-md);
+    background-color: var(--pk-accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pk-primary);
+    flex-shrink: 0;
+}
+
+.pk-svc-cap-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.pk-svc-cap-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--pk-text);
+    margin-bottom: var(--pk-space-3);
+}
+
+.pk-svc-cap-desc {
+    font-size: 0.9375rem;
+    color: var(--pk-text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--pk-space-4);
+}
+
+.pk-svc-cap-features {
+    list-style: none;
+    margin: 0 0 var(--pk-space-4);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--pk-space-2);
+}
+
+.pk-svc-cap-features li {
+    display: flex;
+    align-items: center;
+    gap: var(--pk-space-2);
+    font-size: 0.875rem;
+    color: var(--pk-text-secondary);
+}
+
+.pk-svc-cap-check {
+    width: 20px;
+    height: 20px;
+    border-radius: var(--pk-radius-full);
+    background-color: var(--pk-success);
+    color: var(--pk-text-inverse);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.pk-svc-cap-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--pk-space-2);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--pk-primary);
+    text-decoration: none;
+    transition: gap var(--pk-transition-fast), color var(--pk-transition-fast);
+}
+
+.pk-svc-cap-link:hover {
+    color: var(--pk-accent);
+    gap: var(--pk-space-3);
+}
+
+/* ============================================================
+   TECHNOLOGY SECTION
+   ============================================================ */
+
+.pk-svc-tech-group {
+    margin-bottom: var(--pk-space-10);
+}
+
+.pk-svc-tech-group:last-child {
+    margin-bottom: 0;
+}
+
+.pk-svc-tech-group-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--pk-text-muted);
+    margin-bottom: var(--pk-space-4);
+    padding-bottom: var(--pk-space-3);
+    border-bottom: 1px solid var(--pk-border);
+}
+
+.pk-svc-tech-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--pk-space-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 640px) {
+    .pk-svc-tech-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .pk-svc-tech-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.pk-svc-tech-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pk-space-1);
+    padding: var(--pk-space-4) var(--pk-space-5);
+    background-color: var(--pk-surface);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-md);
+    transition: border-color var(--pk-transition-base), box-shadow var(--pk-transition-base);
+}
+
+.pk-svc-tech-item:hover {
+    border-color: var(--pk-accent);
+    box-shadow: var(--pk-shadow-sm);
+}
+
+.pk-svc-tech-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pk-space-1);
+    text-decoration: none;
+    color: inherit;
+}
+
+.pk-svc-tech-name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--pk-text);
+}
+
+.pk-svc-tech-cat {
+    font-size: 0.75rem;
+    color: var(--pk-text-muted);
+}
+
+.pk-svc-tech-desc {
+    font-size: 0.8125rem;
+    color: var(--pk-text-secondary);
+    line-height: 1.5;
+}
+
+/* ============================================================
+   RESPONSIVE — ensure no horizontal overflow
+   ============================================================ */
+
+@media (max-width: 639px) {
+    .pk-svc-hero-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pk-svc-cap-item {
+        flex-direction: column;
+    }
+
+    .pk-svc-overview-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .pk-svc-card,
+    .pk-svc-cap-item,
+    .pk-svc-tech-item {
+        transition: none;
+    }
+}

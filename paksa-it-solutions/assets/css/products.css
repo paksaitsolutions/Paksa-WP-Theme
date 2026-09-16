@@ -1,0 +1,530 @@
+/* ============================================================
+   PAKSA IT SOLUTIONS — Products & Solutions Styles
+   Loaded on: page-products.php + single-paksa_product.php
+   All values use --pk-* design tokens exclusively.
+   home.css is also loaded — .pk-product-card, .pk-industries-grid,
+   .pk-faq-*, .pk-final-cta are NOT repeated here.
+   ============================================================ */
+
+/* ============================================================
+   PRODUCT LISTING HERO
+   ============================================================ */
+
+.pk-prod-listing-hero {
+    padding-top: var(--pk-space-20);
+    padding-bottom: var(--pk-space-16);
+    background-color: var(--pk-bg);
+    border-bottom: 1px solid var(--pk-border);
+}
+
+@media (min-width: 1024px) {
+    .pk-prod-listing-hero {
+        padding-top: var(--pk-space-24);
+    }
+}
+
+.pk-prod-listing-hero-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pk-space-10);
+}
+
+.pk-prod-listing-hero-heading {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--pk-text);
+    margin-bottom: var(--pk-space-4);
+}
+
+.pk-prod-listing-hero-content .body-large {
+    max-width: 600px;
+    margin-bottom: var(--pk-space-8);
+}
+
+.pk-prod-listing-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pk-space-3);
+}
+
+/* Category filter pills */
+
+.pk-prod-cat-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pk-space-2);
+}
+
+.pk-prod-cat-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--pk-space-2) var(--pk-space-4);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--pk-text-secondary);
+    background-color: var(--pk-bg-alt);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-full);
+    cursor: pointer;
+    transition: all var(--pk-transition-fast);
+    white-space: nowrap;
+}
+
+.pk-prod-cat-pill:hover {
+    border-color: var(--pk-primary);
+    color: var(--pk-primary);
+}
+
+.pk-prod-cat-pill:focus-visible {
+    outline: 3px solid var(--pk-accent);
+    outline-offset: 2px;
+}
+
+.pk-prod-cat-pill.is-active {
+    background-color: var(--pk-primary);
+    border-color: var(--pk-primary);
+    color: var(--pk-text-inverse);
+}
+
+/* ============================================================
+   PRODUCT GRID (CPT-driven)
+   Extends .pk-products-grid from home.css
+   ============================================================ */
+
+.pk-prod-cpt-grid {
+    /* Inherits .pk-products-grid layout from home.css */
+}
+
+/* Badge overlay on product card visual */
+
+.pk-product-visual {
+    position: relative;
+}
+
+.pk-prod-badge {
+    position: absolute;
+    top: var(--pk-space-3);
+    left: var(--pk-space-3);
+    display: inline-flex;
+    align-items: center;
+    padding: var(--pk-space-1) var(--pk-space-3);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--pk-text-inverse);
+    background-color: var(--pk-accent);
+    border-radius: var(--pk-radius-full);
+    z-index: 1;
+}
+
+/* Featured image in product card */
+
+.pk-product-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Empty state */
+
+.pk-prod-empty {
+    padding: var(--pk-space-16) 0;
+}
+
+/* ============================================================
+   SINGLE PRODUCT HERO
+   ============================================================ */
+
+.pk-prod-hero {
+    padding-top: var(--pk-space-20);
+    padding-bottom: var(--pk-space-16);
+    background-color: var(--pk-bg);
+    border-bottom: 1px solid var(--pk-border);
+    overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+    .pk-prod-hero {
+        padding-top: var(--pk-space-24);
+        padding-bottom: var(--pk-space-20);
+    }
+}
+
+.pk-prod-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--pk-space-12);
+    align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .pk-prod-hero-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--pk-space-16);
+    }
+}
+
+.pk-prod-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--pk-space-3);
+    flex-wrap: wrap;
+    margin-bottom: var(--pk-space-2);
+}
+
+.pk-prod-hero-meta .eyebrow {
+    margin-bottom: 0;
+}
+
+.pk-prod-hero-heading {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--pk-text);
+    margin-bottom: var(--pk-space-4);
+}
+
+.pk-prod-hero-tagline {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--pk-accent);
+    margin-bottom: var(--pk-space-4);
+    line-height: 1.3;
+}
+
+.pk-prod-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pk-space-3);
+    margin-top: var(--pk-space-8);
+}
+
+/* Product hero visual */
+
+.pk-prod-hero-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pk-prod-hero-image {
+    width: 100%;
+    border-radius: var(--pk-radius-lg);
+    box-shadow: var(--pk-shadow-xl);
+    border: 1px solid var(--pk-border);
+}
+
+.pk-prod-hero-placeholder {
+    width: 100%;
+    max-width: 480px;
+}
+
+.pk-prod-hero-mock {
+    background-color: var(--pk-bg-dark);
+    border-radius: var(--pk-radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--pk-border-dark);
+    box-shadow: var(--pk-shadow-xl);
+}
+
+/* ============================================================
+   SINGLE PRODUCT OVERVIEW
+   ============================================================ */
+
+.pk-prod-overview-inner {
+    max-width: var(--pk-container-narrow);
+    margin: 0 auto;
+}
+
+.pk-prod-overview-text h2 {
+    margin-bottom: var(--pk-space-6);
+}
+
+.pk-prod-overview-text p,
+.pk-prod-post-content p {
+    color: var(--pk-text-secondary);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    margin-bottom: var(--pk-space-4);
+}
+
+.pk-prod-post-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* ============================================================
+   PRODUCT FEATURES GRID
+   ============================================================ */
+
+.pk-prod-features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--pk-space-5);
+}
+
+@media (min-width: 640px) {
+    .pk-prod-features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .pk-prod-features-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.pk-prod-feature-item {
+    display: flex;
+    gap: var(--pk-space-4);
+    align-items: flex-start;
+    padding: var(--pk-space-6);
+    background-color: var(--pk-surface);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-lg);
+    transition: box-shadow var(--pk-transition-base), border-color var(--pk-transition-base);
+}
+
+.pk-prod-feature-item:hover {
+    box-shadow: var(--pk-shadow-md);
+    border-color: var(--pk-accent);
+}
+
+.pk-prod-feature-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--pk-radius-full);
+    background-color: var(--pk-success);
+    color: var(--pk-text-inverse);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.pk-prod-feature-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.pk-prod-feature-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--pk-text);
+    margin-bottom: var(--pk-space-2);
+}
+
+.pk-prod-feature-desc {
+    font-size: 0.875rem;
+    color: var(--pk-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ============================================================
+   PRODUCT MODULES GRID
+   ============================================================ */
+
+.pk-prod-modules-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--pk-space-4);
+}
+
+@media (min-width: 640px) {
+    .pk-prod-modules-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .pk-prod-modules-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.pk-prod-module-item {
+    display: flex;
+    gap: var(--pk-space-4);
+    align-items: flex-start;
+    padding: var(--pk-space-6);
+    background-color: var(--pk-surface);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-lg);
+    transition: box-shadow var(--pk-transition-base), border-color var(--pk-transition-base);
+}
+
+.pk-prod-module-item:hover {
+    box-shadow: var(--pk-shadow-md);
+    border-color: var(--pk-primary);
+}
+
+.pk-prod-module-number {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--pk-accent);
+    opacity: 0.4;
+    line-height: 1;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+    min-width: 2.5rem;
+}
+
+.pk-prod-module-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--pk-text);
+    margin-bottom: var(--pk-space-2);
+}
+
+.pk-prod-module-desc {
+    font-size: 0.875rem;
+    color: var(--pk-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ============================================================
+   PRODUCT BENEFITS GRID
+   ============================================================ */
+
+.pk-prod-benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--pk-space-5);
+}
+
+@media (min-width: 640px) {
+    .pk-prod-benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .pk-prod-benefits-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.pk-prod-benefit-item {
+    padding: var(--pk-space-6);
+    background-color: var(--pk-surface);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-lg);
+    transition: box-shadow var(--pk-transition-base);
+}
+
+.pk-prod-benefit-item:hover {
+    box-shadow: var(--pk-shadow-md);
+}
+
+.pk-prod-benefit-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--pk-radius-md);
+    background-color: var(--pk-accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pk-primary);
+    margin-bottom: var(--pk-space-4);
+}
+
+.pk-prod-benefit-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--pk-text);
+    margin-bottom: var(--pk-space-3);
+}
+
+.pk-prod-benefit-desc {
+    font-size: 0.875rem;
+    color: var(--pk-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 639px) {
+    .pk-prod-hero-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .pk-prod-listing-hero-inner {
+        gap: var(--pk-space-8);
+    }
+}
+
+/* ============================================================
+   ARCHIVE / TAXONOMY PAGINATION
+   Loaded on archive-paksa_product.php + taxonomy-paksa_product_cat.php
+   ============================================================ */
+
+.pk-archive-pagination .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--pk-space-2);
+    padding: var(--pk-space-12) 0 var(--pk-space-4);
+}
+
+.pk-archive-pagination .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 var(--pk-space-3);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--pk-text-secondary);
+    background-color: var(--pk-bg-alt);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-md);
+    text-decoration: none;
+    transition: all var(--pk-transition-fast);
+}
+
+.pk-archive-pagination .page-numbers:hover {
+    border-color: var(--pk-primary);
+    color: var(--pk-primary);
+}
+
+.pk-archive-pagination .page-numbers.current {
+    background-color: var(--pk-primary);
+    border-color: var(--pk-primary);
+    color: var(--pk-text-inverse);
+}
+
+.pk-archive-pagination .page-numbers:focus-visible {
+    outline: 3px solid var(--pk-accent);
+    outline-offset: 2px;
+}
+
+/* Category pill as <a> on archive/taxonomy pages */
+
+.pk-prod-cat-pill[href] {
+    text-decoration: none;
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .pk-prod-cat-pill,
+    .pk-prod-feature-item,
+    .pk-prod-module-item,
+    .pk-prod-benefit-item,
+    .pk-archive-pagination .page-numbers {
+        transition: none;
+    }
+}

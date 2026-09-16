@@ -1,0 +1,376 @@
+/* ============================================================
+   PAKSA IT SOLUTIONS — Archive, Page & Breadcrumb Styles
+   Loaded on: service archive, service taxonomy, about, contact
+   All values use --pk-* design tokens exclusively.
+   ============================================================ */
+
+/* ============================================================
+   BREADCRUMBS
+   ============================================================ */
+
+.pk-breadcrumbs-wrap {
+    background-color: var(--pk-bg-alt);
+    border-bottom: 1px solid var(--pk-border);
+    padding: var(--pk-space-3) 0;
+}
+
+.pk-breadcrumbs {
+    /* nav element */
+}
+
+.pk-breadcrumbs-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--pk-space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--pk-text-muted);
+}
+
+.pk-breadcrumbs-list li a {
+    color: var(--pk-text-secondary);
+    text-decoration: none;
+    transition: color var(--pk-transition-fast);
+}
+
+.pk-breadcrumbs-list li a:hover {
+    color: var(--pk-primary);
+}
+
+.pk-breadcrumbs-list li a:focus-visible {
+    outline: 2px solid var(--pk-accent);
+    outline-offset: 2px;
+    border-radius: var(--pk-radius-sm);
+}
+
+.pk-breadcrumb-sep {
+    color: var(--pk-border-strong);
+    font-size: 0.75rem;
+    line-height: 1;
+}
+
+.pk-breadcrumbs-list li[aria-current="page"] {
+    color: var(--pk-text-muted);
+    font-weight: 500;
+}
+
+/* ============================================================
+   SERVICE ARCHIVE HERO
+   Reuses .pk-prod-listing-hero layout from products.css
+   ============================================================ */
+
+.pk-svc-archive-hero {
+    padding-top: var(--pk-space-20);
+    padding-bottom: var(--pk-space-16);
+    background-color: var(--pk-bg);
+    border-bottom: 1px solid var(--pk-border);
+}
+
+@media (min-width: 1024px) {
+    .pk-svc-archive-hero {
+        padding-top: var(--pk-space-24);
+    }
+}
+
+.pk-svc-archive-hero-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pk-space-10);
+}
+
+.pk-svc-archive-heading {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--pk-text);
+    margin-bottom: var(--pk-space-4);
+}
+
+/* ============================================================
+   SERVICE CARD (CPT-driven archive/taxonomy)
+   ============================================================ */
+
+.pk-svc-archive-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--pk-space-6);
+}
+
+@media (min-width: 640px) {
+    .pk-svc-archive-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .pk-svc-archive-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.pk-svc-archive-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--pk-surface);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-lg);
+    overflow: hidden;
+    transition: box-shadow var(--pk-transition-base), border-color var(--pk-transition-base), transform var(--pk-transition-base);
+}
+
+.pk-svc-archive-card:hover {
+    box-shadow: var(--pk-shadow-lg);
+    border-color: var(--pk-accent);
+    transform: translateY(-2px);
+}
+
+.pk-svc-archive-card--featured {
+    border-color: var(--pk-primary);
+    box-shadow: var(--pk-shadow-md);
+}
+
+.pk-svc-archive-card-visual {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background-color: var(--pk-bg-alt);
+}
+
+.pk-svc-archive-card-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pk-svc-archive-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: var(--pk-space-6);
+    gap: var(--pk-space-3);
+}
+
+.pk-svc-archive-card-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--pk-text);
+    line-height: 1.3;
+    margin: 0;
+}
+
+.pk-svc-archive-card-desc {
+    font-size: 0.9375rem;
+    color: var(--pk-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+}
+
+/* ============================================================
+   ABOUT PAGE
+   ============================================================ */
+
+.pk-about-hero {
+    padding-top: var(--pk-space-20);
+    padding-bottom: var(--pk-space-16);
+    background-color: var(--pk-bg);
+    border-bottom: 1px solid var(--pk-border);
+}
+
+@media (min-width: 1024px) {
+    .pk-about-hero {
+        padding-top: var(--pk-space-24);
+    }
+}
+
+.pk-about-hero-heading {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--pk-text);
+    margin-bottom: var(--pk-space-6);
+}
+
+.pk-about-content {
+    max-width: var(--pk-container-narrow);
+    margin: 0 auto;
+}
+
+.pk-about-content p {
+    font-size: 1.0625rem;
+    color: var(--pk-text-secondary);
+    line-height: 1.75;
+    margin-bottom: var(--pk-space-5);
+}
+
+.pk-about-content p:last-child {
+    margin-bottom: 0;
+}
+
+.pk-about-values-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--pk-space-5);
+}
+
+@media (min-width: 640px) {
+    .pk-about-values-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .pk-about-values-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.pk-about-value-item {
+    padding: var(--pk-space-6);
+    background-color: var(--pk-surface);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-lg);
+}
+
+.pk-about-value-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--pk-text);
+    margin-bottom: var(--pk-space-3);
+}
+
+.pk-about-value-desc {
+    font-size: 0.9375rem;
+    color: var(--pk-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ============================================================
+   CONTACT PAGE
+   ============================================================ */
+
+.pk-contact-hero {
+    padding-top: var(--pk-space-20);
+    padding-bottom: var(--pk-space-16);
+    background-color: var(--pk-bg);
+    border-bottom: 1px solid var(--pk-border);
+}
+
+@media (min-width: 1024px) {
+    .pk-contact-hero {
+        padding-top: var(--pk-space-24);
+    }
+}
+
+.pk-contact-hero-heading {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--pk-text);
+    margin-bottom: var(--pk-space-6);
+}
+
+.pk-contact-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--pk-space-12);
+    align-items: start;
+}
+
+@media (min-width: 1024px) {
+    .pk-contact-layout {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--pk-space-16);
+    }
+}
+
+.pk-contact-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pk-space-6);
+}
+
+.pk-contact-info-item {
+    display: flex;
+    gap: var(--pk-space-4);
+    align-items: flex-start;
+}
+
+.pk-contact-info-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--pk-radius-md);
+    background-color: var(--pk-accent-light);
+    color: var(--pk-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.pk-contact-info-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--pk-text-muted);
+    margin-bottom: var(--pk-space-1);
+}
+
+.pk-contact-info-value {
+    font-size: 1rem;
+    color: var(--pk-text);
+    font-weight: 500;
+}
+
+.pk-contact-info-value a {
+    color: var(--pk-text-link);
+    text-decoration: none;
+}
+
+.pk-contact-info-value a:hover {
+    text-decoration: underline;
+}
+
+.pk-contact-form-area {
+    background-color: var(--pk-bg-alt);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-xl);
+    padding: var(--pk-space-8);
+}
+
+@media (min-width: 768px) {
+    .pk-contact-form-area {
+        padding: var(--pk-space-10);
+    }
+}
+
+.pk-contact-form-placeholder {
+    text-align: center;
+    padding: var(--pk-space-12) var(--pk-space-8);
+    color: var(--pk-text-muted);
+}
+
+.pk-contact-form-placeholder p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: var(--pk-space-4);
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .pk-svc-archive-card {
+        transition: none;
+    }
+}

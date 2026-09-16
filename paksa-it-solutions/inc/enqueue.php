@@ -1,0 +1,212 @@
+<?php
+/**
+ * Paksa IT Solutions — Asset Enqueueing
+ *
+ * @package paksa-it-solutions
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+/**
+ * Enqueue Theme Assets
+ */
+function paksa_enqueue_assets() {
+    $version = PAKSA_THEME_VERSION;
+
+    // Variables CSS (design tokens)
+    wp_enqueue_style(
+        'paksa-variables',
+        PAKSA_THEME_URI . '/assets/css/variables.css',
+        array(),
+        $version
+    );
+
+    // Main CSS
+    wp_enqueue_style(
+        'paksa-main',
+        PAKSA_THEME_URI . '/assets/css/main.css',
+        array('paksa-variables'),
+        $version
+    );
+
+    // Animations CSS
+    wp_enqueue_style(
+        'paksa-animations',
+        PAKSA_THEME_URI . '/assets/css/animations.css',
+        array('paksa-main'),
+        $version
+    );
+
+    // Main JavaScript
+    wp_enqueue_script(
+        'paksa-main',
+        PAKSA_THEME_URI . '/assets/js/main.js',
+        array(),
+        $version,
+        true
+    );
+
+    // Mobile Navigation JavaScript
+    wp_enqueue_script(
+        'paksa-mobile-nav',
+        PAKSA_THEME_URI . '/assets/js/mobile-nav.js',
+        array('paksa-main'),
+        $version,
+        true
+    );
+
+    // Scroll Animations JavaScript
+    wp_enqueue_script(
+        'paksa-animations-js',
+        PAKSA_THEME_URI . '/assets/js/animations.js',
+        array('paksa-main'),
+        $version,
+        true
+    );
+
+    // Homepage-specific assets
+    if ( is_front_page() ) {
+        wp_enqueue_style(
+            'paksa-home',
+            PAKSA_THEME_URI . '/assets/css/home.css',
+            array( 'paksa-main' ),
+            $version
+        );
+        wp_enqueue_script(
+            'paksa-home',
+            PAKSA_THEME_URI . '/assets/js/home.js',
+            array( 'paksa-main' ),
+            $version,
+            true
+        );
+    }
+
+    // Products listing page + single product + archive + taxonomy assets
+    if (
+        is_page_template( 'page-products.php' ) ||
+        is_singular( 'paksa_product' ) ||
+        is_post_type_archive( 'paksa_product' ) ||
+        is_tax( 'paksa_product_cat' )
+    ) {
+        wp_enqueue_style(
+            'paksa-products',
+            PAKSA_THEME_URI . '/assets/css/products.css',
+            array( 'paksa-main' ),
+            $version
+        );
+        // home.css provides .pk-product-card, .pk-industries-grid, .pk-faq-*, .pk-final-cta
+        wp_enqueue_style(
+            'paksa-home',
+            PAKSA_THEME_URI . '/assets/css/home.css',
+            array( 'paksa-main' ),
+            $version
+        );
+        // home.js provides the FAQ accordion
+        wp_enqueue_script(
+            'paksa-home',
+            PAKSA_THEME_URI . '/assets/js/home.js',
+            array( 'paksa-main' ),
+            $version,
+            true
+        );
+        // products.js (JS category filter) only on the marketing listing page
+        // Archive and taxonomy use native <a> navigation — no JS filter needed
+        if ( is_page_template( 'page-products.php' ) ) {
+            wp_enqueue_script(
+                'paksa-products',
+                PAKSA_THEME_URI . '/assets/js/products.js',
+                array( 'paksa-main' ),
+                $version,
+                true
+            );
+        }
+    }
+
+    // About + Contact page assets
+    if ( is_page_template( 'page-about.php' ) || is_page_template( 'page-contact.php' ) ) {
+        wp_enqueue_style(
+            'paksa-archive',
+            PAKSA_THEME_URI . '/assets/css/archive.css',
+            array( 'paksa-main' ),
+            $version
+        );
+        wp_enqueue_style(
+            'paksa-home',
+            PAKSA_THEME_URI . '/assets/css/home.css',
+            array( 'paksa-main' ),
+            $version
+        );
+    }
+
+    // Single service + service archive + service taxonomy assets
+    if ( is_singular( 'paksa_service' ) || is_post_type_archive( 'paksa_service' ) || is_tax( 'paksa_service_cat' ) ) {
+        wp_enqueue_style(
+            'paksa-products',
+            PAKSA_THEME_URI . '/assets/css/products.css',
+            array( 'paksa-main' ),
+            $version
+        );
+        wp_enqueue_style(
+            'paksa-archive',
+            PAKSA_THEME_URI . '/assets/css/archive.css',
+            array( 'paksa-main' ),
+            $version
+        );
+        wp_enqueue_style(
+            'paksa-home',
+            PAKSA_THEME_URI . '/assets/css/home.css',
+            array( 'paksa-main' ),
+            $version
+        );
+        // home.js provides the FAQ accordion
+        wp_enqueue_script(
+            'paksa-home',
+            PAKSA_THEME_URI . '/assets/js/home.js',
+            array( 'paksa-main' ),
+            $version,
+            true
+        );
+    }
+
+    // Product archive + taxonomy: also load archive.css for breadcrumbs
+    if ( is_post_type_archive( 'paksa_product' ) || is_tax( 'paksa_product_cat' ) ) {
+        wp_enqueue_style(
+            'paksa-archive',
+            PAKSA_THEME_URI . '/assets/css/archive.css',
+            array( 'paksa-main' ),
+            $version
+        );
+    }
+
+    // Services page assets
+    if ( is_page_template( 'page-services.php' ) ) {
+        wp_enqueue_style(
+            'paksa-services',
+            PAKSA_THEME_URI . '/assets/css/services.css',
+            array( 'paksa-main' ),
+            $version
+        );
+        // home.css provides .pk-process-steps, .pk-faq-*, .pk-industries-grid, .pk-final-cta
+        wp_enqueue_style(
+            'paksa-home',
+            PAKSA_THEME_URI . '/assets/css/home.css',
+            array( 'paksa-main' ),
+            $version
+        );
+        // home.js provides the FAQ accordion — reused without duplication
+        wp_enqueue_script(
+            'paksa-home',
+            PAKSA_THEME_URI . '/assets/js/home.js',
+            array( 'paksa-main' ),
+            $version,
+            true
+        );
+    }
+
+    if (is_singular() && comments_open() && get_comment_thread_rss()) {
+        wp_enqueue_script('comment-reply');
+    }
+}
+add_action('wp_enqueue_scripts', 'paksa_enqueue_assets');
