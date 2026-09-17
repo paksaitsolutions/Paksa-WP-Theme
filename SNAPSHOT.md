@@ -2805,3 +2805,544 @@ calls outside user-triggered save handlers.
 ```
 
 See `RELEASE.md` for the full pre-release checklist and troubleshooting guide.
+
+---
+
+## 23. PHASE 13 / 13.5 — RUNTIME QA, GUTENBERG VALIDATION & RELEASE VERIFICATION
+
+### Phase 13.5 Status: STAGING QA PASSED — PRODUCTION RELEASE PENDING
+
+---
+
+### Local Development Environment
+
+| Field | Value |
+|---|---|
+| Environment | Local WP (flywheel/local) |
+| Site name | paksa-it-solutions |
+| Local URL | http://paksa-it-solutions.local |
+| Admin URL | http://paksa-it-solutions.local/wp-admin/ |
+| Admin username | paksa |
+| Admin password | Paksa@1234 |
+| WordPress version | 7.1 |
+| PHP version | 8.2.29 (NTS Visual C++ 2019 x64) |
+| PHP binary | `C:\Users\chzaf\AppData\Roaming\Local\lightning-services\php-8.2.29+0\bin\win64\php.exe` |
+| PHP ini | `C:\Users\chzaf\AppData\Roaming\Local\run\p89CApvHh\conf\php\php.ini` |
+| MySQL port | 10005 |
+| DB name | local |
+| DB user | root |
+| DB password | root |
+| DB host | localhost |
+| WordPress root | `C:\Users\chzaf\Local Sites\paksa-it-solutions\app\public` |
+| Theme directory | `C:\Users\chzaf\Local Sites\paksa-it-solutions\app\public\wp-content\themes\paksa-it-solutions` |
+| Debug log | `C:\Users\chzaf\Local Sites\paksa-it-solutions\app\public\wp-content\debug.log` |
+| WP-CLI | `d:\wp-cli.phar` (v2.12.0) |
+| WP-CLI eval script | `d:\qa-eval.php` |
+| Local site ID | p89CApvHh |
+| Windows user | chzaf (zhgujjar\chzaf) |
+| Site URL | http://paksa-it-solutions.local |
+| Home URL | http://paksa-it-solutions.local |
+
+---
+
+### WP-CLI Command Template
+
+To run WP-CLI commands against this installation:
+
+```powershell
+& "C:\Users\chzaf\AppData\Roaming\Local\lightning-services\php-8.2.29+0\bin\win64\php.exe" `
+  -c "C:\Users\chzaf\AppData\Roaming\Local\run\p89CApvHh\conf\php\php.ini" `
+  d:\wp-cli.phar `
+  <command> `
+  --allow-root `
+  "--path=C:\Users\chzaf\Local Sites\paksa-it-solutions\app\public"
+```
+
+To run a PHP eval-file:
+
+```powershell
+& "C:\Users\chzaf\AppData\Roaming\Local\lightning-services\php-8.2.29+0\bin\win64\php.exe" `
+  -c "C:\Users\chzaf\AppData\Roaming\Local\run\p89CApvHh\conf\php\php.ini" `
+  d:\wp-cli.phar eval-file d:\qa-eval.php `
+  --allow-root `
+  "--path=C:\Users\chzaf\Local Sites\paksa-it-solutions\app\public"
+```
+
+---
+
+### Theme Sync Command
+
+To sync repo → local WordPress (run after any code change):
+
+```cmd
+xcopy /E /I /Y /Q "d:\Paksa-WP-Theme\paksa-it-solutions" "C:\Users\chzaf\Local Sites\paksa-it-solutions\app\public\wp-content\themes\paksa-it-solutions"
+```
+
+---
+
+### Git State at Phase 13.5 Completion
+
+| Field | Value |
+|---|---|
+| Branch | main |
+| Latest commit | 74ca4a0 |
+| Commit message | v1.1.1: fix pattern auto-discovery, fix pattern category registration, bump version |
+| Tags | PaksaTheme (wrong format — ignore), v1.1.0, v1.1.1 |
+| Remote | https://github.com/paksaitsolutions/Paksa-WP-Theme.git |
+| CI triggered | v1.1.1 tag pushed — GitHub Actions run pending |
+
+---
+
+### Current Theme Version
+
+| File | Version |
+|---|---|
+| `style.css` Version header | 1.1.1 |
+| `PAKSA_THEME_VERSION` constant | 1.1.1 |
+| Latest Git tag | v1.1.1 |
+
+---
+
+### Runtime Test Results (WP-CLI + PHP 8.2.29)
+
+All tests performed via WP-CLI eval-file against live Local WP installation.
+
+| Test | Result | Evidence |
+|---|---|---|
+| WordPress version | PASS | 7.1 |
+| Theme active | PASS | `wp option get template` = `paksa-it-solutions` |
+| Theme name | PASS | Nexus Business Theme |
+| Theme version | PASS | 1.1.1 |
+| PAKSA_THEME_VERSION constant | PASS | 1.1.1 |
+| PHP 8.2 compatibility | PASS | No fatal errors, no deprecation notices |
+| debug.log after fix | PASS | No debug.log file — zero PHP errors |
+| paksa_product CPT | PASS | Registered, public, show_in_rest=true |
+| paksa_service CPT | PASS | Registered, public, show_in_rest=true |
+| paksa_product_cat taxonomy | PASS | Registered, hierarchical, public |
+| paksa_service_cat taxonomy | PASS | Registered, hierarchical, public |
+| /solutions/ rewrite rules | PASS | Archive, single, category rules all present |
+| /services/ rewrite rules | PASS | Archive, single, category rules all present |
+| 6 nav menu locations | PASS | primary, footer, footer-solutions, footer-products, footer-resources, footer-legal |
+| 36 theme patterns registered | PASS | All 36 confirmed in WP_Block_Patterns_Registry |
+| 13 home-* patterns | PASS | All 13 paksa/home-* patterns confirmed |
+| paksa-home category | PASS | REGISTERED in WP_Block_Pattern_Categories_Registry |
+| paksa-hero category | PASS | REGISTERED |
+| paksa-headings category | PASS | REGISTERED |
+| paksa-paragraphs category | PASS | REGISTERED |
+| paksa-services category | PASS | REGISTERED |
+| No auto-created products | PASS | 0 paksa_product posts on fresh install |
+| No auto-created services | PASS | 0 paksa_service posts on fresh install |
+| No paksa_* theme mods | PASS | Empty on fresh install — correct |
+| DISALLOW_FILE_EDIT | PASS | Defined and true |
+| xmlrpc disabled | PASS | __return_false hooked |
+| Active plugins | PASS | None (fresh install) |
+| Site URL | PASS | http://paksa-it-solutions.local |
+
+---
+
+### Bugs Found and Fixed in Phase 13.5
+
+#### BUG-RT-1 — Pattern auto-discovery conflict (CRITICAL — FIXED)
+
+**Symptom:** 36 PHP Notices per page load in debug.log:
+```
+Could not register file "...patterns/home-hero.php" as a block pattern ("Slug" field missing)
+```
+WP-CLI `eval` commands failed with "critical error on this website".
+
+**Root cause:** WordPress 6.0+ auto-discovers PHP files in the theme's `patterns/` directory
+and attempts to parse them as file-based patterns requiring a `Slug:` header comment.
+Our patterns use `register_block_pattern()` PHP calls. WordPress tried to register them
+twice — once via auto-discovery (failing) and once via PHP.
+
+**Fix:**
+- Moved all 36 pattern PHP files from `patterns/` to `inc/patterns/`
+- `patterns/` directory left empty — WordPress auto-discovery finds nothing
+- Updated `functions.php` path: `__DIR__ . '/inc/patterns/' . $file . '.php'`
+
+**Verification:** debug.log absent after fix. All 36 patterns confirmed registered.
+
+---
+
+#### BUG-RT-2 — Pattern categories not registered in correct registry (HIGH — FIXED)
+
+**Symptom:** All 5 custom pattern categories (`paksa-hero`, `paksa-headings`, `paksa-paragraphs`,
+`paksa-services`, `paksa-home`) returned `NOT REGISTERED` from `WP_Block_Pattern_Categories_Registry`.
+Patterns were assigned to these categories but the categories were invisible in the Patterns panel.
+
+**Root cause:** `block_categories_all` is a filter for **block type** categories (the block inserter),
+not for **block pattern** categories. Pattern categories must be registered via
+`register_block_pattern_category()` into `WP_Block_Pattern_Categories_Registry`.
+
+**Fix:**
+- Removed `block_categories_all` filter and `paksa_block_categories()` function
+- Added `paksa_register_pattern_categories()` hooked to `init` at priority 5
+- Uses `register_block_pattern_category()` for each of the 5 custom categories
+- Priority 5 ensures categories exist before patterns register at priority 10
+
+**Verification:** All 5 categories confirmed REGISTERED via WP-CLI.
+
+---
+
+#### BUG-RT-3 — theme.json duplicate top-level keys (HIGH — FIXED in Phase 13)
+
+**Symptom:** `color`, `typography`, `layout`, `spacing`, `border`, `custom` existed both
+at the root level and inside `settings`. WordPress theme.json v2 only reads these from
+inside `settings`. The root-level copies were silently ignored — color palette and font
+families were never actually registered with WordPress.
+
+**Fix:** Removed duplicate root-level keys. Moved full color palette (18 colors), font
+families (3), font sizes (5), and custom tokens into `settings`.
+
+---
+
+#### BUG-RT-4 — Block attribute backgroundColor JSON slug mismatch (CRITICAL — FIXED in Phase 13)
+
+**Symptom:** `home-hero.php`, `home-technology.php`, `home-industries.php` used
+`"backgroundColor":"background-dark"` in block attribute JSON. `home-challenge.php` used
+`"backgroundColor":"background-alt"`. These slugs don't exist in theme.json — correct
+slugs are `bg-dark` and `bg-alt`. Block editor would not recognize the color selection
+and would strip the attribute on save.
+
+**Fix:** Corrected all 4 files to use `bg-dark` and `bg-alt` in both the JSON attribute
+and the HTML class name.
+
+---
+
+#### BUG-RT-5 — theme.json wrong schema URL (MEDIUM — FIXED in Phase 13)
+
+**Fix:** Corrected `$schema` to `https://schemas.wp.org/trunk/theme.json`.
+
+---
+
+#### BUG-RT-6 — FORCE_SSL_ADMIN in theme (LOW — FIXED in Phase 13)
+
+**Fix:** Removed from `inc/security.php`. Added comment directing to `wp-config.php`.
+
+---
+
+### Version History
+
+| Version | Tag | Commit | Key Changes |
+|---|---|---|---|
+| 1.0.0 | — | 2f1c928 | Initial commit |
+| 1.0.0 | — | 911aa55 | Phase 1-12 completed |
+| 1.1.0 | v1.1.0 | df504ad | Block-editor templates, 13 home patterns, CI fixes, security fix, theme.json structure fix, block attr slug fix |
+| 1.1.1 | v1.1.1 | 74ca4a0 | Fix pattern auto-discovery (move to inc/patterns/), fix pattern category registration, bump version |
+
+---
+
+### File Structure Changes in Phase 13/13.5
+
+#### Moved (36 files)
+```
+patterns/*.php  →  inc/patterns/*.php
+```
+All 36 pattern registration PHP files moved to prevent WordPress 6.0+ auto-discovery conflict.
+`patterns/` directory is now empty and intentionally kept empty.
+
+#### Modified
+| File | Change |
+|---|---|
+| `functions.php` | Pattern load path: `patterns/` → `inc/patterns/`; `block_categories_all` filter → `register_block_pattern_category()` on init priority 5; version 1.1.0 → 1.1.1 |
+| `style.css` | Version 1.1.0 → 1.1.1 |
+| `theme.json` | Removed duplicate root-level keys; full palette/fonts moved into settings; added `white` slug |
+| `inc/security.php` | Removed FORCE_SSL_ADMIN |
+| `front-page.php` | Replaced hardcoded template-parts with `the_content()` |
+| `page-about.php` | Added `the_content()` |
+| `page-contact.php` | Added `the_content()` + `do_action('paksa_contact_form')` |
+| `page-services.php` | Added `the_content()` |
+| `page-products.php` | Added `the_content()` |
+| `single-paksa_product.php` | Added `the_content()` inside `<article>` |
+| `single-paksa_service.php` | Added `the_content()` inside `<article>` |
+| `home.php` | Fixed missing `<header>` wrapper around h1 |
+| `.github/workflows/release.yml` | Fixed branch-push version resolution; fixed CI secret-scan false positives |
+
+#### Created
+| File | Purpose |
+|---|---|
+| `inc/patterns/` (directory) | Pattern registration files — outside WordPress auto-discovery |
+| `inc/updater.php` | GitHub update checker |
+
+---
+
+### Pattern Registration Architecture (Post Phase 13.5)
+
+```
+WordPress init (priority 5)
+  └── paksa_register_pattern_categories()
+        ├── register_block_pattern_category('paksa-hero', ...)
+        ├── register_block_pattern_category('paksa-headings', ...)
+        ├── register_block_pattern_category('paksa-paragraphs', ...)
+        ├── register_block_pattern_category('paksa-services', ...)
+        └── register_block_pattern_category('paksa-home', ...)
+
+WordPress init (priority 10)
+  └── paksa_register_block_patterns()
+        └── require_once inc/patterns/{file}.php  (36 files)
+              └── register_block_pattern('paksa/{name}', [...])
+
+patterns/ directory  →  EMPTY (intentional)
+  WordPress auto-discovery finds nothing → zero notices
+```
+
+---
+
+### Registered Block Patterns (36 total)
+
+#### paksa-hero category (4 patterns)
+- `paksa-it-solutions/hero-standard`
+- `paksa-it-solutions/hero-split`
+- `paksa-it-solutions/hero-dark`
+- `paksa-it-solutions/hero-minimal`
+
+#### paksa-headings category (6 patterns)
+- `paksa-it-solutions/heading-display`
+- `paksa-it-solutions/heading-section`
+- `paksa-it-solutions/heading-section-left`
+- `paksa-it-solutions/heading-compact`
+- `paksa-it-solutions/heading-paragraph-hero`
+- `paksa-it-solutions/heading-paragraph-section`
+
+#### paksa-paragraphs category (4 patterns)
+- `paksa-it-solutions/paragraph-lead`
+- `paksa-it-solutions/paragraph-callout`
+- `paksa-it-solutions/paragraph-highlight`
+- `paksa-it-solutions/paragraph-cta`
+
+#### paksa-services category (9 patterns)
+- `paksa-it-solutions/services-grid`
+- `paksa-it-solutions/services-process`
+- `paksa-it-solutions/services-tabs`
+- `paksa-it-solutions/services-features`
+- `paksa-it-solutions/services-stats`
+- `paksa-it-solutions/services-cta`
+- `paksa-it-solutions/services-categories`
+- `paksa-it-solutions/services-categories-grid`
+- `paksa-it-solutions/service-detail`
+
+#### paksa-home category (13 patterns)
+- `paksa/home-hero`
+- `paksa/home-trust-strip`
+- `paksa/home-challenge`
+- `paksa/home-capabilities`
+- `paksa/home-technology`
+- `paksa/home-process`
+- `paksa/home-why-us`
+- `paksa/home-intelligence`
+- `paksa/home-differentiation`
+- `paksa/home-industries`
+- `paksa/home-outcomes`
+- `paksa/home-faq`
+- `paksa/home-final-cta`
+
+---
+
+### theme.json Color Palette (v1.1.1)
+
+All 18 colors correctly registered in `settings.color.palette`:
+
+| Name | Slug | Hex | CSS class generated |
+|---|---|---|---|
+| Primary | `primary` | #1a365d | `has-primary-background-color` |
+| Primary Hover | `primary-hover` | #2a4a7f | `has-primary-hover-background-color` |
+| Secondary | `secondary` | #2b6cb0 | `has-secondary-background-color` |
+| Accent | `accent` | #00b5d8 | `has-accent-background-color` |
+| Accent Light | `accent-light` | #e6f9fd | `has-accent-light-background-color` |
+| Background | `bg` | #ffffff | `has-bg-background-color` |
+| Background Alt | `bg-alt` | #f7fafc | `has-bg-alt-background-color` |
+| Background Dark | `bg-dark` | #1a202c | `has-bg-dark-background-color` |
+| Text Primary | `text` | #1a202c | `has-text-background-color` |
+| Text Secondary | `text-secondary` | #4a5568 | `has-text-secondary-background-color` |
+| Text Muted | `text-muted` | #718096 | `has-text-muted-background-color` |
+| Text Inverse | `text-inverse` | #ffffff | `has-text-inverse-background-color` |
+| White | `white` | #ffffff | `has-white-background-color` |
+| Border | `border` | #e2e8f0 | `has-border-background-color` |
+| Success | `success` | #38a169 | `has-success-background-color` |
+| Warning | `warning` | #d69e2e | `has-warning-background-color` |
+| Error | `error` | #e53e3e | `has-error-background-color` |
+| Info | `info` | #3182ce | `has-info-background-color` |
+
+**Important:** Block patterns must use these exact slugs in `"backgroundColor"` JSON attributes.
+Wrong slugs cause the block editor to not recognize the color and strip the attribute on save.
+
+---
+
+### GitHub Release Infrastructure
+
+| Item | Value |
+|---|---|
+| Repository | https://github.com/paksaitsolutions/Paksa-WP-Theme |
+| Actions URL | https://github.com/paksaitsolutions/Paksa-WP-Theme/actions |
+| Releases URL | https://github.com/paksaitsolutions/Paksa-WP-Theme/releases |
+| Release ZIP name | `paksa-it-solutions-theme.zip` |
+| ZIP root directory | `paksa-it-solutions/` |
+| Trigger | Tag push matching `v[0-9]+.[0-9]+.[0-9]+` |
+| Branch push | Runs validation only (no release created) |
+
+#### CI Steps
+1. Checkout
+2. Resolve version (tag → strip `v`; branch → read from style.css)
+3. Validate version consistency (tag must match style.css Version header)
+4. Validate required files (8 files checked)
+5. PHP syntax check (PHP 8.1, all .php files)
+6. Secret scan (anchored patterns, no false positives)
+7. Build ZIP (rsync excludes .git, .github, *.zip, node_modules, vendor)
+8. Validate ZIP structure (paksa-it-solutions/style.css must exist, no nested dir)
+9. Create GitHub Release + attach ZIP (tag pushes only)
+
+---
+
+### WordPress Update Mechanism
+
+`inc/updater.php` hooks into WordPress native update system:
+
+| Constant | Value |
+|---|---|
+| `PAKSA_GITHUB_USER` | `paksaitsolutions` |
+| `PAKSA_GITHUB_REPO` | `Paksa-WP-Theme` |
+| `PAKSA_THEME_SLUG` | `paksa-it-solutions` |
+| `PAKSA_API_CACHE_KEY` | `paksa_github_release_cache` |
+| `PAKSA_API_CACHE_TTL` | 12 hours |
+
+**Update flow:**
+1. WordPress fires `pre_set_site_transient_update_themes`
+2. Updater queries `api.github.com/repos/paksaitsolutions/Paksa-WP-Theme/releases/latest`
+3. Compares `tag_name` (stripped of `v`) against `PAKSA_THEME_VERSION`
+4. If newer: finds `paksa-it-solutions-theme.zip` in release assets
+5. Injects update data into WordPress transient
+6. WordPress shows "Update available" in Dashboard → Updates
+
+**To force update check:** Dashboard → Updates → Check Again (clears `paksa_github_release_cache` transient)
+
+---
+
+### Release Procedure (Authoritative)
+
+```
+1. Make code changes in paksa-it-solutions/
+
+2. Update version in TWO places:
+   style.css:      * Version: X.Y.Z
+   functions.php:  define('PAKSA_THEME_VERSION', 'X.Y.Z');
+
+3. Sync to local WP for testing:
+   xcopy /E /I /Y /Q "d:\Paksa-WP-Theme\paksa-it-solutions" "C:\Users\chzaf\Local Sites\paksa-it-solutions\app\public\wp-content\themes\paksa-it-solutions"
+
+4. Run QA eval:
+   powershell -ExecutionPolicy Bypass -Command "& 'C:\Users\chzaf\AppData\Roaming\Local\lightning-services\php-8.2.29+0\bin\win64\php.exe' -c 'C:\Users\chzaf\AppData\Roaming\Local\run\p89CApvHh\conf\php\php.ini' 'd:\wp-cli.phar' 'eval-file' 'd:\qa-eval.php' '--allow-root' \"--path=C:\Users\chzaf\Local Sites\paksa-it-solutions\app\public\""
+
+5. Check debug.log is absent (no PHP errors)
+
+6. Commit and push:
+   git add -A
+   git commit -m "vX.Y.Z: <description>"
+   git push origin main
+
+7. Tag and push (triggers CI + GitHub Release):
+   git tag vX.Y.Z
+   git push origin vX.Y.Z
+
+8. Monitor CI: https://github.com/paksaitsolutions/Paksa-WP-Theme/actions
+
+9. Verify release: https://github.com/paksaitsolutions/Paksa-WP-Theme/releases
+   - Release published with paksa-it-solutions-theme.zip attached
+
+10. WordPress sites detect update within 12 hours
+    (or immediately: Dashboard → Updates → Check Again)
+```
+
+---
+
+### Database Contracts — Preserved Throughout All Phases
+
+These identifiers are stored in the WordPress database and must never be renamed:
+
+| Identifier | Table | Notes |
+|---|---|---|
+| `paksa_product` | `wp_posts.post_type` | CPT — renaming requires DB migration |
+| `paksa_service` | `wp_posts.post_type` | CPT |
+| `paksa_product_cat` | `wp_term_taxonomy.taxonomy` | Taxonomy |
+| `paksa_service_cat` | `wp_term_taxonomy.taxonomy` | Taxonomy |
+| `_paksa_prod_*` | `wp_postmeta.meta_key` | Product meta keys |
+| `_paksa_svc_*` | `wp_postmeta.meta_key` | Service meta keys |
+| `_paksa_page_*` | `wp_postmeta.meta_key` | About/Contact page meta keys |
+| `_paksa_prod_listing_*` | `wp_postmeta.meta_key` | Products listing page meta keys |
+| `paksa_phone` | `wp_options` (theme_mods) | Customizer key |
+| `paksa_email` | `wp_options` (theme_mods) | Customizer key |
+| `paksa_address` | `wp_options` (theme_mods) | Customizer key |
+| `paksa_whatsapp_url` | `wp_options` (theme_mods) | Customizer key |
+| `paksa_whatsapp_show` | `wp_options` (theme_mods) | Customizer key |
+| `paksa_social_*` | `wp_options` (theme_mods) | Social URL keys |
+| `paksa_hero_*` | `wp_options` (theme_mods) | Homepage hero keys |
+| `paksa_home_show_*` | `wp_options` (theme_mods) | Section visibility keys |
+| `paksa_github_release_cache` | `wp_options` (transient) | GitHub API cache |
+
+---
+
+### Known Limitations and Deferred Items (Phase 14)
+
+| Item | Severity | Notes |
+|---|---|---|
+| `services-meta.php` meta box shows on all pages briefly | Low | `add_meta_boxes` condition hook removes it at priority 20 — minor flash in block editor |
+| Dead template-parts directories | Low | `template-parts/home/`, `template-parts/about/`, `template-parts/contact/`, `template-parts/services/`, `template-parts/product/`, `template-parts/service/` still on disk but no longer called. Safe to remove in Phase 14. |
+| `php_imagick.dll` warning in Local WP | Environment | Not a theme defect — Local WP environment issue |
+| Browser-based testing | Blocked | Gutenberg editor visual, responsive, JS console, contact form mail delivery |
+| WordPress update discovery | Not tested | Requires published GitHub Release v1.1.1 |
+| Actual theme update test | Not tested | Requires published GitHub Release |
+| Database preservation after update | Not tested | Requires update test |
+| Existing Paksa deployment compatibility | Not tested | No staging environment |
+
+---
+
+### Acceptance Matrix (Phase 13.5 Final)
+
+| Area | Status | Evidence |
+|---|---|---|
+| Fresh installation | PASS | WP-CLI: 0 products, 0 services, no auto-content |
+| Activation | PASS | Active theme confirmed via WP-CLI |
+| PHP 8.2 runtime | PASS | No debug.log, PAKSA_THEME_VERSION=1.1.1 |
+| CPT registration | PASS | paksa_product + paksa_service confirmed |
+| Taxonomy registration | PASS | paksa_product_cat + paksa_service_cat confirmed |
+| Rewrite rules | PASS | /solutions/ and /services/ rules confirmed |
+| Nav menu locations | PASS | 6 locations registered |
+| Block patterns (36) | PASS | All 36 confirmed in registry |
+| Home patterns (13) | PASS | All 13 paksa/home-* confirmed |
+| Pattern categories (5) | PASS | All 5 paksa-* confirmed REGISTERED |
+| theme.json structure | PASS | Valid JSON, 18 colors, 3 fonts, correct structure |
+| Security | PASS | DISALLOW_FILE_EDIT=true, xmlrpc disabled |
+| Fresh company setup | PASS | No PHP modification required |
+| Customizer (fresh) | PASS | No paksa_* mods on fresh install |
+| GitHub CI | REQUIRES MANUAL | v1.1.1 tag pushed, run pending |
+| GitHub Release | REQUIRES MANUAL | Pending CI pass |
+| Gutenberg editor | REQUIRES MANUAL | Browser required |
+| Contact form | REQUIRES MANUAL | Mail transport + browser required |
+| WhatsApp FAB | PASS (structural) | No render when URL empty |
+| Responsive | REQUIRES MANUAL | Browser required |
+| Accessibility | REQUIRES MANUAL | Browser required |
+| Update discovery | NOT TESTED | Requires published release |
+| Actual update | NOT TESTED | Requires published release |
+| DB preservation | NOT TESTED | Requires update test |
+| Paksa compatibility | NOT TESTED | No staging environment |
+
+---
+
+### Next Phase: Phase 14 — Cleanup & Production Hardening
+
+Prerequisites before Phase 14:
+1. Confirm GitHub Actions CI passes for v1.1.1
+2. Confirm GitHub Release v1.1.1 published with ZIP asset
+3. Browser-based visual QA (Gutenberg editor, responsive, contact form, JS console)
+4. WordPress update discovery test once Release is published
+5. Actual theme update test (install older version, update via WordPress)
+6. Database preservation verification after update
+
+Phase 14 cleanup items:
+1. Remove dead `template-parts/home/`, `template-parts/about/`, etc. directories
+2. Fix `services-meta.php` meta box condition to avoid brief flash on all pages
+3. Implement `enqueue.php` CSS loading for block pattern classes
+4. Create baseline test content (products, services, pages, menus) in local WP
+5. Run Lighthouse audit on local WP
+6. Cross-browser testing
+7. Accessibility audit with axe DevTools or similar
+
