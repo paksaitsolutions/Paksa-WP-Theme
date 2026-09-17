@@ -4,6 +4,14 @@
 # /composer.lock
 /fuel/vendor
 
+# WP-CLI and dev tools
+wp-cli.phar
+*.phar
+d:/wp-cli.phar
+d:/qa-*.php
+d:/run-qa*.ps1
+d:/wp.bat
+
 # the fuelphp document
 /docs/
 

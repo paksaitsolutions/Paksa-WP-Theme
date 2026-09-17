@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('PAKSA_THEME_VERSION', '1.1.0');
+define('PAKSA_THEME_VERSION', '1.1.1');
 define('PAKSA_THEME_DIR', get_template_directory());
 define('PAKSA_THEME_URI', get_template_directory_uri());
 
@@ -125,7 +125,7 @@ function paksa_register_block_patterns() {
     );
 
     foreach ( $pattern_files as $file ) {
-        $path = __DIR__ . '/patterns/' . $file . '.php';
+        $path = __DIR__ . '/inc/patterns/' . $file . '.php';
         if ( file_exists( $path ) ) {
             require_once $path;
         }
@@ -134,33 +134,24 @@ function paksa_register_block_patterns() {
 add_action( 'init', 'paksa_register_block_patterns' );
 
 /**
- * Register custom block pattern categories
+ * Register custom block pattern categories via register_block_pattern_category().
+ * Must be called on init before patterns are registered.
  */
-function paksa_block_categories( $categories ) {
-    return array_merge(
-        $categories,
-        array(
-            'paksa-hero'     => array(
-                'title'  => __( 'Paksa Hero', 'paksa-it-solutions' ),
-                'slug'   => 'paksa-hero',
-            ),
-            'paksa-headings' => array(
-                'title'  => __( 'Paksa Headings', 'paksa-it-solutions' ),
-                'slug'   => 'paksa-headings',
-            ),
-            'paksa-paragraphs' => array(
-                'title'  => __( 'Paksa Paragraphs', 'paksa-it-solutions' ),
-                'slug'   => 'paksa-paragraphs',
-            ),
-            'paksa-services' => array(
-                'title'  => __( 'Paksa Services', 'paksa-it-solutions' ),
-                'slug'   => 'paksa-services',
-            ),
-            'paksa-home' => array(
-                'title'  => __( 'Paksa Home', 'paksa-it-solutions' ),
-                'slug'   => 'paksa-home',
-            ),
-        )
-    );
+function paksa_register_pattern_categories() {
+    register_block_pattern_category( 'paksa-hero', array(
+        'label' => __( 'Paksa Hero', 'paksa-it-solutions' ),
+    ) );
+    register_block_pattern_category( 'paksa-headings', array(
+        'label' => __( 'Paksa Headings', 'paksa-it-solutions' ),
+    ) );
+    register_block_pattern_category( 'paksa-paragraphs', array(
+        'label' => __( 'Paksa Paragraphs', 'paksa-it-solutions' ),
+    ) );
+    register_block_pattern_category( 'paksa-services', array(
+        'label' => __( 'Paksa Services', 'paksa-it-solutions' ),
+    ) );
+    register_block_pattern_category( 'paksa-home', array(
+        'label' => __( 'Paksa Home', 'paksa-it-solutions' ),
+    ) );
 }
-add_filter( 'block_categories_all', 'paksa_block_categories' );
+add_action( 'init', 'paksa_register_pattern_categories', 5 );
