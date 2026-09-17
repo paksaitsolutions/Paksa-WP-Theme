@@ -551,6 +551,22 @@ p:last-child {
     color: var(--pk-primary-hover);
 }
 
+/* Custom logo image size control */
+.custom-logo-link {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.custom-logo {
+    display: block;
+    width: auto;
+    height: 48px;
+    max-height: 48px;
+    max-width: 200px;
+    object-fit: contain;
+}
+
 .main-nav {
     display: none;
 }

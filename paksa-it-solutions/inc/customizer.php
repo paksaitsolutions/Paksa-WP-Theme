@@ -395,6 +395,32 @@ function paksa_customizer_register( $wp_customize ) {
         'priority' => 25,
     ) );
 
+    // ---------------------------------------------------------
+    // SECTION: Logo
+    // ---------------------------------------------------------
+    $wp_customize->add_section( 'paksa_logo_section', array(
+        'title'    => __( 'Logo', 'paksa-it-solutions' ),
+        'panel'    => 'paksa_global',
+        'priority' => 5,
+    ) );
+
+    $wp_customize->add_setting( 'paksa_logo_height', array(
+        'default'           => '48',
+        'sanitize_callback' => 'absint',
+        'transport'         => 'postMessage',
+    ) );
+    $wp_customize->add_control( 'paksa_logo_height', array(
+        'label'       => __( 'Logo Height (px)', 'paksa-it-solutions' ),
+        'description' => __( 'Controls the display height of the uploaded logo. Width scales automatically.', 'paksa-it-solutions' ),
+        'section'     => 'paksa_logo_section',
+        'type'        => 'number',
+        'input_attrs' => array(
+            'min'  => 20,
+            'max'  => 120,
+            'step' => 1,
+        ),
+    ) );
+
     $wp_customize->add_section( 'paksa_contact_info', array(
         'title' => __( 'Contact Information', 'paksa-it-solutions' ),
         'panel' => 'paksa_global',

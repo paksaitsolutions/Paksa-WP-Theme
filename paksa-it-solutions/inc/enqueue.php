@@ -208,5 +208,36 @@ function paksa_enqueue_assets() {
     if (is_singular() && comments_open() && get_comment_thread_rss()) {
         wp_enqueue_script('comment-reply');
     }
+
+    // Dynamic logo height from Customizer
+    $logo_height = absint( get_theme_mod( 'paksa_logo_height', 48 ) );
+    if ( $logo_height && $logo_height !== 48 ) {
+        $inline_css = '.custom-logo { height: ' . $logo_height . 'px; max-height: ' . $logo_height . 'px; }';
+        wp_add_inline_style( 'paksa-main', $inline_css );
+    }
 }
 add_action('wp_enqueue_scripts', 'paksa_enqueue_assets');
+
+/**
+ * Customizer live preview for logo height
+ */
+function paksa_customizer_preview_js() {
+    ?>
+    <script>
+    ( function( $ ) {
+        wp.customize( 'paksa_logo_height', function( value ) {
+            value.bind( function( newval ) {
+                var h = parseInt( newval, 10 ) || 48;
+                document.querySelectorAll( '.custom-logo' ).forEach( function( el ) {
+                    el.style.height = h + 'px';
+                    el.style.maxHeight = h + 'px';
+                } );
+            } );
+        } );
+    } )( jQuery );
+    </script>
+    <?php
+}
+add_action( 'customize_preview_init', function() {
+    add_action( 'wp_footer', 'paksa_customizer_preview_js' );
+} );
