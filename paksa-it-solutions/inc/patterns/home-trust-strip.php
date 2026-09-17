@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-register_block_pattern( 'paksa/home-trust-strip', array(
+register_block_pattern( 'paksa-it-solutions/home-trust-strip', array(
     'title'      => __( 'Home — Trust Strip', 'paksa-it-solutions' ),
     'categories' => array( 'paksa-home' ),
     'content'    => '<!-- wp:group {"className":"pk-trust-strip","backgroundColor":"primary","layout":{"type":"constrained"}} -->

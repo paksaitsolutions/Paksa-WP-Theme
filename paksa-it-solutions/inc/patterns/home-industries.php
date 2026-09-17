@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-register_block_pattern( 'paksa/home-industries', array(
+register_block_pattern( 'paksa-it-solutions/home-industries', array(
     'title'      => __( 'Home — Industries', 'paksa-it-solutions' ),
     'categories' => array( 'paksa-home' ),
     'content'    => '<!-- wp:group {"className":"section section-dark pk-industries","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"backgroundColor":"bg-dark","layout":{"type":"constrained"}} -->

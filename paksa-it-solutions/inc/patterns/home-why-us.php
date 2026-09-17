@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-register_block_pattern( 'paksa/home-why-us', array(
+register_block_pattern( 'paksa-it-solutions/home-why-us', array(
     'title'      => __( 'Home — Why Us', 'paksa-it-solutions' ),
     'categories' => array( 'paksa-home' ),
     'content'    => '<!-- wp:group {"className":"section section-alt pk-why","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"layout":{"type":"constrained"}} -->

@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-register_block_pattern( 'paksa/home-intelligence', array(
+register_block_pattern( 'paksa-it-solutions/home-intelligence', array(
     'title'      => __( 'Home — AI & Business Intelligence', 'paksa-it-solutions' ),
     'categories' => array( 'paksa-home' ),
     'content'    => '<!-- wp:group {"className":"section section-alt pk-intelligence","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"layout":{"type":"constrained"}} -->

@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-register_block_pattern( 'paksa/home-technology', array(
+register_block_pattern( 'paksa-it-solutions/home-technology', array(
     'title'      => __( 'Home — Technology Capabilities', 'paksa-it-solutions' ),
     'categories' => array( 'paksa-home' ),
     'content'    => '<!-- wp:group {"className":"section section-dark pk-tech-capabilities","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"backgroundColor":"bg-dark","layout":{"type":"constrained"}} -->

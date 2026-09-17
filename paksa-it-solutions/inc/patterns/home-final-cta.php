@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-register_block_pattern( 'paksa/home-final-cta', array(
+register_block_pattern( 'paksa-it-solutions/home-final-cta', array(
     'title'      => __( 'Home — Final CTA', 'paksa-it-solutions' ),
     'categories' => array( 'paksa-home' ),
     'content'    => '<!-- wp:group {"className":"pk-final-cta","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"backgroundColor":"primary","layout":{"type":"constrained"}} -->

@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-register_block_pattern( 'paksa/home-hero', array(
+register_block_pattern( 'paksa-it-solutions/home-hero', array(
     'title'      => __( 'Home — Hero', 'paksa-it-solutions' ),
     'categories' => array( 'paksa-home' ),
     'content'    => '<!-- wp:group {"className":"pk-hero","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"backgroundColor":"bg-dark","layout":{"type":"constrained"}} -->
