@@ -4,110 +4,171 @@
 
 /* --- Keyframes --- */
 @keyframes pk-fade-up {
-    from {
-        opacity: 0;
-        transform: translateY(16px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pk-fade-in {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 @keyframes pk-scale-in {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+    from { opacity: 0; transform: scale(0.94); }
+    to   { opacity: 1; transform: scale(1); }
 }
 
-@keyframes pk-slide-in-right {
-    from {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+@keyframes pk-slide-right {
+    from { opacity: 0; transform: translateX(-24px); }
+    to   { opacity: 1; transform: translateX(0); }
 }
 
-/* --- Animation Classes (progressive enhancement) --- */
-/* Elements are visible by default; only hide when JS adds .js class */
-.js .pk-animate-fade-up {
-    animation: pk-fade-up 0.5s ease forwards;
+@keyframes pk-slide-left {
+    from { opacity: 0; transform: translateX(24px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pk-float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-8px); }
+}
+
+@keyframes pk-pulse-ring {
+    0%   { transform: scale(1);    opacity: 0.6; }
+    100% { transform: scale(1.6);  opacity: 0; }
+}
+
+@keyframes pk-shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+}
+
+@keyframes pk-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+@keyframes pk-bar-grow {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+}
+
+@keyframes pk-count-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pk-gradient-shift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes pk-mesh-move {
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(30px, -20px) scale(1.05); }
+    66%  { transform: translate(-20px, 15px) scale(0.97); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes pk-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
+
+@keyframes pk-node-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,181,216,0.4); }
+    50%       { box-shadow: 0 0 0 8px rgba(0,181,216,0); }
+}
+
+/* --- Scroll-reveal base states --- */
+.js .pk-animate-on-scroll {
     opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1),
+                transform 0.6s cubic-bezier(0.16,1,0.3,1);
 }
 
-.js .pk-animate-fade-in {
-    animation: pk-fade-in 0.4s ease forwards;
-    opacity: 0;
+.js .pk-animate-on-scroll[data-anim="fade-in"] {
+    transform: none;
 }
 
-.js .pk-animate-scale-in {
-    animation: pk-scale-in 0.4s ease forwards;
-    opacity: 0;
+.js .pk-animate-on-scroll[data-anim="slide-right"] {
+    transform: translateX(-24px);
 }
 
-.js .pk-animate-slide-right {
-    animation: pk-slide-in-right 0.5s ease forwards;
-    opacity: 0;
+.js .pk-animate-on-scroll[data-anim="slide-left"] {
+    transform: translateX(24px);
 }
 
-/* --- Hover Animations --- */
+.js .pk-animate-on-scroll[data-anim="scale-in"] {
+    transform: scale(0.94);
+}
+
+/* Revealed state */
+.js .pk-animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: none !important;
+}
+
+/* Stagger delays */
+.js .pk-animate-on-scroll[data-delay="50"]  { transition-delay: 50ms; }
+.js .pk-animate-on-scroll[data-delay="100"] { transition-delay: 100ms; }
+.js .pk-animate-on-scroll[data-delay="150"] { transition-delay: 150ms; }
+.js .pk-animate-on-scroll[data-delay="200"] { transition-delay: 200ms; }
+.js .pk-animate-on-scroll[data-delay="250"] { transition-delay: 250ms; }
+.js .pk-animate-on-scroll[data-delay="300"] { transition-delay: 300ms; }
+.js .pk-animate-on-scroll[data-delay="400"] { transition-delay: 400ms; }
+.js .pk-animate-on-scroll[data-delay="500"] { transition-delay: 500ms; }
+
+/* --- Utility animation classes --- */
+.pk-float { animation: pk-float 4s ease-in-out infinite; }
+
+.pk-shimmer-text {
+    background: linear-gradient(90deg, var(--pk-text) 0%, var(--pk-accent) 40%, var(--pk-text) 80%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: pk-shimmer 3s linear infinite;
+}
+
 .pk-hover-lift {
     transition: transform var(--pk-transition-base), box-shadow var(--pk-transition-base);
 }
-
 .pk-hover-lift:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--pk-shadow-md);
+    transform: translateY(-4px);
+    box-shadow: var(--pk-shadow-lg);
 }
 
 .pk-hover-glow {
     transition: box-shadow var(--pk-transition-base);
 }
-
 .pk-hover-glow:hover {
-    box-shadow: 0 0 0 3px rgba(0, 181, 216, 0.15), var(--pk-shadow-md);
+    box-shadow: 0 0 0 3px rgba(0,181,216,0.2), var(--pk-shadow-md);
 }
 
 /* --- Reduced Motion --- */
 @media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
-    }
+    html { scroll-behavior: auto; }
 
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
     }
 
-    .js .pk-animate-fade-up,
-    .js .pk-animate-fade-in,
-    .js .pk-animate-scale-in,
-    .js .pk-animate-slide-right {
+    .js .pk-animate-on-scroll {
         opacity: 1;
+        transform: none;
+        transition: none;
     }
 
-    .pk-hover-lift:hover {
-        transform: none;
+    .pk-hover-lift:hover { transform: none; }
+    .pk-float { animation: none; }
+    .pk-shimmer-text {
+        background: none;
+        -webkit-text-fill-color: currentColor;
+        color: var(--pk-text);
     }
 }
