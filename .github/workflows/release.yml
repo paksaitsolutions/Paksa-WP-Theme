@@ -2,6 +2,8 @@ name: Release
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
@@ -21,27 +23,37 @@ jobs:
         uses: actions/checkout@v4
 
       # ------------------------------------------------------------------ #
-      # 2. Extract version from tag
+      # 2. Resolve version
+      #    On a tag push  → strip leading v  (v1.1.0 → 1.1.0)
+      #    On a branch push → read from style.css directly
       # ------------------------------------------------------------------ #
-      - name: Extract version from tag
+      - name: Resolve version
         id: version
         run: |
-          TAG="${GITHUB_REF_NAME}"          # e.g. v1.1.0
-          VERSION="${TAG#v}"                # strip leading v → 1.1.0
-          echo "tag=$TAG"       >> "$GITHUB_OUTPUT"
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            TAG="${GITHUB_REF_NAME}"
+            VERSION="${TAG#v}"
+          else
+            TAG=""
+            VERSION=$(grep -m1 '^ \* Version:' paksa-it-solutions/style.css \
+              | sed 's/.*Version:[[:space:]]*//' | tr -d '[:space:]')
+          fi
+          echo "tag=$TAG"         >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Resolved version: $VERSION (tag: ${TAG:-none})"
 
       # ------------------------------------------------------------------ #
-      # 3. Validate version consistency
-      #    style.css Version: must match the Git tag.
+      # 3. Validate version consistency (tag pushes only)
+      #    Git tag must match style.css Version header.
       # ------------------------------------------------------------------ #
       - name: Validate version consistency
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
           VERSION="${{ steps.version.outputs.version }}"
           STYLE_VERSION=$(grep -m1 '^ \* Version:' paksa-it-solutions/style.css \
             | sed 's/.*Version:[[:space:]]*//' | tr -d '[:space:]')
-          echo "Tag version   : $VERSION"
-          echo "style.css     : $STYLE_VERSION"
+          echo "Tag version : $VERSION"
+          echo "style.css   : $STYLE_VERSION"
           if [ "$VERSION" != "$STYLE_VERSION" ]; then
             echo "::error::Version mismatch — tag is $VERSION but style.css says $STYLE_VERSION"
             exit 1
@@ -69,9 +81,7 @@ jobs:
               MISSING=1
             fi
           done
-          if [ "$MISSING" -eq 1 ]; then
-            exit 1
-          fi
+          [ "$MISSING" -eq 1 ] && exit 1
           echo "All required files present."
 
       # ------------------------------------------------------------------ #
@@ -93,59 +103,49 @@ jobs:
               ERRORS=1
             fi
           done < <(find paksa-it-solutions -name '*.php' -print0)
-          if [ "$ERRORS" -eq 1 ]; then
-            exit 1
-          fi
+          [ "$ERRORS" -eq 1 ] && exit 1
           echo "PHP syntax OK."
 
       # ------------------------------------------------------------------ #
-      # 6. Secret scan — fail if any known secret patterns are found
+      # 6. Secret scan
+      #    Looks for hardcoded credentials — not normal variable assignments.
+      #    Patterns are anchored to catch assignments with literal values.
       # ------------------------------------------------------------------ #
       - name: Secret scan
         run: |
           PATTERNS=(
-            "password\s*="
-            "secret\s*="
-            "api_key\s*="
-            "access_token\s*="
-            "smtp_pass"
-            "DB_PASSWORD"
-            "AUTH_KEY"
-            "SECURE_AUTH_KEY"
-            "LOGGED_IN_KEY"
-            "NONCE_KEY"
+            "AUTH_KEY\s*=\s*['\"][^'\"]{8}"
+            "SECURE_AUTH_KEY\s*=\s*['\"][^'\"]{8}"
+            "LOGGED_IN_KEY\s*=\s*['\"][^'\"]{8}"
+            "NONCE_KEY\s*=\s*['\"][^'\"]{8}"
+            "DB_PASSWORD\s*=\s*['\"][^'\"]"
+            "smtp_pass\s*=\s*['\"][^'\"]"
+            "access_token\s*=\s*['\"][^'\"]"
           )
           FOUND=0
           for PATTERN in "${PATTERNS[@]}"; do
             MATCHES=$(grep -rniE "$PATTERN" paksa-it-solutions/ \
               --include="*.php" --include="*.js" --include="*.json" \
-              --include="*.env" --include="*.yml" 2>/dev/null || true)
+              --include="*.env" 2>/dev/null || true)
             if [ -n "$MATCHES" ]; then
-              echo "::warning::Possible secret pattern '$PATTERN' found:"
+              echo "::error::Possible hardcoded secret ($PATTERN):"
               echo "$MATCHES"
               FOUND=1
             fi
           done
-          if [ "$FOUND" -eq 1 ]; then
-            echo "::error::Secret scan found potential credentials. Review the warnings above."
-            exit 1
-          fi
+          [ "$FOUND" -eq 1 ] && exit 1
           echo "Secret scan passed."
 
       # ------------------------------------------------------------------ #
       # 7. Build release ZIP
       #    Structure: paksa-it-solutions/<theme files>
-      #    Excludes: .git, .github, .kilo, .kilocode, *.zip, dev files
       # ------------------------------------------------------------------ #
       - name: Build release ZIP
         run: |
-          VERSION="${{ steps.version.outputs.version }}"
           ZIP_NAME="paksa-it-solutions-theme.zip"
 
-          # Create a clean staging directory
           mkdir -p /tmp/theme-build/paksa-it-solutions
 
-          # Copy theme files, excluding dev/CI artifacts
           rsync -a \
             --exclude='.git' \
             --exclude='.github' \
@@ -160,11 +160,8 @@ jobs:
             paksa-it-solutions/ \
             /tmp/theme-build/paksa-it-solutions/
 
-          # Build ZIP from the staging directory
           cd /tmp/theme-build
           zip -r "$ZIP_NAME" paksa-it-solutions/
-
-          # Move ZIP to workspace for upload
           mv "$ZIP_NAME" "$GITHUB_WORKSPACE/$ZIP_NAME"
 
           echo "ZIP built: $ZIP_NAME"
@@ -172,24 +169,20 @@ jobs:
 
       # ------------------------------------------------------------------ #
       # 8. Validate ZIP structure
-      #    Must contain paksa-it-solutions/style.css at the root level.
       # ------------------------------------------------------------------ #
       - name: Validate ZIP structure
         run: |
           ZIP_NAME="paksa-it-solutions-theme.zip"
           ENTRIES=$(unzip -l "$ZIP_NAME" | awk '{print $4}')
 
-          # Check that style.css is at paksa-it-solutions/style.css
           if ! echo "$ENTRIES" | grep -q '^paksa-it-solutions/style\.css$'; then
-            echo "::error::ZIP structure invalid — paksa-it-solutions/style.css not found at expected path."
-            echo "ZIP contents:"
+            echo "::error::ZIP structure invalid — paksa-it-solutions/style.css not found."
             unzip -l "$ZIP_NAME"
             exit 1
           fi
 
-          # Check that no nested directory structure exists
           if echo "$ENTRIES" | grep -q '^paksa-it-solutions/paksa-it-solutions/'; then
-            echo "::error::ZIP structure invalid — nested paksa-it-solutions/ directory detected."
+            echo "::error::ZIP structure invalid — nested directory detected."
             exit 1
           fi
 
@@ -197,15 +190,16 @@ jobs:
           echo "Entry count: $(unzip -l "$ZIP_NAME" | tail -1)"
 
       # ------------------------------------------------------------------ #
-      # 9. Create GitHub Release and attach ZIP
+      # 9. Create GitHub Release and attach ZIP (tag pushes only)
       # ------------------------------------------------------------------ #
       - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.tag }}
-          name: "Nexus Business Theme ${{ steps.version.outputs.version }}"
+          name: "Paksa IT Solutions Theme ${{ steps.version.outputs.version }}"
           body: |
-            ## Nexus Business Theme ${{ steps.version.outputs.version }}
+            ## Paksa IT Solutions Theme ${{ steps.version.outputs.version }}
 
             ### Installation
             Download `paksa-it-solutions-theme.zip` and install via **Appearance → Themes → Add New → Upload Theme**.

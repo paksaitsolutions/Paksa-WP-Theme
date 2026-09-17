@@ -109,6 +109,19 @@ function paksa_register_block_patterns() {
         'services-categories',
         'services-categories-grid',
         'service-detail',
+        'home-hero',
+        'home-trust-strip',
+        'home-challenge',
+        'home-capabilities',
+        'home-technology',
+        'home-process',
+        'home-why-us',
+        'home-intelligence',
+        'home-differentiation',
+        'home-industries',
+        'home-outcomes',
+        'home-faq',
+        'home-final-cta',
     );
 
     foreach ( $pattern_files as $file ) {
@@ -142,6 +155,10 @@ function paksa_block_categories( $categories ) {
             'paksa-services' => array(
                 'title'  => __( 'Paksa Services', 'paksa-it-solutions' ),
                 'slug'   => 'paksa-services',
+            ),
+            'paksa-home' => array(
+                'title'  => __( 'Paksa Home', 'paksa-it-solutions' ),
+                'slug'   => 'paksa-home',
             ),
         )
     );

@@ -73,6 +73,6 @@ if ( ! defined( 'DISALLOW_FILE_EDIT' ) ) {
     define( 'DISALLOW_FILE_EDIT', true );
 }
 
-if ( ! defined( 'FORCE_SSL_ADMIN' ) ) {
-    define( 'FORCE_SSL_ADMIN', true );
-}
+// NOTE: FORCE_SSL_ADMIN must be defined in wp-config.php, not in theme code.
+// WordPress evaluates SSL enforcement before any theme is loaded.
+// Add this to wp-config.php on production: define( 'FORCE_SSL_ADMIN', true );

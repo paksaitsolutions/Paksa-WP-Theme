@@ -15,7 +15,9 @@ get_header();
 <main id="main-content" class="pk-blog-index">
     <div class="container">
         <?php if (have_posts()): ?>
-            <h1 class="pk-page-title"><?php single_post_title(); ?></h1>
+            <header class="pk-archive-header">
+                <h1 class="pk-page-title"><?php single_post_title(); ?></h1>
+            </header>
 
             <?php while (have_posts()): the_post(); ?>
                 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

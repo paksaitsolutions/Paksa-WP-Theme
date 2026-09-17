@@ -1,190 +1,54 @@
 {
-    "$schema": "https://developer.wordpress.org/wp-json/wp/v2/schema.json",
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
     "version": 2,
     "title": "Nexus Business Theme",
     "description": "A reusable enterprise WordPress theme for technology, software, and service businesses.",
     "textDomain": "paksa-it-solutions",
-    "color": {
-        "palette": [
-            {
-                "name": "Primary",
-                "slug": "primary",
-                "color": "#1a365d"
-            },
-            {
-                "name": "Primary Hover",
-                "slug": "primary-hover",
-                "color": "#2a4a7f"
-            },
-            {
-                "name": "Secondary",
-                "slug": "secondary",
-                "color": "#2b6cb0"
-            },
-            {
-                "name": "Accent",
-                "slug": "accent",
-                "color": "#00b5d8"
-            },
-            {
-                "name": "Accent Light",
-                "slug": "accent-light",
-                "color": "#e6f9fd"
-            },
-            {
-                "name": "Background",
-                "slug": "bg",
-                "color": "#ffffff"
-            },
-            {
-                "name": "Background Alt",
-                "slug": "bg-alt",
-                "color": "#f7fafc"
-            },
-            {
-                "name": "Background Dark",
-                "slug": "bg-dark",
-                "color": "#1a202c"
-            },
-            {
-                "name": "Text Primary",
-                "slug": "text",
-                "color": "#1a202c"
-            },
-            {
-                "name": "Text Secondary",
-                "slug": "text-secondary",
-                "color": "#4a5568"
-            },
-            {
-                "name": "Text Muted",
-                "slug": "text-muted",
-                "color": "#718096"
-            },
-            {
-                "name": "Text Inverse",
-                "slug": "text-inverse",
-                "color": "#ffffff"
-            },
-            {
-                "name": "Border",
-                "slug": "border",
-                "color": "#e2e8f0"
-            },
-            {
-                "name": "Success",
-                "slug": "success",
-                "color": "#38a169"
-            },
-            {
-                "name": "Warning",
-                "slug": "warning",
-                "color": "#d69e2e"
-            },
-            {
-                "name": "Error",
-                "slug": "error",
-                "color": "#e53e3e"
-            },
-            {
-                "name": "Info",
-                "slug": "info",
-                "color": "#3182ce"
-            }
-        ],
-        "custom": true,
-        "duotone": true,
-        "gradients": true
-    },
-    "typography": {
-        "fontFamilies": [
-            {
-                "fontFamily": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
-                "slug": "inter",
-                "name": "Inter"
-            },
-            {
-                "fontFamily": "serif",
-                "slug": "serif",
-                "name": "Serif"
-            },
-            {
-                "fontFamily": "monospace",
-                "slug": "monospace",
-                "name": "Monospace"
-            }
-        ],
-        "fontSizes": [
-            {
-                "name": "Small",
-                "slug": "small",
-                "size": "0.875rem"
-            },
-            {
-                "name": "Normal",
-                "slug": "normal",
-                "size": "1rem"
-            },
-            {
-                "name": "Large",
-                "slug": "large",
-                "size": "1.125rem"
-            },
-            {
-                "name": "Heading",
-                "slug": "heading",
-                "size": "1.5rem"
-            },
-            {
-                "name": "Display",
-                "slug": "display",
-                "size": "clamp(2.5rem, 5vw, 4rem)"
-            }
-        ],
-        "customFontSize": true,
-        "lineHeight": true
-    },
-    "layout": {
-        "contentSize": "1280px",
-        "wideSize": "1440px",
-        "allowEditorStyles": true,
-        "allowGapClass": true,
-        "defaultBlockTemplate": "core/group"
-    },
-    "spacing": {
-        "customSpacing": true,
-        "units": {
-            "core": "rem",
-            "wp": "px"
-        }
-    },
-    "border": {
-        "custom": true,
-        "radius": true,
-        "style": true,
-        "width": true,
-        "color": true
-    },
-    "custom": {
-        "container": "1280px",
-        "container-narrow": "720px",
-        "container-wide": "1440px",
-        "transition-fast": "150ms ease",
-        "transition-base": "250ms ease",
-        "transition-slow": "350ms ease"
-    },
     "settings": {
         "color": {
             "custom": true,
             "duotone": true,
             "gradients": true,
-            "palette": true
+            "palette": [
+                { "name": "Primary",          "slug": "primary",       "color": "#1a365d" },
+                { "name": "Primary Hover",     "slug": "primary-hover", "color": "#2a4a7f" },
+                { "name": "Secondary",         "slug": "secondary",     "color": "#2b6cb0" },
+                { "name": "Accent",            "slug": "accent",        "color": "#00b5d8" },
+                { "name": "Accent Light",      "slug": "accent-light",  "color": "#e6f9fd" },
+                { "name": "Background",        "slug": "bg",            "color": "#ffffff" },
+                { "name": "Background Alt",    "slug": "bg-alt",        "color": "#f7fafc" },
+                { "name": "Background Dark",   "slug": "bg-dark",       "color": "#1a202c" },
+                { "name": "Text Primary",      "slug": "text",          "color": "#1a202c" },
+                { "name": "Text Secondary",    "slug": "text-secondary","color": "#4a5568" },
+                { "name": "Text Muted",        "slug": "text-muted",    "color": "#718096" },
+                { "name": "Text Inverse",      "slug": "text-inverse",  "color": "#ffffff" },
+                { "name": "White",             "slug": "white",         "color": "#ffffff" },
+                { "name": "Border",            "slug": "border",        "color": "#e2e8f0" },
+                { "name": "Success",           "slug": "success",       "color": "#38a169" },
+                { "name": "Warning",           "slug": "warning",       "color": "#d69e2e" },
+                { "name": "Error",             "slug": "error",         "color": "#e53e3e" },
+                { "name": "Info",              "slug": "info",          "color": "#3182ce" }
+            ]
         },
         "typography": {
             "customFontSize": true,
-            "fontFamilies": true,
-            "fontSizes": true,
-            "lineHeight": true
+            "lineHeight": true,
+            "fontFamilies": [
+                {
+                    "fontFamily": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+                    "slug": "inter",
+                    "name": "Inter"
+                },
+                { "fontFamily": "serif",     "slug": "serif",     "name": "Serif" },
+                { "fontFamily": "monospace", "slug": "monospace", "name": "Monospace" }
+            ],
+            "fontSizes": [
+                { "name": "Small",   "slug": "small",   "size": "0.875rem" },
+                { "name": "Normal",  "slug": "normal",  "size": "1rem" },
+                { "name": "Large",   "slug": "large",   "size": "1.125rem" },
+                { "name": "Heading", "slug": "heading", "size": "1.5rem" },
+                { "name": "Display", "slug": "display", "size": "clamp(2.5rem, 5vw, 4rem)" }
+            ]
         },
         "spacing": {
             "customSpacing": true,
@@ -203,6 +67,14 @@
             "contentSize": "1280px",
             "wideSize": "1440px",
             "allowGapClass": true
+        },
+        "custom": {
+            "container": "1280px",
+            "container-narrow": "720px",
+            "container-wide": "1440px",
+            "transition-fast": "150ms ease",
+            "transition-base": "250ms ease",
+            "transition-slow": "350ms ease"
         },
         "image": {
             "resize": true,
