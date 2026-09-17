@@ -1,9 +1,6 @@
 {
     "$schema": "https://schemas.wp.org/trunk/theme.json",
     "version": 2,
-    "title": "Nexus Business Theme",
-    "description": "A reusable enterprise WordPress theme for technology, software, and service businesses.",
-    "textDomain": "paksa-it-solutions",
     "settings": {
         "color": {
             "custom": true,
@@ -75,10 +72,6 @@
             "transition-fast": "150ms ease",
             "transition-base": "250ms ease",
             "transition-slow": "350ms ease"
-        },
-        "image": {
-            "resize": true,
-            "crop": true
         }
     },
     "styles": {
