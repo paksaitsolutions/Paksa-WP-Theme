@@ -134,19 +134,19 @@
     }
   },
   "styles": {
-    "color": { "background": "var(--pk-bg)", "text": "var(--pk-text)", "link": "var(--pk-text-link)" },
+    "color": { "background": "var:preset|color|bg", "text": "var:preset|color|text", "link": "var:preset|color|primary" },
     "spacing": { "padding": { "left": "var:preset|spacing|40", "right": "var:preset|spacing|40" } },
     "typography": { "fontFamily": "var:preset|font-family|poppins", "fontSize": "1rem", "lineHeight": "1.7" },
     "elements": {
       "link": {
-        "color": { "text": "var(--pk-text-link)" },
+        "color": { "text": "var:preset|color|primary" },
         "typography": { "textDecoration": "none" },
-        ":hover": { "color": { "text": "var(--pk-primary-hover)" } },
-        ":focus": { "outline": { "color": "var(--pk-accent)", "style": "solid", "width": "3px" } }
+        ":hover": { "color": { "text": "var:preset|color|primary-hover" } },
+        ":focus": { "outline": { "color": "var:preset|color|accent", "style": "solid", "width": "3px" } }
       },
-      "heading": { "color": { "text": "var(--pk-text)" }, "typography": { "fontWeight": "700", "lineHeight": "1.15" } },
-      "button": { "border": { "radius": "var(--pk-radius-md)" }, "typography": { "fontFamily": "var:preset|font-family|poppins", "fontWeight": "600", "fontSize": "0.9375rem" }, "spacing": { "padding": { "top": "0.75rem", "right": "1.5rem", "bottom": "0.75rem", "left": "1.5rem" } } },
-      "caption": { "color": { "text": "var(--pk-text-muted)" }, "typography": { "fontSize": "0.75rem", "lineHeight": "1.5" } }
+      "heading": { "color": { "text": "var:preset|color|text" }, "typography": { "fontWeight": "700", "lineHeight": "1.15" } },
+      "button": { "border": { "radius": "var(--pk-radius-md)" }, "color": { "background": "var:preset|color|primary", "text": "var:preset|color|text-inverse" }, "typography": { "fontFamily": "var:preset|font-family|poppins", "fontWeight": "600", "fontSize": "0.9375rem" }, "spacing": { "padding": { "top": "0.75rem", "right": "1.5rem", "bottom": "0.75rem", "left": "1.5rem" } }, ":hover": { "color": { "background": "var:preset|color|primary-hover" } } },
+      "caption": { "color": { "text": "var:preset|color|muted" }, "typography": { "fontSize": "0.75rem", "lineHeight": "1.5" } }
     },
     "blocks": {
       "core/paragraph": { "typography": { "lineHeight": "1.7" } },

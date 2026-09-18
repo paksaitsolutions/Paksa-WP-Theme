@@ -4,6 +4,45 @@
   "title": "Modern",
   "styles": {
     "color": { "background": "#ffffff", "text": "#1d1d1d" },
-    "elements": { "button": { "border": { "radius": "10px" } } }
+    "elements": {
+      "button": { "border": { "radius": "10px" }, "color": { "background": "#6192f8", "text": "#ffffff" } },
+      "heading": { "color": { "text": "#1d1d1d" } }
+    }
+  },
+  "settings": {
+    "color": {
+      "palette": [
+        { "name": "Primary", "slug": "primary", "color": "#6192f8" },
+        { "name": "Primary Hover", "slug": "primary-hover", "color": "#4a7ef5" },
+        { "name": "Secondary", "slug": "secondary", "color": "#121619" },
+        { "name": "Accent", "slug": "accent", "color": "#6192f8" },
+        { "name": "Accent Light", "slug": "accent-light", "color": "#eef3fe" },
+        { "name": "Background", "slug": "bg", "color": "#ffffff" },
+        { "name": "Background Alt", "slug": "bg-alt", "color": "#f8f9fc" },
+        { "name": "Background Dark", "slug": "bg-dark", "color": "#121619" },
+        { "name": "Surface", "slug": "surface", "color": "#ffffff" },
+        { "name": "Surface Alt", "slug": "surface-alt", "color": "#f8f9fc" },
+        { "name": "Text Primary", "slug": "text", "color": "#1d1d1d" },
+        { "name": "Text Secondary", "slug": "text-secondary", "color": "#555f6d" },
+        { "name": "Text Muted", "slug": "muted", "color": "#8a94a0" },
+        { "name": "Text Inverse", "slug": "text-inverse", "color": "#ffffff" },
+        { "name": "Border", "slug": "border", "color": "#e6e8ea" },
+        { "name": "Success", "slug": "success", "color": "#12b76a" },
+        { "name": "Warning", "slug": "warning", "color": "#f79009" },
+        { "name": "Error", "slug": "error", "color": "#f04438" },
+        { "name": "Info", "slug": "info", "color": "#6192f8" }
+      ],
+      "gradients": [
+        { "name": "Primary Flow", "slug": "primary-flow", "gradient": "linear-gradient(135deg, #6192f8 0%, #7c5cfc 100%)" },
+        { "name": "Deep Surface", "slug": "deep-surface", "gradient": "linear-gradient(135deg, #121619 0%, #252d36 100%)" },
+        { "name": "Soft Accent", "slug": "soft-accent", "gradient": "linear-gradient(135deg, #eef3fe 0%, #f8f9fc 100%)" }
+      ]
+    },
+    "custom": {
+      "radius-sm": "6px",
+      "radius-md": "10px",
+      "radius-lg": "16px",
+      "radius-xl": "24px"
+    }
   }
 }

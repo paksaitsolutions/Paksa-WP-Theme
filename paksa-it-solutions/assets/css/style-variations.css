@@ -1,71 +1,40 @@
-/* Paksa Theme — visual personalities.
-   The Customizer selection changes the same --pk-* primitives used by
-   templates, components, and Gutenberg patterns. */
+/* ============================================================
+   Paksa Theme — Visual Personalities (Phase 21 unified)
+   Overrides the complete --pk-* token set so every component,
+   section, card, button, and template part responds to the
+   active variation without any per-component CSS duplication.
+   ============================================================ */
 
+/* ── Minimal ─────────────────────────────────────────────── */
 body.paksa-style--minimal {
-    --pk-primary: #255fc4;
-    --pk-primary-hover: #174b9e;
-    --pk-accent: #255fc4;
-    --pk-accent-light: #eef4ff;
-    --pk-bg-alt: #f7f8fa;
-    --pk-radius-sm: 3px;
-    --pk-radius-md: 5px;
-    --pk-radius-lg: 8px;
-    --pk-radius-xl: 12px;
-    --pk-shadow-sm: 0 1px 2px rgba(18,22,25,.04);
-    --pk-shadow-md: 0 3px 12px rgba(18,22,25,.06);
-    --pk-shadow-lg: 0 8px 24px rgba(18,22,25,.08);
-    --pk-font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --pk-primary:            #255fc4;
+    --pk-primary-hover:      #174b9e;
+    --pk-primary-active:     #103a8a;
+    --pk-accent:             #255fc4;
+    --pk-accent-hover:       #174b9e;
+    --pk-accent-light:       #eef4ff;
+    --pk-text-link:          #255fc4;
+    --pk-text-link-hover:    #174b9e;
+    --pk-bg-alt:             #f7f8fa;
+    --pk-border:             #e5e7eb;
+    --pk-border-strong:      #d1d5db;
+    --pk-border-dark:        #1f2937;
+    --pk-bg-dark:            #111827;
+    --pk-bg-dark-alt:        #1f2937;
+    --pk-surface-dark:       #1f2937;
+    --pk-surface-dark-elevated: #374151;
+    --pk-radius-sm:          3px;
+    --pk-radius-md:          5px;
+    --pk-radius-lg:          8px;
+    --pk-radius-xl:          12px;
+    --pk-shadow-sm:          0 1px 2px rgba(17,24,39,.04);
+    --pk-shadow-md:          0 3px 12px rgba(17,24,39,.06);
+    --pk-shadow-lg:          0 8px 24px rgba(17,24,39,.08);
+    --pk-shadow-xl:          0 16px 40px rgba(17,24,39,.10);
+    --pk-shadow-blue:        0 8px 24px rgba(37,95,196,.20);
 }
 
-body.paksa-style--corporate {
-    --pk-primary: #174c78;
-    --pk-primary-hover: #103b61;
-    --pk-accent: #1b78a5;
-    --pk-accent-light: #eaf5fb;
-    --pk-bg-alt: #f4f7fa;
-    --pk-radius-sm: 4px;
-    --pk-radius-md: 6px;
-    --pk-radius-lg: 10px;
-    --pk-radius-xl: 16px;
-    --pk-shadow-sm: 0 1px 3px rgba(20,47,73,.08);
-    --pk-shadow-md: 0 5px 18px rgba(20,47,73,.1);
-}
-
-body.paksa-style--creative {
-    --pk-primary: #7148d8;
-    --pk-primary-hover: #5834b7;
-    --pk-accent: #e056ad;
-    --pk-accent-light: #f8efff;
-    --pk-bg-alt: #fbf9ff;
-    --pk-radius-sm: 10px;
-    --pk-radius-md: 16px;
-    --pk-radius-lg: 24px;
-    --pk-radius-xl: 32px;
-    --pk-shadow-sm: 0 2px 8px rgba(94,59,177,.1);
-    --pk-shadow-md: 0 8px 28px rgba(94,59,177,.14);
-    --pk-shadow-lg: 0 16px 48px rgba(94,59,177,.18);
-}
-
-body.paksa-style--elegant {
-    --pk-primary: #82633d;
-    --pk-primary-hover: #674d2e;
-    --pk-accent: #a38153;
-    --pk-accent-light: #f8f3ea;
-    --pk-bg: #fffdf9;
-    --pk-bg-alt: #f8f4ed;
-    --pk-surface: #fffdf9;
-    --pk-text: #27221d;
-    --pk-text-secondary: #625a50;
-    --pk-border: #e9dfd1;
-    --pk-radius-sm: 4px;
-    --pk-radius-md: 8px;
-    --pk-radius-lg: 14px;
-    --pk-radius-xl: 22px;
-    --pk-shadow-sm: 0 2px 5px rgba(60,43,23,.06);
-    --pk-shadow-md: 0 8px 24px rgba(60,43,23,.1);
-}
-
+/* Minimal: no card shadows — maximum whitespace personality */
 body.paksa-style--minimal .pk-pattern-card,
 body.paksa-style--minimal .is-style-paksa-card,
 body.paksa-style--minimal .pk-component-card,
@@ -75,11 +44,140 @@ body.paksa-style--minimal .is-style-paksa-card-product,
 body.paksa-style--minimal .is-style-paksa-card-testimonial,
 body.paksa-style--minimal .is-style-paksa-card-team,
 body.paksa-style--minimal .is-style-paksa-card-pricing,
-body.paksa-style--minimal .is-style-paksa-card-blog { box-shadow: none; }
+body.paksa-style--minimal .is-style-paksa-card-blog,
+body.paksa-style--minimal .wp-block-paksa-product-card,
+body.paksa-style--minimal .wp-block-paksa-service-card,
+body.paksa-style--minimal .pk-composable-card { box-shadow: none; }
+
+/* ── Corporate ───────────────────────────────────────────── */
+body.paksa-style--corporate {
+    --pk-primary:            #174c78;
+    --pk-primary-hover:      #103b61;
+    --pk-primary-active:     #0a2d4d;
+    --pk-accent:             #1b78a5;
+    --pk-accent-hover:       #145e82;
+    --pk-accent-light:       #eaf5fb;
+    --pk-text-link:          #174c78;
+    --pk-text-link-hover:    #103b61;
+    --pk-bg:                 #ffffff;
+    --pk-bg-alt:             #f4f7fa;
+    --pk-surface:            #ffffff;
+    --pk-surface-alt:        #f4f7fa;
+    --pk-text:               #1a2a3a;
+    --pk-text-secondary:     #4a5a6a;
+    --pk-text-muted:         #7a8a9a;
+    --pk-border:             #d0dae4;
+    --pk-border-strong:      #b8c4d0;
+    --pk-border-dark:        #253545;
+    --pk-bg-dark:            #1a2a3a;
+    --pk-bg-dark-alt:        #253545;
+    --pk-surface-dark:       #253545;
+    --pk-surface-dark-elevated: #2e4055;
+    --pk-radius-sm:          4px;
+    --pk-radius-md:          6px;
+    --pk-radius-lg:          10px;
+    --pk-radius-xl:          16px;
+    --pk-shadow-sm:          0 1px 3px rgba(20,47,73,.08);
+    --pk-shadow-md:          0 5px 18px rgba(20,47,73,.10);
+    --pk-shadow-lg:          0 10px 32px rgba(20,47,73,.12);
+    --pk-shadow-xl:          0 18px 48px rgba(20,47,73,.14);
+    --pk-shadow-blue:        0 8px 24px rgba(23,76,120,.22);
+}
+
+/* ── Creative ────────────────────────────────────────────── */
+body.paksa-style--creative {
+    --pk-primary:            #7148d8;
+    --pk-primary-hover:      #5834b7;
+    --pk-primary-active:     #4425a0;
+    --pk-accent:             #e056ad;
+    --pk-accent-hover:       #c43d93;
+    --pk-accent-light:       #f8efff;
+    --pk-text-link:          #7148d8;
+    --pk-text-link-hover:    #5834b7;
+    --pk-bg:                 #fbf9ff;
+    --pk-bg-alt:             #f3eeff;
+    --pk-surface:            #ffffff;
+    --pk-surface-alt:        #f8efff;
+    --pk-text:               #1e1030;
+    --pk-text-secondary:     #5a4a70;
+    --pk-text-muted:         #9a8ab0;
+    --pk-border:             #e0d4f5;
+    --pk-border-strong:      #c8b8e8;
+    --pk-border-dark:        #2e1a50;
+    --pk-bg-dark:            #1e1030;
+    --pk-bg-dark-alt:        #2e1a50;
+    --pk-surface-dark:       #2e1a50;
+    --pk-surface-dark-elevated: #3d2468;
+    --pk-radius-sm:          10px;
+    --pk-radius-md:          16px;
+    --pk-radius-lg:          24px;
+    --pk-radius-xl:          32px;
+    --pk-shadow-sm:          0 2px 8px rgba(94,59,177,.10);
+    --pk-shadow-md:          0 8px 28px rgba(94,59,177,.14);
+    --pk-shadow-lg:          0 16px 48px rgba(94,59,177,.18);
+    --pk-shadow-xl:          0 24px 64px rgba(94,59,177,.22);
+    --pk-shadow-blue:        0 8px 28px rgba(113,72,216,.28);
+}
 
 body.paksa-style--creative .pk-hero--gradient,
-body.paksa-style--creative .pk-pattern-cta--gradient { background-image: linear-gradient(135deg, #7148d8, #e056ad); }
+body.paksa-style--creative .pk-pattern-cta--gradient,
+body.paksa-style--creative .pk-cta--gradient {
+    background-image: linear-gradient(135deg, #7148d8, #e056ad);
+}
+
+body.paksa-style--creative .is-style-paksa-gradient,
+body.paksa-style--creative .is-style-paksa-gradient-text {
+    background-image: linear-gradient(135deg, #7148d8, #e056ad);
+}
+
+/* ── Elegant ─────────────────────────────────────────────── */
+body.paksa-style--elegant {
+    --pk-primary:            #82633d;
+    --pk-primary-hover:      #674d2e;
+    --pk-primary-active:     #503b22;
+    --pk-accent:             #a38153;
+    --pk-accent-hover:       #876840;
+    --pk-accent-light:       #f8f3ea;
+    --pk-text-link:          #82633d;
+    --pk-text-link-hover:    #674d2e;
+    --pk-bg:                 #fffdf9;
+    --pk-bg-alt:             #f8f4ed;
+    --pk-surface:            #fffdf9;
+    --pk-surface-alt:        #f8f4ed;
+    --pk-text:               #27221d;
+    --pk-text-secondary:     #625a50;
+    --pk-text-muted:         #9a8a78;
+    --pk-text-inverse:       #fffdf9;
+    --pk-text-inverse-muted: #c8b8a8;
+    --pk-border:             #e9dfd1;
+    --pk-border-strong:      #d4c4b0;
+    --pk-border-dark:        #3d3028;
+    --pk-bg-dark:            #27221d;
+    --pk-bg-dark-alt:        #3d3028;
+    --pk-surface-dark:       #3d3028;
+    --pk-surface-dark-elevated: #4e3e30;
+    --pk-radius-sm:          4px;
+    --pk-radius-md:          8px;
+    --pk-radius-lg:          14px;
+    --pk-radius-xl:          22px;
+    --pk-shadow-sm:          0 2px 5px rgba(60,43,23,.06);
+    --pk-shadow-md:          0 8px 24px rgba(60,43,23,.10);
+    --pk-shadow-lg:          0 16px 40px rgba(60,43,23,.13);
+    --pk-shadow-xl:          0 24px 56px rgba(60,43,23,.16);
+    --pk-shadow-blue:        0 8px 24px rgba(130,99,61,.22);
+}
 
 body.paksa-style--elegant h1,
 body.paksa-style--elegant h2,
 body.paksa-style--elegant h3 { letter-spacing: -.02em; }
+
+body.paksa-style--elegant .pk-hero--gradient,
+body.paksa-style--elegant .pk-pattern-cta--gradient,
+body.paksa-style--elegant .pk-cta--gradient {
+    background-image: linear-gradient(135deg, #82633d, #a38153);
+}
+
+body.paksa-style--elegant .is-style-paksa-gradient,
+body.paksa-style--elegant .is-style-paksa-gradient-text {
+    background-image: linear-gradient(135deg, #82633d, #a38153);
+}

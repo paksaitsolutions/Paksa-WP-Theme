@@ -3,11 +3,12 @@
   "version": 3,
   "title": "Corporate",
   "styles": {
-    "color": { "background": "#f4f7fa", "text": "#1a2a3a" },
+    "color": { "background": "#ffffff", "text": "#1a2a3a" },
     "typography": { "fontFamily": "var:preset|font-family|poppins" },
     "elements": {
-      "button": { "border": { "radius": "6px" } },
-      "heading": { "color": { "text": "#1a2a3a" } }
+      "button": { "border": { "radius": "6px" }, "color": { "background": "#174c78", "text": "#ffffff" }, ":hover": { "color": { "background": "#103b61" } } },
+      "heading": { "color": { "text": "#1a2a3a" } },
+      "link": { "color": { "text": "#174c78" }, ":hover": { "color": { "text": "#103b61" } } }
     }
   },
   "settings": {

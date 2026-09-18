@@ -6,8 +6,9 @@
     "color": { "background": "#fbf9ff", "text": "#1e1030" },
     "typography": { "fontFamily": "var:preset|font-family|poppins" },
     "elements": {
-      "button": { "border": { "radius": "24px" } },
-      "heading": { "color": { "text": "#1e1030" } }
+      "button": { "border": { "radius": "24px" }, "color": { "background": "#7148d8", "text": "#ffffff" }, ":hover": { "color": { "background": "#5834b7" } } },
+      "heading": { "color": { "text": "#1e1030" } },
+      "link": { "color": { "text": "#7148d8" }, ":hover": { "color": { "text": "#5834b7" } } }
     }
   },
   "settings": {

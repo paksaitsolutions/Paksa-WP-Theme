@@ -1255,3 +1255,110 @@
     .wp-block-paksa-service-card:hover,
     .pk-composable-card:hover { transform: none; }
 }
+
+/* ============================================================
+   Phase 21 — Global Design System body-class overrides
+   These classes are set by inc/global-design-system.php and
+   consume the --pk-* tokens already overridden in :root.
+   ============================================================ */
+
+/* Section spacing — compact */
+body.paksa-spacing--compact .pk-pattern-section,
+body.paksa-spacing--compact .pk-component-section,
+body.paksa-spacing--compact .wp-block-paksa-section,
+body.paksa-spacing--compact .pk-section {
+    padding-block: clamp(2rem, 4vw, 4rem);
+}
+
+body.paksa-spacing--compact .pk-site-editor-hero,
+body.paksa-spacing--compact .pk-site-editor-content,
+body.paksa-spacing--compact .pk-site-editor-footer {
+    padding-block: clamp(2rem, 4vw, 4rem);
+}
+
+/* Section spacing — spacious */
+body.paksa-spacing--spacious .pk-pattern-section,
+body.paksa-spacing--spacious .pk-component-section,
+body.paksa-spacing--spacious .wp-block-paksa-section,
+body.paksa-spacing--spacious .pk-section {
+    padding-block: clamp(6rem, 12vw, 11rem);
+}
+
+body.paksa-spacing--spacious .pk-site-editor-hero,
+body.paksa-spacing--spacious .pk-site-editor-content {
+    padding-block: clamp(6rem, 12vw, 11rem);
+}
+
+/* Motion — reduced: shorten all transitions, keep hover states */
+body.paksa-motion--reduced *,
+body.paksa-motion--reduced *::before,
+body.paksa-motion--reduced *::after {
+    transition-duration: 150ms !important;
+    animation-duration: 150ms !important;
+}
+
+body.paksa-motion--reduced .is-style-paksa-motion-fade,
+body.paksa-motion--reduced .is-style-paksa-motion-fade-up,
+body.paksa-motion--reduced .is-style-paksa-motion-fade-down,
+body.paksa-motion--reduced .is-style-paksa-motion-fade-left,
+body.paksa-motion--reduced .is-style-paksa-motion-fade-right,
+body.paksa-motion--reduced .is-style-paksa-motion-scale,
+body.paksa-motion--reduced .is-style-paksa-motion-reveal,
+body.paksa-motion--reduced .is-style-paksa-motion-stagger,
+body.paksa-motion--reduced .is-style-paksa-motion-stagger > * {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition: none;
+}
+
+/* Motion — none: disable all transitions and animations */
+body.paksa-motion--none *,
+body.paksa-motion--none *::before,
+body.paksa-motion--none *::after {
+    transition: none !important;
+    animation: none !important;
+}
+
+body.paksa-motion--none .is-style-paksa-motion-fade,
+body.paksa-motion--none .is-style-paksa-motion-fade-up,
+body.paksa-motion--none .is-style-paksa-motion-fade-down,
+body.paksa-motion--none .is-style-paksa-motion-fade-left,
+body.paksa-motion--none .is-style-paksa-motion-fade-right,
+body.paksa-motion--none .is-style-paksa-motion-scale,
+body.paksa-motion--none .is-style-paksa-motion-reveal,
+body.paksa-motion--none .is-style-paksa-motion-stagger,
+body.paksa-motion--none .is-style-paksa-motion-stagger > * {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+}
+
+body.paksa-motion--none .pk-hover-lift:hover,
+body.paksa-motion--none .pk-hover-scale:hover { transform: none; }
+
+body.paksa-motion--none .pk-float,
+body.paksa-motion--none .pk-shimmer-text { animation: none; }
+
+/* Radius — sharp: override full-radius elements that don't use --pk-radius-* */
+body.paksa-radius--sharp .wp-block-button__link,
+body.paksa-radius--sharp .pk-action__button,
+body.paksa-radius--sharp .pk-cta__btn,
+body.paksa-radius--sharp .btn { border-radius: 0 !important; }
+
+/* Radius — pill: make buttons fully rounded */
+body.paksa-radius--pill .wp-block-button__link,
+body.paksa-radius--pill .pk-action__button,
+body.paksa-radius--pill .pk-cta__btn,
+body.paksa-radius--pill .btn { border-radius: 9999px !important; }
+
+/* Shadow — flat: remove all box-shadows from interactive elements */
+body.paksa-shadow--flat .pk-pattern-card,
+body.paksa-shadow--flat .pk-component-card,
+body.paksa-shadow--flat .is-style-paksa-card,
+body.paksa-shadow--flat .is-style-paksa-surface,
+body.paksa-shadow--flat .wp-block-paksa-product-card,
+body.paksa-shadow--flat .wp-block-paksa-service-card,
+body.paksa-shadow--flat .pk-composable-card,
+body.paksa-shadow--flat .pk-testimonial,
+body.paksa-shadow--flat .pk-site-editor-header { box-shadow: none !important; }

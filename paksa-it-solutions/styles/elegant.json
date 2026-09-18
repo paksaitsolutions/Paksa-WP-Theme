@@ -6,11 +6,12 @@
     "color": { "background": "#fffdf9", "text": "#27221d" },
     "typography": { "fontFamily": "var:preset|font-family|poppins", "letterSpacing": "-0.01em" },
     "elements": {
-      "button": { "border": { "radius": "8px" } },
+      "button": { "border": { "radius": "8px" }, "color": { "background": "#82633d", "text": "#fffdf9" }, ":hover": { "color": { "background": "#674d2e" } } },
       "heading": {
         "color": { "text": "#27221d" },
         "typography": { "letterSpacing": "-0.02em" }
-      }
+      },
+      "link": { "color": { "text": "#82633d" }, ":hover": { "color": { "text": "#674d2e" } } }
     }
   },
   "settings": {

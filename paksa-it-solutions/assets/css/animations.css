@@ -143,7 +143,9 @@
 .js .pk-animate-on-scroll[data-delay="400"] { transition-delay: 400ms; }
 .js .pk-animate-on-scroll[data-delay="500"] { transition-delay: 500ms; }
 
-/* --- Utility animation classes --- */
+/* pk-hover-lift and pk-hover-glow are defined in blocks.css.
+   Utility animation classes below are additive. */
+
 .pk-float { animation: pk-float 4s ease-in-out infinite; }
 
 .pk-shimmer-text {
@@ -153,21 +155,6 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: pk-shimmer 3s linear infinite;
-}
-
-.pk-hover-lift {
-    transition: transform var(--pk-transition-base), box-shadow var(--pk-transition-base);
-}
-.pk-hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--pk-shadow-lg);
-}
-
-.pk-hover-glow {
-    transition: box-shadow var(--pk-transition-base);
-}
-.pk-hover-glow:hover {
-    box-shadow: 0 0 0 3px rgba(0,181,216,0.2), var(--pk-shadow-md);
 }
 
 /* --- Reduced Motion --- */
@@ -186,7 +173,6 @@
         transition: none;
     }
 
-    .pk-hover-lift:hover { transform: none; }
     .pk-float { animation: none; }
     .pk-shimmer-text {
         background: none;

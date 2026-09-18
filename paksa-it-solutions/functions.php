@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('PAKSA_THEME_VERSION', '2.0.0');
+define('PAKSA_THEME_VERSION', '2.1.0');
 define('PAKSA_THEME_DIR', get_template_directory());
 define('PAKSA_THEME_URI', get_template_directory_uri());
 
@@ -46,6 +46,7 @@ function paksa_theme_setup() {
     add_theme_support('wp-block-styles');
     add_editor_style( array(
         'assets/css/variables.css',
+        'assets/css/animations.css',
         'assets/css/components.css',
         'assets/css/blocks.css',
         'assets/css/editor.css',
@@ -84,6 +85,7 @@ require_once __DIR__ . '/inc/blocks.php';
 require_once __DIR__ . '/inc/advanced-builder.php';
 require_once __DIR__ . '/inc/parts.php';
 require_once __DIR__ . '/inc/style-variations.php';
+require_once __DIR__ . '/inc/global-design-system.php';
 require_once __DIR__ . '/inc/site-editor.php';
 require_once __DIR__ . '/inc/composition.php';
 require_once __DIR__ . '/inc/blocks-phase20.php';
