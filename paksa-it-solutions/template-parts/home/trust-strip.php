@@ -1,6 +1,6 @@
 <?php
 /**
- * Paksa IT Solutions — Homepage: Trust / Capability Strip (Marquee)
+ * Paksa IT Solutions — Homepage: Trust / Capability Strip
  *
  * @package paksa-it-solutions
  */
@@ -15,15 +15,14 @@ for ( $i = 1; $i <= 6; $i++ ) {
 
 if ( empty( $items ) ) return;
 
-// Duplicate for seamless loop
 $all = array_merge( $items, $items );
 ?>
 <div class="pk-trust-strip" aria-label="<?php esc_attr_e( 'Core capabilities', 'paksa-it-solutions' ); ?>">
-    <div class="pk-trust-marquee-wrap">
-        <ul class="pk-trust-marquee" role="list" aria-hidden="false">
+    <div class="pk-trust-marquee-wrap" aria-hidden="true">
+        <ul class="pk-trust-marquee" role="list">
             <?php foreach ( $all as $item ) : ?>
                 <li class="pk-trust-item">
-                    <svg class="pk-trust-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg class="pk-trust-dot" width="6" height="6" viewBox="0 0 6 6" aria-hidden="true"><circle cx="3" cy="3" r="3" fill="currentColor"/></svg>
                     <?php echo esc_html( $item ); ?>
                 </li>
             <?php endforeach; ?>

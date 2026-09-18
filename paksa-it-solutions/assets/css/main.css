@@ -27,6 +27,7 @@ body {
     background-color: var(--pk-bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 img,
@@ -523,6 +524,7 @@ p:last-child {
     background-color: var(--pk-bg);
     border-bottom: 1px solid var(--pk-border);
     transition: box-shadow var(--pk-transition-base);
+    font-family: var(--pk-font-sans);
 }
 
 .site-header.scrolled {

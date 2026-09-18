@@ -1,69 +1,68 @@
 /* ============================================================
-   Nexus Business Theme — Design Tokens
-   Centralized CSS Custom Properties
+   Paksa IT Solutions — Design Tokens
    ============================================================ */
 
-/* --- Colors --- */
 :root {
-    /* Brand */
-    --pk-primary: #1a365d;
-    --pk-primary-hover: #2a4a7f;
-    --pk-primary-active: #0d1f3c;
-    --pk-secondary: #2b6cb0;
-    --pk-secondary-hover: #2c5282;
-    --pk-accent: #00b5d8;
-    --pk-accent-hover: #0097b5;
-    --pk-accent-active: #007a94;
-    --pk-accent-light: #e6f9fd;
+    /* Brand — matches paksa.com.pk exactly */
+    --pk-primary: #6192F8;
+    --pk-primary-hover: #4a7ef5;
+    --pk-primary-active: #3366e0;
+    --pk-secondary: #121619;
+    --pk-secondary-hover: #1d2329;
+    --pk-accent: #6192F8;
+    --pk-accent-hover: #4a7ef5;
+    --pk-accent-active: #3366e0;
+    --pk-accent-light: #eef3fe;
 
     /* Background */
     --pk-bg: #ffffff;
-    --pk-bg-alt: #f7fafc;
-    --pk-bg-dark: #1a202c;
-    --pk-bg-dark-alt: #2d3748;
+    --pk-bg-alt: #f8f9fc;
+    --pk-bg-dark: #121619;
+    --pk-bg-dark-alt: #1d2329;
 
     /* Surface */
     --pk-surface: #ffffff;
     --pk-surface-elevated: #ffffff;
-    --pk-surface-dark: #2d3748;
-    --pk-surface-dark-elevated: #374151;
+    --pk-surface-dark: #1d2329;
+    --pk-surface-dark-elevated: #252d36;
 
     /* Text */
-    --pk-text: #1a202c;
-    --pk-text-secondary: #4a5568;
-    --pk-text-muted: #718096;
+    --pk-text: #1d1d1d;
+    --pk-text-secondary: #555f6d;
+    --pk-text-muted: #8a94a0;
     --pk-text-inverse: #ffffff;
-    --pk-text-inverse-muted: #a0aec0;
-    --pk-text-link: #2b6cb0;
-    --pk-text-link-hover: #1a4a7a;
+    --pk-text-inverse-muted: #a8b3bf;
+    --pk-text-link: #6192F8;
+    --pk-text-link-hover: #4a7ef5;
 
     /* Border */
-    --pk-border: #e2e8f0;
-    --pk-border-strong: #cbd5e0;
-    --pk-border-dark: #4a5568;
+    --pk-border: #e6e8ea;
+    --pk-border-strong: #d0d5dd;
+    --pk-border-dark: #2d3748;
 
     /* Semantic */
-    --pk-success: #38a169;
-    --pk-success-bg: #f0fff4;
-    --pk-warning: #d69e2e;
-    --pk-warning-bg: #fffff0;
-    --pk-error: #e53e3e;
-    --pk-error-bg: #fff5f5;
-    --pk-info: #3182ce;
-    --pk-info-bg: #ebf8ff;
+    --pk-success: #12b76a;
+    --pk-success-bg: #ecfdf3;
+    --pk-warning: #f79009;
+    --pk-warning-bg: #fffaeb;
+    --pk-error: #f04438;
+    --pk-error-bg: #fef3f2;
+    --pk-info: #6192F8;
+    --pk-info-bg: #eef3fe;
 
-    /* Radius */
-    --pk-radius-sm: 4px;
-    --pk-radius-md: 8px;
+    /* Radius — consistent scale */
+    --pk-radius-sm: 6px;
+    --pk-radius-md: 10px;
     --pk-radius-lg: 16px;
     --pk-radius-xl: 24px;
     --pk-radius-full: 9999px;
 
-    /* Shadows */
-    --pk-shadow-sm: 0 1px 3px rgba(26, 32, 44, 0.08);
-    --pk-shadow-md: 0 4px 12px rgba(26, 32, 44, 0.1);
-    --pk-shadow-lg: 0 8px 24px rgba(26, 32, 44, 0.12);
-    --pk-shadow-xl: 0 16px 48px rgba(26, 32, 44, 0.16);
+    /* Shadows — tinted to bg hue */
+    --pk-shadow-sm: 0 1px 3px rgba(18,22,25,0.06), 0 1px 2px rgba(18,22,25,0.04);
+    --pk-shadow-md: 0 4px 16px rgba(18,22,25,0.08);
+    --pk-shadow-lg: 0 8px 32px rgba(18,22,25,0.10);
+    --pk-shadow-xl: 0 16px 56px rgba(18,22,25,0.14);
+    --pk-shadow-blue: 0 8px 32px rgba(97,146,248,0.25);
 
     /* Spacing (8px grid) */
     --pk-space-1: 0.25rem;
@@ -81,35 +80,15 @@
     --pk-space-32: 8rem;
 
     /* Container */
-    --pk-container: 1280px;
+    --pk-container: 1200px;
     --pk-container-narrow: 720px;
     --pk-container-wide: 1440px;
 
-    /* Typography */
-    --pk-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    /* Typography — Poppins matches live site */
+    --pk-font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
     /* Transitions */
     --pk-transition-fast: 150ms ease;
     --pk-transition-base: 250ms ease;
-    --pk-transition-slow: 350ms ease;
+    --pk-transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-/* --- Dark Mode --- */
-/* TODO: Full dark mode token set to be implemented in a future phase.
-   The partial override below is intentionally disabled to prevent
-   inconsistent dark mode rendering. */
-/*
-@media (prefers-color-scheme: dark) {
-    :root {
-        --pk-bg: #0d1117;
-        --pk-bg-alt: #161b22;
-        --pk-surface: #161b22;
-        --pk-surface-elevated: #21262d;
-        --pk-text: #e6edf3;
-        --pk-text-secondary: #9ba3af;
-        --pk-text-muted: #6e7681;
-        --pk-border: #30363d;
-        --pk-border-strong: #484f58;
-    }
-}
-*/

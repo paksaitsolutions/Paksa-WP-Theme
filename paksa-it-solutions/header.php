@@ -38,8 +38,8 @@ if (!defined('ABSPATH')) {
             </nav>
 
             <div class="nav-cta">
-                <a href="<?php echo esc_url( paksa_get_option( 'paksa_cta_primary_url', '#contact' ) ); ?>" class="btn btn-primary btn-sm">
-                    <?php esc_html_e( 'Get a Free Consultation', 'paksa-it-solutions' ); ?>
+                <a href="<?php echo esc_url( paksa_get_option( 'paksa_cta_primary_url', '/contact/' ) ); ?>" class="btn btn-primary btn-sm">
+                    <?php esc_html_e( 'Get in Touch', 'paksa-it-solutions' ); ?>
                 </a>
             </div>
 
@@ -75,8 +75,8 @@ if (!defined('ABSPATH')) {
             ?>
         </div>
         <div class="mobile-nav-cta">
-            <a href="<?php echo esc_url( paksa_get_option( 'paksa_cta_primary_url', '#contact' ) ); ?>" class="btn btn-primary">
-                <?php esc_html_e( 'Get a Free Consultation', 'paksa-it-solutions' ); ?>
+            <a href="<?php echo esc_url( paksa_get_option( 'paksa_cta_primary_url', '/contact/' ) ); ?>" class="btn btn-primary">
+                <?php esc_html_e( 'Get in Touch', 'paksa-it-solutions' ); ?>
             </a>
         </div>
     </nav>

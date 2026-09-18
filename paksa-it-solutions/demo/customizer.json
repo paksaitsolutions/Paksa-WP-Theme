@@ -1,0 +1,98 @@
+{
+    "theme_mods_paksa-it-solutions": {
+        "paksa_phone": "+92 305 7772572 / +92 314 4676210",
+        "paksa_email": "info@paksa.com.pk",
+        "paksa_address": "13-A-1 Commercial Area, PIA Housing Society, Lahore, Pakistan",
+        "paksa_whatsapp_url": "https://api.whatsapp.com/send/?phone=923144676210",
+        "paksa_whatsapp_show": "1",
+        "paksa_social_facebook": "https://www.facebook.com/PaksaITSolutions",
+        "paksa_social_twitter": "https://twitter.com/PaksaPk",
+        "paksa_social_linkedin": "https://www.linkedin.com/company/paksaitsolutions",
+        "paksa_social_github": "",
+
+        "paksa_hero_eyebrow": "Enterprise Technology Solutions",
+        "paksa_hero_heading": "Technology That Moves Business Forward",
+        "paksa_hero_subheading": "Build Smarter.\nOperate Better.\nGrow With Confidence.",
+        "paksa_hero_cta_primary_text": "Get a Free Consultation",
+        "paksa_hero_cta_primary_url": "#contact",
+        "paksa_hero_cta_secondary_text": "Explore Our Solutions",
+        "paksa_hero_cta_secondary_url": "#solutions",
+
+        "paksa_trust_item_1": "Enterprise Software",
+        "paksa_trust_item_2": "AI & Machine Learning",
+        "paksa_trust_item_3": "Business Intelligence",
+        "paksa_trust_item_4": "Custom Development",
+        "paksa_trust_item_5": "System Integration",
+        "paksa_trust_item_6": "Digital Transformation",
+
+        "paksa_challenge_eyebrow": "The Problem",
+        "paksa_challenge_heading": "Technology Should Solve Business Problems.",
+        "paksa_challenge_description": "Most businesses operate with disconnected systems, manual processes and fragmented data. The result is slow decisions, limited visibility and missed opportunities.",
+        "paksa_challenge_transition": "We turn these challenges into connected digital systems.",
+        "paksa_challenge_problem_1": "Disconnected systems",
+        "paksa_challenge_problem_2": "Manual processes",
+        "paksa_challenge_problem_3": "Fragmented data",
+        "paksa_challenge_problem_4": "Inefficient workflows",
+        "paksa_challenge_problem_5": "Limited reporting",
+        "paksa_challenge_problem_6": "Slow decision-making",
+
+        "paksa_capabilities_eyebrow": "What We Build",
+        "paksa_capabilities_heading": "Technology Built Around Your Business",
+        "paksa_capabilities_description": "From enterprise platforms to intelligent automation — we build the systems that power serious business operations.",
+
+        "paksa_process_eyebrow": "Our Process",
+        "paksa_process_heading": "How We Work",
+        "paksa_process_description": "A structured approach that moves from business understanding to deployed, evolving technology.",
+
+        "paksa_why_eyebrow": "Why Us",
+        "paksa_why_heading": "Technology With Business Thinking Behind It.",
+        "paksa_why_description": "We combine deep technical capability with genuine understanding of how businesses operate.",
+
+        "paksa_industries_eyebrow": "Industries",
+        "paksa_industries_heading": "Built for the Industries That Drive Business",
+        "paksa_industries_description": "Our solutions are designed around the operational realities of specific industries — not generic software adapted to fit.",
+
+        "paksa_faq_eyebrow": "FAQ",
+        "paksa_faq_heading": "Common Questions",
+
+        "paksa_technology_eyebrow": "Our Capabilities",
+        "paksa_technology_heading": "From Business Requirements to Intelligent Systems",
+        "paksa_technology_description": "A complete capability stack — from initial analysis through to deployed, intelligent business systems.",
+
+        "paksa_intelligence_eyebrow": "AI & Business Intelligence",
+        "paksa_intelligence_heading": "Turn Business Data Into Intelligence.",
+        "paksa_intelligence_description": "We apply AI and analytics where they create genuine business value — not as a feature, but as a capability embedded in your operations.",
+
+        "paksa_diff_eyebrow": "Our Difference",
+        "paksa_diff_heading": "More Than Software Development.",
+        "paksa_diff_description": "The difference between a technology vendor and a technology partner.",
+
+        "paksa_outcomes_eyebrow": "Business Outcomes",
+        "paksa_outcomes_heading": "What Changes When Technology Works Properly",
+        "paksa_outcomes_description": "The measurable difference that well-designed business technology makes to operations.",
+
+        "paksa_cta_eyebrow": "Get Started",
+        "paksa_cta_heading": "Have a Business Challenge?",
+        "paksa_cta_description": "Let's turn your requirements into a technology solution built for the way your business works.",
+        "paksa_cta_primary_text": "Get a Free Consultation",
+        "paksa_cta_primary_url": "#contact",
+        "paksa_cta_secondary_text": "Discuss Your Project",
+        "paksa_cta_secondary_url": "#contact",
+
+        "paksa_home_show_hero": "1",
+        "paksa_home_show_trust_strip": "1",
+        "paksa_home_show_challenge": "1",
+        "paksa_home_show_capabilities": "1",
+        "paksa_home_show_technology": "1",
+        "paksa_home_show_products": "1",
+        "paksa_home_show_intelligence": "1",
+        "paksa_home_show_process": "1",
+        "paksa_home_show_why_paksa": "1",
+        "paksa_home_show_differentiation": "1",
+        "paksa_home_show_industries": "1",
+        "paksa_home_show_case_studies": "1",
+        "paksa_home_show_outcomes": "1",
+        "paksa_home_show_faq": "1",
+        "paksa_home_show_final_cta": "1"
+    }
+}

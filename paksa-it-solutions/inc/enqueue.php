@@ -15,6 +15,14 @@ if (!defined('ABSPATH')) {
 function paksa_enqueue_assets() {
     $version = PAKSA_THEME_VERSION;
 
+    // Poppins — matches live site
+    wp_enqueue_style(
+        'paksa-poppins',
+        'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap',
+        array(),
+        null
+    );
+
     // Variables CSS (design tokens)
     wp_enqueue_style(
         'paksa-variables',

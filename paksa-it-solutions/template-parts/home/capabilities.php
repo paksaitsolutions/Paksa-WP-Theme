@@ -1,88 +1,65 @@
 <?php
 /**
- * Paksa IT Solutions — Homepage: What We Build (Capabilities)
- * Content: Static array — editable via filter for extensibility
+ * Paksa IT Solutions — Homepage: What We Do (Capabilities)
+ * Asymmetric bento grid — not 3 equal cards
  *
  * @package paksa-it-solutions
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-$eyebrow     = paksa_get_option( 'paksa_capabilities_eyebrow', __( 'What We Build', 'paksa-it-solutions' ) );
-$heading     = paksa_get_option( 'paksa_capabilities_heading', __( 'Technology Built Around Your Business', 'paksa-it-solutions' ) );
-$description = paksa_get_option( 'paksa_capabilities_description', __( 'From enterprise platforms to intelligent automation — we build the systems that power serious business operations.', 'paksa-it-solutions' ) );
+$heading     = paksa_get_option( 'paksa_capabilities_heading',     __( 'AI-Driven & Data-Focused IT Solutions', 'paksa-it-solutions' ) );
+$description = paksa_get_option( 'paksa_capabilities_description', __( 'We deliver intelligent, scalable, and data-driven technology solutions that help businesses automate operations, gain actionable insights, and build future-ready digital systems.', 'paksa-it-solutions' ) );
 
-/**
- * Filter: paksa_capabilities_items
- * Allows child themes or plugins to modify capability cards.
- */
 $capabilities = apply_filters( 'paksa_capabilities_items', array(
     array(
-        'icon'        => 'enterprise',
-        'title'       => __( 'Enterprise Software', 'paksa-it-solutions' ),
-        'description' => __( 'Business platforms designed around operational requirements — finance, inventory, HR, procurement and more.', 'paksa-it-solutions' ),
-        'featured'    => true,
+        'icon'        => 'automation',
+        'title'       => __( 'Automation AI', 'paksa-it-solutions' ),
+        'description' => __( 'Transform your business operations with Automation AI, automating repetitive tasks and enabling intelligent workflows that improve productivity, accuracy, and performance.', 'paksa-it-solutions' ),
+        'size'        => 'large',
     ),
     array(
-        'icon'        => 'custom',
-        'title'       => __( 'Custom Software', 'paksa-it-solutions' ),
-        'description' => __( 'Purpose-built applications for unique workflows and processes that off-the-shelf software cannot address.', 'paksa-it-solutions' ),
-        'featured'    => false,
+        'icon'        => 'analytics',
+        'title'       => __( 'Data & Analytics', 'paksa-it-solutions' ),
+        'description' => __( 'Our Data & Analytics solutions empower organizations to transform data into actionable intelligence, enabling smarter decisions and long-term strategic growth.', 'paksa-it-solutions' ),
+        'size'        => 'normal',
     ),
     array(
         'icon'        => 'ai',
-        'title'       => __( 'AI & Machine Learning', 'paksa-it-solutions' ),
-        'description' => __( 'Predictive intelligence, automation and intelligent decision support built into your business systems.', 'paksa-it-solutions' ),
-        'featured'    => true,
+        'title'       => __( 'AI & ML Solutions', 'paksa-it-solutions' ),
+        'description' => __( 'Our AI & ML solutions help organizations enhance performance by leveraging intelligent models, predictive analytics, and data-driven automation.', 'paksa-it-solutions' ),
+        'size'        => 'normal',
     ),
     array(
-        'icon'        => 'bi',
-        'title'       => __( 'Business Intelligence', 'paksa-it-solutions' ),
-        'description' => __( 'Dashboards, analytics and decision intelligence that turn operational data into clear business insight.', 'paksa-it-solutions' ),
-        'featured'    => false,
-    ),
-    array(
-        'icon'        => 'ecommerce',
-        'title'       => __( 'Ecommerce Solutions', 'paksa-it-solutions' ),
-        'description' => __( 'Connected commerce platforms and operational systems that integrate with your wider business infrastructure.', 'paksa-it-solutions' ),
-        'featured'    => false,
-    ),
-    array(
-        'icon'        => 'integration',
-        'title'       => __( 'System Integration', 'paksa-it-solutions' ),
-        'description' => __( 'Connect ERP, ecommerce, APIs and business applications so data and workflows move without friction.', 'paksa-it-solutions' ),
-        'featured'    => false,
+        'icon'        => 'digital',
+        'title'       => __( 'Intelligent Digital Solutions', 'paksa-it-solutions' ),
+        'description' => __( 'Transform your digital operations with intelligent, data-driven solutions designed to improve performance, scalability, and business efficiency.', 'paksa-it-solutions' ),
+        'size'        => 'wide',
     ),
 ) );
 ?>
-<section class="section section-alt pk-capabilities" id="solutions" aria-labelledby="pk-capabilities-heading">
+<section class="section pk-capabilities" id="solutions" aria-labelledby="pk-capabilities-heading">
     <div class="container">
-        <?php
-        get_template_part( 'template-parts/components/section-header', null, array(
-            'eyebrow'     => $eyebrow,
-            'heading'     => $heading,
-            'description' => $description,
-        ) );
-        ?>
 
-        <div class="pk-capabilities-grid">
+        <header class="pk-capabilities-header pk-animate-on-scroll" data-anim="fade-up">
+            <div class="pk-capabilities-header-text">
+                <p class="pk-section-label"><?php esc_html_e( 'What We Do', 'paksa-it-solutions' ); ?></p>
+                <h2 id="pk-capabilities-heading"><?php echo esc_html( $heading ); ?></h2>
+            </div>
+            <p class="pk-capabilities-header-desc"><?php echo esc_html( $description ); ?></p>
+        </header>
+
+        <div class="pk-cap-bento">
             <?php foreach ( $capabilities as $index => $cap ) : ?>
-                <article class="pk-cap-card<?php echo ! empty( $cap['featured'] ) ? ' pk-cap-card--featured' : ''; ?> pk-animate-on-scroll" data-anim="fade-up" data-delay="<?php echo esc_attr( ( $index % 3 ) * 80 ); ?>">
-                    <div class="pk-cap-icon" aria-hidden="true">
+                <article class="pk-cap-cell pk-cap-cell--<?php echo esc_attr( $cap['size'] ); ?> pk-animate-on-scroll" data-anim="fade-up" data-delay="<?php echo esc_attr( $index * 60 ); ?>">
+                    <div class="pk-cap-cell-icon" aria-hidden="true">
                         <?php echo paksa_get_capability_icon( $cap['icon'] ); ?>
                     </div>
-                    <h3 class="pk-cap-title"><?php echo esc_html( $cap['title'] ); ?></h3>
-                    <p class="pk-cap-description"><?php echo esc_html( $cap['description'] ); ?></p>
-                    <span class="pk-cap-arrow" aria-hidden="true">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="3" y1="8" x2="13" y2="8"></line>
-                            <polyline points="9,4 13,8 9,12"></polyline>
-                        </svg>
-                    </span>
+                    <h3 class="pk-cap-cell-title"><?php echo esc_html( $cap['title'] ); ?></h3>
+                    <p class="pk-cap-cell-desc"><?php echo esc_html( $cap['description'] ); ?></p>
                 </article>
             <?php endforeach; ?>
         </div>
+
     </div>
 </section>
