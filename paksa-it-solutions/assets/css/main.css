@@ -704,6 +704,7 @@ p:last-child {
 }
 
 /* Submenu panel */
+.pk-primary-menu .pk-submenu,
 .pk-submenu {
     display: none;
     position: absolute;
@@ -750,7 +751,17 @@ p:last-child {
     outline-offset: -2px;
 }
 
-.pk-submenu a[aria-current="page"] {
+.pk-submenu a[aria-current="page"],
+.pk-submenu .current-menu-item > a,
+.pk-submenu .current_page_item > a {
+    color: var(--pk-primary);
+    font-weight: 600;
+    background-color: var(--pk-bg-alt);
+}
+
+/* Active parent when child is current */
+.pk-primary-menu > .current-menu-ancestor > a,
+.pk-primary-menu > .current-menu-parent > a {
     color: var(--pk-primary);
     font-weight: 600;
 }

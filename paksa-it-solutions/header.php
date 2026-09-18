@@ -71,6 +71,7 @@ if (!defined('ABSPATH')) {
                 'depth'          => 2,
                 'fallback_cb'    => false,
                 'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                'walker'         => new Paksa_Nav_Walker(),
             ));
             ?>
         </div>

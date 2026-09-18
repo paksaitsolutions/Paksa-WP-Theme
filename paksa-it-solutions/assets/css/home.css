@@ -96,6 +96,11 @@
     margin-bottom: var(--pk-space-5);
     min-height: 2em;
     line-height: 1.4;
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .pk-cursor {
@@ -226,25 +231,10 @@
 .pk-trust-dot { color: rgba(255,255,255,0.5); flex-shrink: 0; }
 
 /* ============================================================
-   03 — CAPABILITIES BENTO
+   03 — CAPABILITIES
    ============================================================ */
 
 .pk-capabilities { background: var(--pk-bg-alt); }
-
-.pk-capabilities-header {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--pk-space-4);
-    margin-bottom: var(--pk-space-10);
-}
-
-@media (min-width: 1024px) {
-    .pk-capabilities-header {
-        grid-template-columns: 1fr 1fr;
-        gap: var(--pk-space-12);
-        align-items: end;
-    }
-}
 
 .pk-section-label {
     font-size: 0.75rem;
@@ -253,9 +243,25 @@
     letter-spacing: 0.1em;
     color: var(--pk-primary);
     margin-bottom: var(--pk-space-2);
+    display: block;
 }
 
-.pk-capabilities-header-text h2 {
+.pk-cap-header {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--pk-space-4);
+    margin-bottom: var(--pk-space-10);
+}
+
+@media (min-width: 1024px) {
+    .pk-cap-header {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--pk-space-12);
+        align-items: end;
+    }
+}
+
+.pk-cap-header-left h2 {
     font-size: clamp(1.75rem, 3vw, 2.25rem);
     font-weight: 700;
     color: var(--pk-text);
@@ -263,7 +269,7 @@
     line-height: 1.2;
 }
 
-.pk-capabilities-header-desc {
+.pk-cap-header-desc {
     font-size: 1rem;
     line-height: 1.75;
     color: var(--pk-text-secondary);
@@ -271,90 +277,116 @@
     align-self: end;
 }
 
-/* Bento grid — asymmetric, not 3 equal cards */
-.pk-cap-bento {
+/* 4-column tight grid */
+.pk-cap-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--pk-space-4);
 }
 
-@media (min-width: 640px) {
-    .pk-cap-bento {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .pk-cap-cell--large { grid-column: span 2; }
-    .pk-cap-cell--wide  { grid-column: span 2; }
-}
+@media (min-width: 640px)  { .pk-cap-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .pk-cap-grid { grid-template-columns: repeat(4, 1fr); gap: var(--pk-space-5); } }
 
-@media (min-width: 1024px) {
-    .pk-cap-bento {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    .pk-cap-cell--large { grid-column: span 2; grid-row: span 1; }
-    .pk-cap-cell--wide  { grid-column: span 3; }
-    .pk-cap-cell--normal { grid-column: span 1; }
-}
-
-.pk-cap-cell {
+.pk-cap-card {
     background: var(--pk-bg);
     border: 1px solid var(--pk-border);
     border-radius: var(--pk-radius-lg);
-    padding: var(--pk-space-8);
+    padding: var(--pk-space-6);
     display: flex;
     flex-direction: column;
-    gap: var(--pk-space-4);
+    gap: var(--pk-space-3);
     position: relative;
     overflow: hidden;
     transition: box-shadow var(--pk-transition-base), transform var(--pk-transition-base), border-color var(--pk-transition-base);
+    cursor: default;
 }
 
-.pk-cap-cell::after {
+/* Colored left accent bar */
+.pk-cap-card::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--pk-primary);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--pk-transition-base);
+    top: 0; left: 0; bottom: 0;
+    width: 3px;
+    border-radius: var(--pk-radius-lg) 0 0 var(--pk-radius-lg);
+    transition: width var(--pk-transition-base);
 }
 
-.pk-cap-cell:hover {
+.pk-cap-card--blue::before   { background: #6192F8; }
+.pk-cap-card--indigo::before { background: #7c6ff7; }
+.pk-cap-card--cyan::before   { background: #06b6d4; }
+.pk-cap-card--violet::before { background: #8b5cf6; }
+
+.pk-cap-card:hover {
     box-shadow: var(--pk-shadow-lg);
-    transform: translateY(-3px);
-    border-color: rgba(97,146,248,0.3);
+    transform: translateY(-4px);
+    border-color: rgba(97,146,248,0.25);
 }
 
-.pk-cap-cell:hover::after { transform: scaleX(1); }
+.pk-cap-card:hover::before { width: 4px; }
 
-.pk-cap-cell-icon {
-    width: 52px; height: 52px;
+.pk-cap-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--pk-space-1);
+}
+
+.pk-cap-card-icon {
+    width: 40px; height: 40px;
     border-radius: var(--pk-radius-md);
-    background: var(--pk-accent-light);
     display: flex; align-items: center; justify-content: center;
-    color: var(--pk-primary);
     flex-shrink: 0;
     transition: background var(--pk-transition-base), color var(--pk-transition-base);
 }
 
-.pk-cap-cell:hover .pk-cap-cell-icon {
-    background: var(--pk-primary);
-    color: #fff;
+.pk-cap-card--blue   .pk-cap-card-icon { background: rgba(97,146,248,0.12);  color: #6192F8; }
+.pk-cap-card--indigo .pk-cap-card-icon { background: rgba(124,111,247,0.12); color: #7c6ff7; }
+.pk-cap-card--cyan   .pk-cap-card-icon { background: rgba(6,182,212,0.12);   color: #06b6d4; }
+.pk-cap-card--violet .pk-cap-card-icon { background: rgba(139,92,246,0.12);  color: #8b5cf6; }
+
+.pk-cap-card:hover .pk-cap-card-icon { background: var(--pk-primary); color: #fff; }
+
+.pk-cap-tag {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: var(--pk-radius-full);
+    line-height: 1.6;
 }
 
-.pk-cap-cell-title {
-    font-size: 1.125rem;
+.pk-cap-card--blue   .pk-cap-tag { background: rgba(97,146,248,0.1);  color: #6192F8; }
+.pk-cap-card--indigo .pk-cap-tag { background: rgba(124,111,247,0.1); color: #7c6ff7; }
+.pk-cap-card--cyan   .pk-cap-tag { background: rgba(6,182,212,0.1);   color: #06b6d4; }
+.pk-cap-card--violet .pk-cap-tag { background: rgba(139,92,246,0.1);  color: #8b5cf6; }
+
+.pk-cap-card-title {
+    font-size: 1rem;
     font-weight: 700;
     color: var(--pk-text);
     margin: 0;
+    line-height: 1.3;
 }
 
-.pk-cap-cell-desc {
-    font-size: 0.9375rem;
+.pk-cap-card-desc {
+    font-size: 0.875rem;
     color: var(--pk-text-secondary);
-    line-height: 1.65;
+    line-height: 1.6;
     margin: 0;
     flex: 1;
+}
+
+.pk-cap-card-arrow {
+    margin-top: var(--pk-space-3);
+    color: var(--pk-border-strong);
+    transition: color var(--pk-transition-fast), transform var(--pk-transition-fast);
+    align-self: flex-end;
+}
+
+.pk-cap-card:hover .pk-cap-card-arrow {
+    color: var(--pk-primary);
+    transform: translateX(3px);
 }
 
 /* ============================================================

@@ -78,6 +78,37 @@ require_once __DIR__ . '/inc/products-listing-meta.php';
 require_once __DIR__ . '/inc/contact-form.php';
 
 /**
+ * Admin notice on Home page edit screen — redirect editors to Customizer.
+ */
+function paksa_homepage_editor_notice() {
+    $screen = get_current_screen();
+    if ( ! $screen || $screen->id !== 'page' ) return;
+
+    $page_id      = isset( $_GET['post'] ) ? (int) $_GET['post'] : 0;
+    $home_page_id = (int) get_option( 'page_on_front' );
+
+    if ( ! $page_id || $page_id !== $home_page_id ) return;
+
+    $customizer_url = add_query_arg(
+        array( 'autofocus[panel]' => 'paksa_homepage', 'url' => rawurlencode( home_url( '/' ) ) ),
+        admin_url( 'customize.php' )
+    );
+    ?>
+    <div class="notice notice-info" style="display:flex;align-items:center;gap:12px;padding:12px 16px;">
+        <span style="font-size:20px;">&#9998;</span>
+        <p style="margin:0;">
+            <strong><?php esc_html_e( 'Homepage content is managed via the Customizer.', 'paksa-it-solutions' ); ?></strong><br>
+            <?php esc_html_e( 'All homepage sections (Hero, Services, Products, etc.) are edited in:', 'paksa-it-solutions' ); ?>
+            <a href="<?php echo esc_url( $customizer_url ); ?>" class="button button-primary" style="margin-left:8px;">
+                <?php esc_html_e( 'Appearance &rarr; Customize &rarr; Homepage', 'paksa-it-solutions' ); ?>
+            </a>
+        </p>
+    </div>
+    <?php
+}
+add_action( 'admin_notices', 'paksa_homepage_editor_notice' );
+
+/**
  * Register Block Patterns
  */
 function paksa_register_block_patterns() {
