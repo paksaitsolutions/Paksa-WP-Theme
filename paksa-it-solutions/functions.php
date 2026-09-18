@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('PAKSA_THEME_VERSION', '2.1.0');
+define('PAKSA_THEME_VERSION', '2.2.0');
 define('PAKSA_THEME_DIR', get_template_directory());
 define('PAKSA_THEME_URI', get_template_directory_uri());
 
@@ -45,6 +45,7 @@ function paksa_theme_setup() {
     add_theme_support('editor-color-palette');
     add_theme_support('wp-block-styles');
     add_editor_style( array(
+        'assets/css/site-chrome.css',
         'assets/css/variables.css',
         'assets/css/animations.css',
         'assets/css/components.css',

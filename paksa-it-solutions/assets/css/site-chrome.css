@@ -1,0 +1,292 @@
+/* ============================================================
+   Paksa Theme — Site Chrome (Phase 22)
+   Header & Footer customization via body classes.
+
+   Architecture:
+   - All rules are keyed on body.paksa-header--* and body.paksa-footer--*
+   - These body classes are set by inc/parts.php for every page load
+   - Both classic PHP (header.php) and FSE block templates inherit body classes
+   - CSS variables --pk-header-min-height and --pk-header-py are set by PHP
+   - No JavaScript is required for appearance/variant changes
+   - Sticky/compact behavior uses a small JS enhancement in main.js
+   ============================================================ */
+
+/* ── Base header tokens ──────────────────────────────────────────────────── */
+:root {
+    --pk-header-min-height: 4.5rem;
+    --pk-header-py: 0.875rem;
+    --pk-header-bg: var(--pk-surface);
+    --pk-header-border: var(--pk-border);
+    --pk-header-shadow: var(--pk-shadow-sm);
+    --pk-header-text: var(--pk-text);
+    --pk-header-nav-text: var(--pk-text-secondary);
+    --pk-header-nav-hover: var(--pk-primary);
+    --pk-header-z: 100;
+}
+
+/* ── Classic PHP header base ─────────────────────────────────────────────── */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--pk-header-z);
+    min-height: var(--pk-header-min-height);
+    background: var(--pk-header-bg);
+    border-bottom: 1px solid var(--pk-header-border);
+    box-shadow: var(--pk-header-shadow);
+    transition: min-height var(--pk-transition-base),
+                background var(--pk-transition-base),
+                box-shadow var(--pk-transition-base),
+                transform var(--pk-transition-base);
+}
+
+.site-header .header-inner {
+    min-height: var(--pk-header-min-height);
+    padding-block: var(--pk-header-py);
+}
+
+/* ── FSE block header base ───────────────────────────────────────────────── */
+.pk-site-editor-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--pk-header-z);
+    min-height: var(--pk-header-min-height);
+    background: var(--pk-header-bg);
+    border-bottom: 1px solid var(--pk-header-border);
+    box-shadow: var(--pk-header-shadow);
+    transition: min-height var(--pk-transition-base),
+                background var(--pk-transition-base),
+                box-shadow var(--pk-transition-base),
+                transform var(--pk-transition-base);
+}
+
+.pk-site-editor-header__inner {
+    min-height: var(--pk-header-min-height);
+    padding-block: var(--pk-header-py);
+}
+
+/* ── Height variants ─────────────────────────────────────────────────────── */
+body.paksa-header-height--compact {
+    --pk-header-min-height: 3.5rem;
+    --pk-header-py: 0.5rem;
+}
+body.paksa-header-height--spacious {
+    --pk-header-min-height: 5.5rem;
+    --pk-header-py: 1.25rem;
+}
+
+/* ── Appearance variants ─────────────────────────────────────────────────── */
+
+/* Transparent */
+body.paksa-header-appearance--transparent .site-header,
+body.paksa-header-appearance--transparent .pk-site-editor-header {
+    --pk-header-bg: transparent;
+    --pk-header-border: transparent;
+    --pk-header-shadow: none;
+    --pk-header-text: var(--pk-text-inverse);
+    --pk-header-nav-text: var(--pk-text-inverse);
+    --pk-header-nav-hover: var(--pk-accent-light);
+    position: absolute;
+    width: 100%;
+}
+body.paksa-header-appearance--transparent .site-header .site-logo,
+body.paksa-header-appearance--transparent .site-header .main-nav a,
+body.paksa-header-appearance--transparent .site-header .menu-toggle,
+body.paksa-header-appearance--transparent .pk-site-editor-header .wp-block-site-title a,
+body.paksa-header-appearance--transparent .pk-site-editor-header .wp-block-navigation-item__content {
+    color: var(--pk-text-inverse);
+}
+
+/* Dark */
+body.paksa-header-appearance--dark .site-header,
+body.paksa-header-appearance--dark .pk-site-editor-header,
+body.paksa-header--dark .site-header,
+body.paksa-header--dark .pk-site-editor-header {
+    --pk-header-bg: var(--pk-bg-dark);
+    --pk-header-border: rgba(255,255,255,.1);
+    --pk-header-shadow: none;
+    --pk-header-text: var(--pk-text-inverse);
+    --pk-header-nav-text: var(--pk-text-inverse);
+    --pk-header-nav-hover: var(--pk-accent);
+}
+body.paksa-header-appearance--dark .site-header .site-logo,
+body.paksa-header-appearance--dark .site-header .main-nav a,
+body.paksa-header-appearance--dark .site-header .menu-toggle,
+body.paksa-header--dark .site-header .site-logo,
+body.paksa-header--dark .site-header .main-nav a,
+body.paksa-header--dark .site-header .menu-toggle,
+body.paksa-header-appearance--dark .pk-site-editor-header .wp-block-site-title a,
+body.paksa-header-appearance--dark .pk-site-editor-header .wp-block-navigation-item__content,
+body.paksa-header--dark .pk-site-editor-header .wp-block-site-title a,
+body.paksa-header--dark .pk-site-editor-header .wp-block-navigation-item__content {
+    color: var(--pk-text-inverse);
+}
+body.paksa-header-appearance--dark .site-header .pk-primary-menu .sub-menu,
+body.paksa-header--dark .site-header .pk-primary-menu .sub-menu {
+    background: var(--pk-surface-dark);
+}
+body.paksa-header-appearance--dark .site-header .pk-primary-menu .sub-menu a,
+body.paksa-header--dark .site-header .pk-primary-menu .sub-menu a {
+    color: var(--pk-text-inverse);
+}
+
+/* Light */
+body.paksa-header-appearance--light .site-header,
+body.paksa-header-appearance--light .pk-site-editor-header {
+    --pk-header-bg: #ffffff;
+    --pk-header-border: var(--pk-border);
+    --pk-header-shadow: var(--pk-shadow-sm);
+}
+
+/* Glass */
+body.paksa-header-appearance--glass .site-header,
+body.paksa-header-appearance--glass .pk-site-editor-header {
+    --pk-header-bg: rgba(255,255,255,.72);
+    --pk-header-border: rgba(255,255,255,.3);
+    --pk-header-shadow: var(--pk-shadow-sm);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+}
+
+/* Bordered */
+body.paksa-header-appearance--bordered .site-header,
+body.paksa-header-appearance--bordered .pk-site-editor-header {
+    --pk-header-border: var(--pk-border-strong);
+    --pk-header-shadow: none;
+    border-bottom-width: 2px;
+}
+
+/* ── Layout / variant body classes ───────────────────────────────────────── */
+
+/* Minimal — hide nav, show only logo + CTA */
+body.paksa-header--minimal .site-header .main-nav { display: none; }
+body.paksa-header--minimal .site-header .header-inner { justify-content: space-between; }
+body.paksa-header--minimal .pk-site-editor-header .pk-site-editor-navigation { display: none; }
+
+/* Centered — logo center, nav left, actions right */
+body.paksa-header--centered .site-header .header-inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+body.paksa-header--centered .site-header .site-logo { grid-column: 2; justify-self: center; }
+body.paksa-header--centered .site-header .main-nav  { grid-column: 1; justify-self: start; }
+body.paksa-header--centered .site-header .pk-header-actions { grid-column: 3; justify-self: end; }
+body.paksa-header--centered .site-header .menu-toggle { grid-column: 3; justify-self: end; }
+
+/* Two-actions — show secondary CTA */
+body.paksa-header--two-actions .site-header .pk-header-actions { display: flex; }
+
+/* ── Behavior variants ───────────────────────────────────────────────────── */
+
+/* Static — not sticky */
+body.paksa-header-behavior--static .site-header,
+body.paksa-header-behavior--static .pk-site-editor-header {
+    position: relative;
+}
+
+/* Sticky (default) — already set above */
+
+/* Sticky compact — JS adds .is-compact class on scroll */
+body.paksa-header-behavior--sticky-compact .site-header.is-compact,
+body.paksa-header-behavior--sticky-compact .pk-site-editor-header.is-compact {
+    --pk-header-min-height: 3.25rem;
+    --pk-header-py: 0.375rem;
+    box-shadow: var(--pk-shadow-md);
+}
+
+/* Hide on scroll — JS adds .is-hidden class */
+body.paksa-header-behavior--hide-on-scroll .site-header.is-hidden,
+body.paksa-header-behavior--hide-on-scroll .pk-site-editor-header.is-hidden {
+    transform: translateY(-100%);
+}
+
+/* Scrolled state — shadow enhancement */
+.site-header.is-scrolled,
+.pk-site-editor-header.is-scrolled {
+    box-shadow: var(--pk-shadow-md);
+}
+
+/* ── Footer variant body classes ─────────────────────────────────────────── */
+
+/* Simple — single row */
+body.paksa-footer--simple .site-footer .footer-column,
+body.paksa-footer--simple .pk-site-editor-footer .pk-site-editor-footer__col { display: none; }
+body.paksa-footer--simple .site-footer .footer-grid,
+body.paksa-footer--simple .pk-site-editor-footer .pk-site-editor-footer__inner { grid-template-columns: 1fr; }
+body.paksa-footer--simple .site-footer .footer-brand,
+body.paksa-footer--simple .pk-site-editor-footer .pk-site-editor-footer__brand { max-width: 34rem; }
+
+/* Legal — bottom bar only */
+body.paksa-footer--legal .site-footer .footer-grid,
+body.paksa-footer--legal .pk-site-editor-footer .pk-site-editor-footer__inner { display: none; }
+body.paksa-footer--legal .site-footer { padding-top: var(--pk-space-6); }
+
+/* Social — brand + social, no columns */
+body.paksa-footer--social .site-footer .footer-column,
+body.paksa-footer--social .pk-site-editor-footer .pk-site-editor-footer__col { display: none; }
+body.paksa-footer--social .site-footer .footer-grid,
+body.paksa-footer--social .pk-site-editor-footer .pk-site-editor-footer__inner { grid-template-columns: 1fr; }
+
+/* Company / contact — single column with contact info */
+body.paksa-footer--company .site-footer .footer-column,
+body.paksa-footer--contact .site-footer .footer-column { display: none; }
+body.paksa-footer--company .site-footer .footer-grid,
+body.paksa-footer--contact .site-footer .footer-grid { grid-template-columns: minmax(0,1fr); }
+body.paksa-footer--company .site-footer .footer-brand,
+body.paksa-footer--contact .site-footer .footer-brand { max-width: 40rem; }
+
+/* Dark — already dark by default; explicit override for light variations */
+body.paksa-footer--dark .site-footer,
+body.paksa-footer--dark .pk-site-editor-footer {
+    background: var(--pk-bg-dark);
+    color: var(--pk-text-inverse);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+    body.paksa-header--centered .site-header .header-inner {
+        grid-template-columns: 1fr auto;
+    }
+    body.paksa-header--centered .site-header .site-logo { grid-column: 1; justify-self: start; }
+    body.paksa-header--centered .site-header .main-nav { display: none; }
+    body.paksa-header--centered .site-header .pk-header-actions { display: none; }
+    body.paksa-header--centered .site-header .menu-toggle { grid-column: 2; }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .site-header,
+    .pk-site-editor-header {
+        transition: none;
+    }
+    body.paksa-header-behavior--hide-on-scroll .site-header.is-hidden,
+    body.paksa-header-behavior--hide-on-scroll .pk-site-editor-header.is-hidden {
+        transform: none;
+        opacity: 0.01;
+    }
+}
+
+body.paksa-motion--none .site-header,
+body.paksa-motion--none .pk-site-editor-header { transition: none; }
+
+/* ── Style variation integration ─────────────────────────────────────────── */
+/* Header/footer inherit --pk-* tokens automatically.
+   No per-variation overrides needed here — the token cascade handles it. */
+
+/* ── Announcement bar ────────────────────────────────────────────────────── */
+body:not(.paksa-header--announcement) .pk-announcement { display: none; }
+
+/* ── Header utility bar ──────────────────────────────────────────────────── */
+body:not(.paksa-header--contact):not(.paksa-header--social) .pk-header-utility { display: none; }
+
+/* ── Footer CTA band ─────────────────────────────────────────────────────── */
+body:not(.paksa-footer--cta) .pk-footer-cta { display: none; }
+
+/* ── Footer newsletter ───────────────────────────────────────────────────── */
+body:not(.paksa-footer--newsletter) .pk-footer-newsletter { display: none; }
+
+/* ── Editor parity ───────────────────────────────────────────────────────── */
+.editor-styles-wrapper .pk-site-editor-header {
+    position: relative;
+    min-height: var(--pk-header-min-height, 4.5rem);
+}

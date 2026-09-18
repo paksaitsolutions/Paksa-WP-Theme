@@ -23,6 +23,14 @@ function paksa_enqueue_assets() {
         null
     );
 
+    // Site chrome (header/footer customization)
+    wp_enqueue_style(
+        'paksa-site-chrome',
+        PAKSA_THEME_URI . '/assets/css/site-chrome.css',
+        array(),
+        $version
+    );
+
     // Variables CSS (design tokens)
     wp_enqueue_style(
         'paksa-variables',
