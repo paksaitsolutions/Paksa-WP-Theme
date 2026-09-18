@@ -93,6 +93,10 @@
     transform: none;
 }
 
+.js .pk-animate-on-scroll[data-anim="fade-down"] {
+    transform: translateY(-20px);
+}
+
 .js .pk-animate-on-scroll[data-anim="slide-right"] {
     transform: translateX(-24px);
 }
@@ -101,14 +105,32 @@
     transform: translateX(24px);
 }
 
+.js .pk-animate-on-scroll[data-anim="fade-left"] {
+    transform: translateX(-24px);
+}
+
+.js .pk-animate-on-scroll[data-anim="fade-right"] {
+    transform: translateX(24px);
+}
+
 .js .pk-animate-on-scroll[data-anim="scale-in"] {
     transform: scale(0.94);
+}
+
+.js .pk-animate-on-scroll[data-anim="reveal"] {
+    clip-path: inset(0 0 100% 0);
+    transform: none;
+    transition: clip-path 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease;
 }
 
 /* Revealed state */
 .js .pk-animate-on-scroll.is-visible {
     opacity: 1;
     transform: none !important;
+}
+
+.js .pk-animate-on-scroll[data-anim="reveal"].is-visible {
+    clip-path: inset(0 0 0 0);
 }
 
 /* Stagger delays */

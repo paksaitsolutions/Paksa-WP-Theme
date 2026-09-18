@@ -37,7 +37,8 @@ function paksa_register_service_meta_box() {
         'paksa_render_service_meta_box',
         'paksa_service',
         'normal',
-        'high'
+        'high',
+        array( '__back_compat_meta_box' => false )
     );
 }
 add_action( 'add_meta_boxes', 'paksa_register_service_meta_box' );
@@ -200,6 +201,16 @@ function paksa_service_meta_fields() {
         array( 'key' => 'hero_heading',     'label' => __( 'Hero Heading', 'paksa-it-solutions' ),       'type' => 'text',
                'hint' => __( 'Defaults to service title if blank.', 'paksa-it-solutions' ) ),
         array( 'key' => 'hero_description', 'label' => __( 'Hero Description', 'paksa-it-solutions' ),   'type' => 'textarea' ),
+        array( 'key' => 'trust_items',      'label' => __( 'Trust Items (one per line)', 'paksa-it-solutions' ), 'type' => 'textarea',
+               'hint' => __( 'Short trust signals shown below the CTA buttons. e.g. "In-house team — no outsourcing"', 'paksa-it-solutions' ) ),
+        array( 'key' => 'stat1_val',   'label' => __( 'Stat 1 Value',  'paksa-it-solutions' ), 'type' => 'text', 'hint' => __( 'e.g. 60%', 'paksa-it-solutions' ) ),
+        array( 'key' => 'stat1_label', 'label' => __( 'Stat 1 Label',  'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'stat2_val',   'label' => __( 'Stat 2 Value',  'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'stat2_label', 'label' => __( 'Stat 2 Label',  'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'stat3_val',   'label' => __( 'Stat 3 Value',  'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'stat3_label', 'label' => __( 'Stat 3 Label',  'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'stat4_val',   'label' => __( 'Stat 4 Value',  'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'stat4_label', 'label' => __( 'Stat 4 Label',  'paksa-it-solutions' ), 'type' => 'text' ),
         array( 'key' => 'hero_cta1_text',   'label' => __( 'Primary CTA Text', 'paksa-it-solutions' ),   'type' => 'text' ),
         array( 'key' => 'hero_cta1_url',    'label' => __( 'Primary CTA URL', 'paksa-it-solutions' ),    'type' => 'url' ),
         array( 'key' => 'hero_cta2_text',   'label' => __( 'Secondary CTA Text', 'paksa-it-solutions' ), 'type' => 'text' ),
@@ -210,14 +221,33 @@ function paksa_service_meta_fields() {
                'key' => 'overview_eyebrow', 'label' => __( 'Eyebrow', 'paksa-it-solutions' ), 'type' => 'text' ),
         array( 'key' => 'overview_heading', 'label' => __( 'Heading', 'paksa-it-solutions' ), 'type' => 'text' ),
         array( 'key' => 'overview_content', 'label' => __( 'Content (one paragraph per line)', 'paksa-it-solutions' ), 'type' => 'textarea',
-               'hint' => __( 'Each line becomes a paragraph. Use the block editor for richer content.', 'paksa-it-solutions' ) ),
+               'hint' => __( 'Each line becomes a paragraph.', 'paksa-it-solutions' ) ),
+        array( 'key' => 'overview_points',  'label' => __( 'Overview Points (one per line: Title | Description)', 'paksa-it-solutions' ), 'type' => 'textarea',
+               'hint' => __( 'Format: Point Title | Description. Shown as icon+text list on the right side.', 'paksa-it-solutions' ) ),
 
-        // --- Features / Capabilities ---
-        array( 'section' => __( 'Key Capabilities', 'paksa-it-solutions' ),
-               'key' => 'features_eyebrow', 'label' => __( 'Eyebrow', 'paksa-it-solutions' ), 'type' => 'text' ),
-        array( 'key' => 'features_heading', 'label' => __( 'Heading', 'paksa-it-solutions' ), 'type' => 'text' ),
-        array( 'key' => 'features_list',    'label' => __( 'Capability Items (one per line: Title | Description)', 'paksa-it-solutions' ), 'type' => 'textarea',
-               'hint' => __( 'Format: Capability Title | Short description. One item per line.', 'paksa-it-solutions' ) ),
+        // --- Capabilities (rich) ---
+        array( 'section' => __( 'Capabilities (Rich Cards)', 'paksa-it-solutions' ),
+               'key' => 'features_heading', 'label' => __( 'Section Heading', 'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'features_eyebrow', 'label' => __( 'Section Description', 'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'capabilities',     'label' => __( 'Capability Cards (one per line)', 'paksa-it-solutions' ), 'type' => 'textarea',
+               'hint' => __( 'Format: Title | Description | Metric Value | Metric Label | Deliverable 1; Deliverable 2; Deliverable 3; Deliverable 4', 'paksa-it-solutions' ) ),
+
+        // --- Use Cases ---
+        array( 'section' => __( 'Use Cases', 'paksa-it-solutions' ),
+               'key' => 'usecases_heading', 'label' => __( 'Section Heading', 'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'usecases_desc',    'label' => __( 'Section Description', 'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'usecases',         'label' => __( 'Use Case Items (one per line: Title | Description)', 'paksa-it-solutions' ), 'type' => 'textarea',
+               'hint' => __( 'Format: Use Case Title | Description. One item per line.', 'paksa-it-solutions' ) ),
+
+        // --- Tech Stack ---
+        array( 'section' => __( 'Technology Stack', 'paksa-it-solutions' ),
+               'key' => 'tech_stack', 'label' => __( 'Tech Stack (one group per line)', 'paksa-it-solutions' ), 'type' => 'textarea',
+               'hint' => __( 'Format: Group Name | Tag1; Tag2; Tag3. e.g. "Languages | Python; R; SQL"', 'paksa-it-solutions' ) ),
+
+        // --- Related Links ---
+        array( 'section' => __( 'Related Services', 'paksa-it-solutions' ),
+               'key' => 'related_links', 'label' => __( 'Related Service Links (one per line: Title | /url/)', 'paksa-it-solutions' ), 'type' => 'textarea',
+               'hint' => __( 'Format: Service Name | /services/slug/. Shown as pill links at the bottom.', 'paksa-it-solutions' ) ),
 
         // --- Related Products ---
         array( 'section' => __( 'Related Products', 'paksa-it-solutions' ),

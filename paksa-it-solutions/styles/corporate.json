@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "title": "Corporate",
+  "styles": {
+    "color": { "background": "#f4f7fa", "text": "#1a2a3a" },
+    "typography": { "fontFamily": "var:preset|font-family|poppins" },
+    "elements": {
+      "button": { "border": { "radius": "6px" } },
+      "heading": { "color": { "text": "#1a2a3a" } }
+    }
+  },
+  "settings": {
+    "color": {
+      "palette": [
+        { "name": "Primary", "slug": "primary", "color": "#174c78" },
+        { "name": "Primary Hover", "slug": "primary-hover", "color": "#103b61" },
+        { "name": "Secondary", "slug": "secondary", "color": "#1a2a3a" },
+        { "name": "Accent", "slug": "accent", "color": "#1b78a5" },
+        { "name": "Accent Light", "slug": "accent-light", "color": "#eaf5fb" },
+        { "name": "Background", "slug": "bg", "color": "#ffffff" },
+        { "name": "Background Alt", "slug": "bg-alt", "color": "#f4f7fa" },
+        { "name": "Background Dark", "slug": "bg-dark", "color": "#1a2a3a" },
+        { "name": "Surface", "slug": "surface", "color": "#ffffff" },
+        { "name": "Surface Alt", "slug": "surface-alt", "color": "#f4f7fa" },
+        { "name": "Text Primary", "slug": "text", "color": "#1a2a3a" },
+        { "name": "Text Secondary", "slug": "text-secondary", "color": "#4a5a6a" },
+        { "name": "Text Muted", "slug": "muted", "color": "#7a8a9a" },
+        { "name": "Text Inverse", "slug": "text-inverse", "color": "#ffffff" },
+        { "name": "Border", "slug": "border", "color": "#d0dae4" },
+        { "name": "Success", "slug": "success", "color": "#0d7a4e" },
+        { "name": "Warning", "slug": "warning", "color": "#b45309" },
+        { "name": "Error", "slug": "error", "color": "#c0392b" },
+        { "name": "Info", "slug": "info", "color": "#1b78a5" }
+      ]
+    },
+    "custom": {
+      "radius-sm": "4px",
+      "radius-md": "6px",
+      "radius-lg": "10px",
+      "radius-xl": "16px"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 <?php
 /**
- * Nexus Business Theme — Customizer Settings
+ * Paksa Theme — Customizer Settings
  *
  * All option KEYS (paksa_phone, paksa_email, etc.) are intentionally preserved.
  * These keys are stored in wp_options as theme mods and must not be renamed —

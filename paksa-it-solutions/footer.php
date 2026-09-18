@@ -10,24 +10,28 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-    <footer class="site-footer" role="contentinfo">
+    <?php get_template_part( 'template-parts/parts/footer-cta' ); ?>
+    <?php get_template_part( 'template-parts/parts/footer-newsletter' ); ?>
+
+    <footer class="site-footer site-footer--<?php echo esc_attr( paksa_get_footer_variant() ); ?>" role="contentinfo">
         <div class="container footer-grid">
             <div class="footer-brand">
                 <?php echo paksa_get_logo(array('class' => 'site-logo', 'show_text' => true)); ?>
                 <p><?php esc_html_e('Technology That Moves Business Forward.', 'paksa-it-solutions'); ?></p>
+                <?php get_template_part( 'template-parts/parts/footer-contact' ); ?>
                 <div class="footer-social">
                     <?php
                     $social_links = array(
-                        array( 'url' => paksa_get_option( 'paksa_social_facebook', '' ), 'label' => __( 'Facebook', 'paksa-it-solutions' ) ),
-                        array( 'url' => paksa_get_option( 'paksa_social_twitter', '' ),  'label' => __( 'Twitter', 'paksa-it-solutions' ) ),
-                        array( 'url' => paksa_get_option( 'paksa_social_linkedin', '' ), 'label' => __( 'LinkedIn', 'paksa-it-solutions' ) ),
-                        array( 'url' => paksa_get_option( 'paksa_social_github', '' ),   'label' => __( 'GitHub', 'paksa-it-solutions' ) ),
+                        array( 'url' => paksa_get_option( 'paksa_social_facebook', '' ), 'label' => __( 'Facebook', 'paksa-it-solutions' ), 'icon' => 'facebook' ),
+                        array( 'url' => paksa_get_option( 'paksa_social_twitter', '' ),  'label' => __( 'Twitter', 'paksa-it-solutions' ), 'icon' => 'twitter' ),
+                        array( 'url' => paksa_get_option( 'paksa_social_linkedin', '' ), 'label' => __( 'LinkedIn', 'paksa-it-solutions' ), 'icon' => 'linkedin' ),
+                        array( 'url' => paksa_get_option( 'paksa_social_github', '' ),   'label' => __( 'GitHub', 'paksa-it-solutions' ), 'icon' => 'github' ),
                     );
                     foreach ( $social_links as $link ) :
                         if ( empty( $link['url'] ) ) continue;
                         ?>
                         <a href="<?php echo esc_url( $link['url'] ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr( $link['label'] ); ?>">
-                            <?php echo esc_html( $link['label'] ); ?>
+                            <?php echo paksa_icon( $link['icon'], 18 ); ?>
                         </a>
                     <?php endforeach; ?>
                 </div>

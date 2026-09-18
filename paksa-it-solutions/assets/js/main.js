@@ -1,5 +1,5 @@
 /**
- * Nexus Business Theme — Main JavaScript
+ * Paksa Theme — Main JavaScript
  * Header scroll state + desktop dropdown navigation
  */
 

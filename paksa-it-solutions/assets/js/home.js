@@ -1,5 +1,5 @@
 /**
- * Nexus Business Theme — Homepage JavaScript
+ * Paksa Theme — Homepage JavaScript
  * FAQ accordion — accessible, vanilla JS, no jQuery
  *
  * @package paksa-it-solutions

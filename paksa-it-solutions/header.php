@@ -19,8 +19,10 @@ if (!defined('ABSPATH')) {
 <body <?php body_class(); ?>>
 
     <?php paksa_skip_link(); ?>
+    <?php get_template_part( 'template-parts/parts/announcement' ); ?>
+    <?php get_template_part( 'template-parts/parts/header-utility' ); ?>
 
-    <header class="site-header" role="banner">
+    <header class="site-header site-header--<?php echo esc_attr( paksa_get_header_variant() ); ?>" role="banner">
         <div class="container header-inner">
             <?php echo paksa_get_logo(array('class' => 'site-logo')); ?>
 
@@ -37,18 +39,10 @@ if (!defined('ABSPATH')) {
                 ?>
             </nav>
 
-            <div class="nav-cta">
-                <a href="<?php echo esc_url( paksa_get_option( 'paksa_cta_primary_url', '/contact/' ) ); ?>" class="btn btn-primary btn-sm">
-                    <?php esc_html_e( 'Get in Touch', 'paksa-it-solutions' ); ?>
-                </a>
-            </div>
+            <?php get_template_part( 'template-parts/parts/header-actions', null, array( 'variant' => paksa_get_header_variant() ) ); ?>
 
             <button class="menu-toggle" aria-controls="mobile-nav" aria-expanded="false" aria-label="<?php esc_attr_e('Open menu', 'paksa-it-solutions'); ?>" type="button">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
+                <?php echo paksa_icon( 'menu' ); ?>
             </button>
         </div>
     </header>
@@ -57,10 +51,7 @@ if (!defined('ABSPATH')) {
         <div class="mobile-nav-header">
             <?php echo paksa_get_logo(array('class' => 'site-logo')); ?>
             <button class="mobile-nav-close" aria-label="<?php esc_attr_e('Close menu', 'paksa-it-solutions'); ?>" type="button">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
+                <?php echo paksa_icon( 'close' ); ?>
             </button>
         </div>
         <div class="mobile-nav-list">
@@ -81,4 +72,3 @@ if (!defined('ABSPATH')) {
             </a>
         </div>
     </nav>
-

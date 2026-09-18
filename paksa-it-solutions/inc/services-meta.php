@@ -83,6 +83,27 @@ function paksa_register_services_meta_box() {
 add_action( 'add_meta_boxes', 'paksa_register_services_meta_box' );
 
 /**
+ * Admin notice on the Services page edit screen.
+ * Tells editors where to edit content since the_content() is not used.
+ */
+function paksa_services_edit_notice() {
+    $screen = get_current_screen();
+    if ( ! $screen || $screen->base !== 'post' || $screen->post_type !== 'page' ) {
+        return;
+    }
+    global $post;
+    if ( ! $post || get_post_meta( $post->ID, '_wp_page_template', true ) !== 'page-services.php' ) {
+        return;
+    }
+    echo '<div class="notice notice-info" style="border-left-color:#6192F8;">';
+    echo '<p><strong>Services Page:</strong> This page is built from template parts. ';
+    echo 'Edit the <strong>Hero, CTA and section visibility</strong> using the <strong>"Services Page Content"</strong> meta box below. ';
+    echo 'To edit individual services, go to <a href="' . esc_url( admin_url( 'edit.php?post_type=paksa_service' ) ) . '">Services &rarr; All Services</a>.</p>';
+    echo '</div>';
+}
+add_action( 'admin_notices', 'paksa_services_edit_notice' );
+
+/**
  * Only show the meta box on pages using the Services template.
  * Hooked to add_meta_boxes — checks current screen template.
  */

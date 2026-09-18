@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('PAKSA_THEME_VERSION', '1.1.1');
+define('PAKSA_THEME_VERSION', '1.9.0');
 define('PAKSA_THEME_DIR', get_template_directory());
 define('PAKSA_THEME_URI', get_template_directory_uri());
 
@@ -36,9 +36,20 @@ function paksa_theme_setup() {
         'flex-width'  => true,
     ));
     add_theme_support('align-wide');
+    // Opt in to native block templates and editable block template parts.
+    // Existing PHP hierarchy files remain available for the established
+    // Customizer-driven routes until a visual template is selected.
+    add_theme_support('block-templates');
+    add_theme_support('block-template-parts');
     add_theme_support('editor-styles');
     add_theme_support('editor-color-palette');
     add_theme_support('wp-block-styles');
+    add_editor_style( array(
+        'assets/css/variables.css',
+        'assets/css/components.css',
+        'assets/css/blocks.css',
+        'assets/css/editor.css',
+    ) );
 
     register_nav_menus(array(
         'primary'          => __('Primary Navigation', 'paksa-it-solutions'),
@@ -67,6 +78,14 @@ require_once __DIR__ . '/inc/template-functions.php';
 require_once __DIR__ . '/inc/template-tags.php';
 require_once __DIR__ . '/inc/customizer.php';
 require_once __DIR__ . '/inc/icons.php';
+require_once __DIR__ . '/inc/visual-system.php';
+require_once __DIR__ . '/inc/editor-controls.php';
+require_once __DIR__ . '/inc/blocks.php';
+require_once __DIR__ . '/inc/advanced-builder.php';
+require_once __DIR__ . '/inc/parts.php';
+require_once __DIR__ . '/inc/style-variations.php';
+require_once __DIR__ . '/inc/site-editor.php';
+require_once __DIR__ . '/inc/composition.php';
 require_once __DIR__ . '/inc/nav-walker.php';
 require_once __DIR__ . '/inc/services-meta.php';
 require_once __DIR__ . '/inc/cpt.php';
@@ -78,7 +97,8 @@ require_once __DIR__ . '/inc/products-listing-meta.php';
 require_once __DIR__ . '/inc/contact-form.php';
 
 /**
- * Admin notice on Home page edit screen — redirect editors to Customizer.
+ * Guide the legacy Customizer-driven home page without preventing normal
+ * Gutenberg page building or the Site Editor's Paksa visual templates.
  */
 function paksa_homepage_editor_notice() {
     $screen = get_current_screen();
@@ -97,8 +117,8 @@ function paksa_homepage_editor_notice() {
     <div class="notice notice-info" style="display:flex;align-items:center;gap:12px;padding:12px 16px;">
         <span style="font-size:20px;">&#9998;</span>
         <p style="margin:0;">
-            <strong><?php esc_html_e( 'Homepage content is managed via the Customizer.', 'paksa-it-solutions' ); ?></strong><br>
-            <?php esc_html_e( 'All homepage sections (Hero, Services, Products, etc.) are edited in:', 'paksa-it-solutions' ); ?>
+            <strong><?php esc_html_e( 'This existing homepage uses the legacy Customizer composition.', 'paksa-it-solutions' ); ?></strong><br>
+            <?php esc_html_e( 'It remains available below. For new visually composed pages, select the “Paksa Visual Page” or “Paksa Landing Page” template in Page settings and use native blocks, patterns, and template parts.', 'paksa-it-solutions' ); ?>
             <a href="<?php echo esc_url( $customizer_url ); ?>" class="button button-primary" style="margin-left:8px;">
                 <?php esc_html_e( 'Appearance &rarr; Customize &rarr; Homepage', 'paksa-it-solutions' ); ?>
             </a>

@@ -1,5 +1,5 @@
 /**
- * Nexus Business Theme — Mobile Navigation
+ * Paksa Theme — Mobile Navigation
  * Handles off-canvas mobile menu with accessibility
  */
 

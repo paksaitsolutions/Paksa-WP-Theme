@@ -1,0 +1,52 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "title": "Elegant",
+  "styles": {
+    "color": { "background": "#fffdf9", "text": "#27221d" },
+    "typography": { "fontFamily": "var:preset|font-family|poppins", "letterSpacing": "-0.01em" },
+    "elements": {
+      "button": { "border": { "radius": "8px" } },
+      "heading": {
+        "color": { "text": "#27221d" },
+        "typography": { "letterSpacing": "-0.02em" }
+      }
+    }
+  },
+  "settings": {
+    "color": {
+      "palette": [
+        { "name": "Primary", "slug": "primary", "color": "#82633d" },
+        { "name": "Primary Hover", "slug": "primary-hover", "color": "#674d2e" },
+        { "name": "Secondary", "slug": "secondary", "color": "#27221d" },
+        { "name": "Accent", "slug": "accent", "color": "#a38153" },
+        { "name": "Accent Light", "slug": "accent-light", "color": "#f8f3ea" },
+        { "name": "Background", "slug": "bg", "color": "#fffdf9" },
+        { "name": "Background Alt", "slug": "bg-alt", "color": "#f8f4ed" },
+        { "name": "Background Dark", "slug": "bg-dark", "color": "#27221d" },
+        { "name": "Surface", "slug": "surface", "color": "#fffdf9" },
+        { "name": "Surface Alt", "slug": "surface-alt", "color": "#f8f4ed" },
+        { "name": "Text Primary", "slug": "text", "color": "#27221d" },
+        { "name": "Text Secondary", "slug": "text-secondary", "color": "#625a50" },
+        { "name": "Text Muted", "slug": "muted", "color": "#9a8a78" },
+        { "name": "Text Inverse", "slug": "text-inverse", "color": "#fffdf9" },
+        { "name": "Border", "slug": "border", "color": "#e9dfd1" },
+        { "name": "Success", "slug": "success", "color": "#3d7a4e" },
+        { "name": "Warning", "slug": "warning", "color": "#a0722a" },
+        { "name": "Error", "slug": "error", "color": "#b03a2e" },
+        { "name": "Info", "slug": "info", "color": "#82633d" }
+      ],
+      "gradients": [
+        { "name": "Primary Flow", "slug": "primary-flow", "gradient": "linear-gradient(135deg, #82633d 0%, #a38153 100%)" },
+        { "name": "Deep Surface", "slug": "deep-surface", "gradient": "linear-gradient(135deg, #27221d 0%, #3d3028 100%)" },
+        { "name": "Soft Accent", "slug": "soft-accent", "gradient": "linear-gradient(135deg, #f8f3ea 0%, #fffdf9 100%)" }
+      ]
+    },
+    "custom": {
+      "radius-sm": "4px",
+      "radius-md": "8px",
+      "radius-lg": "14px",
+      "radius-xl": "22px"
+    }
+  }
+}

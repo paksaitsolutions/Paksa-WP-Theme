@@ -1,0 +1,9 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "title": "Modern",
+  "styles": {
+    "color": { "background": "#ffffff", "text": "#1d1d1d" },
+    "elements": { "button": { "border": { "radius": "10px" } } }
+  }
+}

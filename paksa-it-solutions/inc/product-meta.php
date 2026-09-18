@@ -86,7 +86,8 @@ function paksa_register_product_meta_box() {
         'paksa_render_product_meta_box',
         'paksa_product',
         'normal',
-        'high'
+        'high',
+        array( '__back_compat_meta_box' => false )
     );
 }
 add_action( 'add_meta_boxes', 'paksa_register_product_meta_box' );

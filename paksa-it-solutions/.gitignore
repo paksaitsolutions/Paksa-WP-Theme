@@ -94,3 +94,15 @@ wp-config.php.*
 .AppleDouble
 .LSOverride
 ._*
+
+# --- Theme docs (internal dev notes, not for distribution) ---
+/paksa-it-solutions/docs/
+
+# --- Demo content (not for distribution) ---
+/paksa-it-solutions/demo/
+
+# --- AI/tool artifacts ---
+*.kilo
+*.kilocode
+.kilocode/
+.kilo/

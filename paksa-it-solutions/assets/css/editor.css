@@ -1,0 +1,94 @@
+/* Paksa Theme — editor-only clarity helpers. */
+.editor-styles-wrapper .pk-pattern-section { margin-block: 1.5rem; }
+.editor-styles-wrapper .pk-pattern-section > .wp-block-group,
+.editor-styles-wrapper .pk-pattern-section > .wp-block-columns { max-width: var(--pk-container); }
+.editor-styles-wrapper .wp-block-paksa-icon { box-sizing: border-box; }
+.editor-styles-wrapper .pk-pattern-media { min-height: 12rem; }
+.editor-styles-wrapper .pk-pattern-faq > p { display: block; }
+.editor-styles-wrapper .pk-site-editor-header,
+.editor-styles-wrapper .pk-site-editor-footer,
+.editor-styles-wrapper .pk-site-editor-hero,
+.editor-styles-wrapper .pk-site-editor-cta { margin-block: 1.5rem; }
+.editor-styles-wrapper .pk-site-editor-navigation { min-width: min(100%, 18rem); }
+.editor-styles-wrapper .pk-site-editor-hero__excerpt { margin-inline: auto; }
+.editor-styles-wrapper .pk-site-editor-archive-loop .wp-block-post-template { gap: var(--pk-space-6); }
+
+/* Motion block styles — show visible in editor so content is editable */
+.editor-styles-wrapper .is-style-paksa-motion-fade,
+.editor-styles-wrapper .is-style-paksa-motion-fade-up,
+.editor-styles-wrapper .is-style-paksa-motion-fade-down,
+.editor-styles-wrapper .is-style-paksa-motion-fade-left,
+.editor-styles-wrapper .is-style-paksa-motion-fade-right,
+.editor-styles-wrapper .is-style-paksa-motion-scale,
+.editor-styles-wrapper .is-style-paksa-motion-reveal,
+.editor-styles-wrapper .is-style-paksa-motion-stagger,
+.editor-styles-wrapper .is-style-paksa-motion-stagger > * {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition: none;
+}
+
+/* Header actions preview */
+.editor-styles-wrapper .pk-site-editor-header__actions { display: flex; }
+
+/* Phase 17 block editor previews */
+.editor-styles-wrapper .pk-section { padding-block: 2rem; }
+.editor-styles-wrapper .pk-section--dark { background: var(--pk-bg-dark); color: var(--pk-text-inverse); }
+.editor-styles-wrapper .pk-section--alt { background: var(--pk-bg-alt); }
+.editor-styles-wrapper .pk-section--gradient { background: linear-gradient(135deg, var(--pk-bg) 0%, var(--pk-accent-light) 100%); }
+
+.editor-styles-wrapper .pk-editor-testimonial-preview,
+.editor-styles-wrapper .pk-editor-cta-preview { width: 100%; }
+
+.editor-styles-wrapper .pk-testimonial { margin: 0; }
+.editor-styles-wrapper .pk-cta { padding-block: 2rem; }
+
+/* New block style previews */
+.editor-styles-wrapper .is-style-paksa-display { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; letter-spacing: -.04em; }
+.editor-styles-wrapper .is-style-paksa-eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--pk-primary); }
+.editor-styles-wrapper .is-style-paksa-lead { font-size: 1.125rem; color: var(--pk-text-secondary); }
+.editor-styles-wrapper .is-style-paksa-muted { color: var(--pk-text-muted); }
+
+/* Phase 18 — editor parity for new block styles */
+.editor-styles-wrapper .is-style-paksa-rounded img,
+.editor-styles-wrapper .is-style-paksa-rounded figure { border-radius: var(--pk-radius-lg); overflow: hidden; }
+
+.editor-styles-wrapper .is-style-paksa-elevated { border-radius: var(--pk-radius-lg); box-shadow: var(--pk-shadow-lg); overflow: hidden; }
+
+.editor-styles-wrapper .is-style-paksa-framed { padding: var(--pk-space-3); border: 1px solid var(--pk-border); border-radius: var(--pk-radius-lg); background: var(--pk-surface); }
+
+.editor-styles-wrapper .is-style-paksa-circle img { border-radius: var(--pk-radius-full); aspect-ratio: 1; object-fit: cover; }
+
+.editor-styles-wrapper .is-style-paksa-surface { padding: 1.5rem; border: 1px solid var(--pk-border); border-radius: var(--pk-radius-lg); background: var(--pk-surface); }
+
+.editor-styles-wrapper .is-style-paksa-glass { padding: 1.5rem; border: 1px solid rgba(255,255,255,.18); border-radius: var(--pk-radius-lg); background: rgba(255,255,255,.08); }
+
+.editor-styles-wrapper .is-style-paksa-bordered { padding: 1.5rem; border: 2px solid var(--pk-border); border-radius: var(--pk-radius-lg); }
+
+.editor-styles-wrapper .is-style-paksa-dark { padding: 1.5rem; border-radius: var(--pk-radius-lg); color: var(--pk-text-inverse); background: var(--pk-bg-dark); }
+
+.editor-styles-wrapper .is-style-paksa-gradient-text { background: linear-gradient(135deg, var(--pk-primary), #7c5cfc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+.editor-styles-wrapper .is-style-paksa-section-heading { position: relative; padding-bottom: var(--pk-space-4); }
+.editor-styles-wrapper .is-style-paksa-section-heading::after { position: absolute; bottom: 0; left: 0; width: 3rem; height: 3px; border-radius: var(--pk-radius-full); background: var(--pk-primary); content: ''; }
+
+.editor-styles-wrapper .is-style-paksa-large.wp-block-quote { padding: 2rem; border: 0; border-left: 4px solid var(--pk-primary); background: var(--pk-accent-light); }
+.editor-styles-wrapper .is-style-paksa-large.wp-block-quote p { font-size: 1.375rem; font-style: italic; font-weight: 500; }
+
+.editor-styles-wrapper .is-style-paksa-intro { font-size: 1.25rem; font-weight: 500; color: var(--pk-text); }
+
+.editor-styles-wrapper .pk-section__overlay { display: none; }
+
+.editor-styles-wrapper .pk-section--valign-center,
+.editor-styles-wrapper .pk-section--valign-bottom { display: block; }
+
+/* Phase 19 — editor parity for new template parts and compositions */
+.editor-styles-wrapper .pk-site-editor-header--dark { background: var(--pk-bg-dark); color: var(--pk-text-inverse); }
+.editor-styles-wrapper .pk-site-editor-header--dark .wp-block-site-title a { color: var(--pk-text-inverse); }
+.editor-styles-wrapper .pk-site-editor-footer--minimal { padding-top: 0; background: var(--pk-bg-dark); }
+.editor-styles-wrapper .pk-site-editor-footer--cta { padding-top: 0; background: var(--pk-bg-dark); }
+.editor-styles-wrapper .pk-site-editor-footer__cta-band { padding-block: 2rem; border-bottom: 1px solid rgba(255,255,255,.1); }
+.editor-styles-wrapper .pk-site-editor-hero--product { background: linear-gradient(135deg, var(--pk-bg) 0%, var(--pk-accent-light) 100%); }
+.editor-styles-wrapper .pk-site-editor-hero--service { background: var(--pk-bg-dark); color: var(--pk-text-inverse); }
+.editor-styles-wrapper .pk-site-editor-main--landing { padding-block: 0; }

@@ -4,50 +4,50 @@
 
 :root {
     /* Brand — matches paksa.com.pk exactly */
-    --pk-primary: #6192F8;
-    --pk-primary-hover: #4a7ef5;
+    --pk-primary: var(--wp--preset--color--primary, #6192F8);
+    --pk-primary-hover: var(--wp--preset--color--primary-hover, #4a7ef5);
     --pk-primary-active: #3366e0;
-    --pk-secondary: #121619;
+    --pk-secondary: var(--wp--preset--color--secondary, #121619);
     --pk-secondary-hover: #1d2329;
-    --pk-accent: #6192F8;
+    --pk-accent: var(--wp--preset--color--accent, #6192F8);
     --pk-accent-hover: #4a7ef5;
     --pk-accent-active: #3366e0;
-    --pk-accent-light: #eef3fe;
+    --pk-accent-light: var(--wp--preset--color--accent-light, #eef3fe);
 
     /* Background */
-    --pk-bg: #ffffff;
-    --pk-bg-alt: #f8f9fc;
-    --pk-bg-dark: #121619;
+    --pk-bg: var(--wp--preset--color--bg, #ffffff);
+    --pk-bg-alt: var(--wp--preset--color--bg-alt, #f8f9fc);
+    --pk-bg-dark: var(--wp--preset--color--bg-dark, #121619);
     --pk-bg-dark-alt: #1d2329;
 
     /* Surface */
-    --pk-surface: #ffffff;
-    --pk-surface-elevated: #ffffff;
-    --pk-surface-dark: #1d2329;
+    --pk-surface: var(--wp--preset--color--surface, #ffffff);
+    --pk-surface-elevated: var(--wp--preset--color--surface, #ffffff);
+    --pk-surface-dark: var(--wp--preset--color--bg-dark, #1d2329);
     --pk-surface-dark-elevated: #252d36;
 
     /* Text */
-    --pk-text: #1d1d1d;
-    --pk-text-secondary: #555f6d;
-    --pk-text-muted: #8a94a0;
-    --pk-text-inverse: #ffffff;
+    --pk-text: var(--wp--preset--color--text, #1d1d1d);
+    --pk-text-secondary: var(--wp--preset--color--text-secondary, #555f6d);
+    --pk-text-muted: var(--wp--preset--color--text-muted, #8a94a0);
+    --pk-text-inverse: var(--wp--preset--color--text-inverse, #ffffff);
     --pk-text-inverse-muted: #a8b3bf;
-    --pk-text-link: #6192F8;
-    --pk-text-link-hover: #4a7ef5;
+    --pk-text-link: var(--wp--preset--color--primary, #6192F8);
+    --pk-text-link-hover: var(--wp--preset--color--primary-hover, #4a7ef5);
 
     /* Border */
-    --pk-border: #e6e8ea;
-    --pk-border-strong: #d0d5dd;
+    --pk-border: var(--wp--preset--color--border, #e6e8ea);
+    --pk-border-strong: var(--wp--preset--color--border, #d0d5dd);
     --pk-border-dark: #2d3748;
 
     /* Semantic */
-    --pk-success: #12b76a;
+    --pk-success: var(--wp--preset--color--success, #12b76a);
     --pk-success-bg: #ecfdf3;
-    --pk-warning: #f79009;
+    --pk-warning: var(--wp--preset--color--warning, #f79009);
     --pk-warning-bg: #fffaeb;
-    --pk-error: #f04438;
+    --pk-error: var(--wp--preset--color--error, #f04438);
     --pk-error-bg: #fef3f2;
-    --pk-info: #6192F8;
+    --pk-info: var(--wp--preset--color--info, #6192F8);
     --pk-info-bg: #eef3fe;
 
     /* Radius — consistent scale */

@@ -6,7 +6,52 @@
 
     document.documentElement.classList.add( 'js' );
 
-    if ( ! window.IntersectionObserver ) return;
+    /* Block-style motion choices are converted into the same central reveal
+       contract used by PHP sections. No animation state is stored in content. */
+    var motionStyles = {
+        'is-style-paksa-motion-fade': 'fade-in',
+        'is-style-paksa-motion-fade-up': 'fade-up',
+        'is-style-paksa-motion-fade-down': 'fade-down',
+        'is-style-paksa-motion-fade-left': 'fade-left',
+        'is-style-paksa-motion-fade-right': 'fade-right',
+        'is-style-paksa-motion-scale': 'scale-in',
+        'is-style-paksa-motion-reveal': 'reveal'
+    };
+
+    /* Motion block styles also drive the CSS-native pk-motion-visible class
+       so the block-style CSS in blocks.css activates on scroll. */
+    var motionBlockClasses = [
+        'is-style-paksa-motion-fade', 'is-style-paksa-motion-fade-up',
+        'is-style-paksa-motion-fade-down', 'is-style-paksa-motion-fade-left',
+        'is-style-paksa-motion-fade-right', 'is-style-paksa-motion-scale',
+        'is-style-paksa-motion-reveal', 'is-style-paksa-motion-stagger'
+    ];
+
+    Object.keys( motionStyles ).forEach( function( className ) {
+        document.querySelectorAll( '.' + className ).forEach( function( el ) {
+            if ( ! el.classList.contains( 'pk-animate-on-scroll' ) ) {
+                el.classList.add( 'pk-animate-on-scroll' );
+            }
+            if ( ! el.dataset.anim ) {
+                el.dataset.anim = motionStyles[ className ];
+            }
+            el.dataset.motionBlock = '1';
+        } );
+    } );
+
+    document.querySelectorAll( '.is-style-paksa-motion-stagger' ).forEach( function( el ) {
+        if ( ! el.dataset.stagger ) {
+            el.dataset.stagger = '80';
+        }
+        el.dataset.motionBlock = '1';
+    } );
+
+    if ( ! window.IntersectionObserver ) {
+        document.querySelectorAll( '.pk-animate-on-scroll' ).forEach( function ( el ) {
+            el.classList.add( 'is-visible' );
+        } );
+        return;
+    }
     if ( window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ) {
         document.querySelectorAll( '.pk-animate-on-scroll' ).forEach( function ( el ) {
             el.classList.add( 'is-visible' );
@@ -22,6 +67,9 @@
             var delay = parseInt( el.dataset.delay, 10 ) || 0;
             setTimeout( function () {
                 el.classList.add( 'is-visible' );
+                if ( el.dataset.motionBlock ) {
+                    el.classList.add( 'pk-motion-visible' );
+                }
             }, delay );
             revealObserver.unobserve( el );
         } );
@@ -36,7 +84,12 @@
         var base  = parseInt( parent.dataset.stagger, 10 ) || 80;
         var items = parent.querySelectorAll( ':scope > *' );
         items.forEach( function ( child, i ) {
-            child.classList.add( 'pk-animate-on-scroll' );
+            if ( ! child.classList.contains( 'pk-animate-on-scroll' ) ) {
+                child.classList.add( 'pk-animate-on-scroll' );
+            }
+            if ( ! child.dataset.anim ) {
+                child.dataset.anim = 'fade-up';
+            }
             child.dataset.delay = i * base;
             revealObserver.observe( child );
         } );

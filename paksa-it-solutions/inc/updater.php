@@ -1,6 +1,6 @@
 <?php
 /**
- * Nexus Business Theme — GitHub Update Checker
+ * Paksa Theme — GitHub Update Checker
  *
  * Integrates with WordPress's native update system to detect new releases
  * published on GitHub and deliver the release ZIP as the update package.
@@ -193,7 +193,7 @@ function paksa_themes_api( $result, $action, $args ) {
     $changelog      = ! empty( $release['body'] ) ? wp_kses_post( $release['body'] ) : '';
 
     $info = (object) array(
-        'name'          => 'Nexus Business Theme',
+        'name'          => 'Paksa Theme',
         'slug'          => PAKSA_THEME_SLUG,
         'version'       => $latest_version,
         'author'        => 'Paksa IT Solutions',

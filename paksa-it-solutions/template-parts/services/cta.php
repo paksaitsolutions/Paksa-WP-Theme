@@ -1,52 +1,51 @@
 <?php
 /**
- * Paksa IT Solutions — Services: Final CTA
- *
- * Page-level CTA with fallback to global Customizer settings.
- * Reuses .pk-final-cta CSS from home.css.
- *
- * Priority order:
- *   1. Post meta (_paksa_svc_cta_*)
- *   2. Global Customizer (paksa_cta_*)
- *   3. Translatable fallback strings
+ * Services Page — Final CTA
+ * Reuses .pk-cta dark split layout from home.css
  *
  * @package paksa-it-solutions
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-// Page-level overrides first, then global Customizer fallbacks.
 $eyebrow = paksa_get_option( 'paksa_cta_eyebrow', __( 'Get Started', 'paksa-it-solutions' ) );
 $heading = paksa_svc_meta( 'cta_heading', paksa_get_option( 'paksa_cta_heading', __( 'Ready to Discuss Your Project?', 'paksa-it-solutions' ) ) );
 $desc    = paksa_svc_meta_textarea( 'cta_description', paksa_get_option( 'paksa_cta_description', __( "Let's turn your requirements into a technology solution built for the way your business works.", 'paksa-it-solutions' ) ) );
-$btn1_t  = paksa_svc_meta( 'cta_btn1_text', paksa_get_option( 'paksa_cta_primary_text', __( 'Get a Free Consultation', 'paksa-it-solutions' ) ) );
-$btn1_u  = paksa_svc_meta_url( 'cta_btn1_url', paksa_get_option( 'paksa_cta_primary_url', '#contact' ) );
-$btn2_t  = paksa_svc_meta( 'cta_btn2_text', paksa_get_option( 'paksa_cta_secondary_text', __( 'Discuss Your Project', 'paksa-it-solutions' ) ) );
-$btn2_u  = paksa_svc_meta_url( 'cta_btn2_url', paksa_get_option( 'paksa_cta_secondary_url', '#contact' ) );
+$btn_t   = paksa_svc_meta( 'cta_btn1_text', paksa_get_option( 'paksa_cta_primary_text', __( 'Get a Free Consultation', 'paksa-it-solutions' ) ) );
+$btn_u   = paksa_svc_meta_url( 'cta_btn1_url', paksa_get_option( 'paksa_cta_primary_url', '/contact/' ) );
+$email   = paksa_get_option( 'paksa_contact_email', 'info@paksa.com.pk' );
+$phone   = paksa_get_option( 'paksa_contact_phone', '+92 305 7772572' );
 ?>
-<section class="pk-final-cta pk-svc-cta" id="contact" aria-labelledby="pk-svc-cta-heading">
+<section class="pk-cta pk-svc-cta-section" id="contact" aria-labelledby="pk-svc-cta-heading">
     <div class="container">
-        <div class="pk-final-cta-inner pk-animate-on-scroll" data-anim="fade-up">
-            <?php if ( $eyebrow ) : ?>
-                <span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
-            <?php endif; ?>
-            <h2 id="pk-svc-cta-heading"><?php echo esc_html( $heading ); ?></h2>
-            <?php if ( $desc ) : ?>
-                <p class="body-large"><?php echo esc_html( $desc ); ?></p>
-            <?php endif; ?>
-            <div class="pk-final-cta-actions">
-                <?php if ( $btn1_t && $btn1_u ) : ?>
-                    <a href="<?php echo esc_url( $btn1_u ); ?>" class="btn btn-primary">
-                        <?php echo esc_html( $btn1_t ); ?>
+        <div class="pk-cta-wrap">
+            <div class="pk-cta-left">
+                <?php if ( $eyebrow ) : ?>
+                    <p class="pk-cta-overline"><?php echo esc_html( $eyebrow ); ?></p>
+                <?php endif; ?>
+                <h2 id="pk-svc-cta-heading" class="pk-cta-heading"><?php echo esc_html( $heading ); ?></h2>
+                <?php if ( $desc ) : ?>
+                    <p class="pk-cta-desc"><?php echo esc_html( $desc ); ?></p>
+                <?php endif; ?>
+            </div>
+            <div class="pk-cta-right">
+                <?php if ( $btn_t && $btn_u ) : ?>
+                    <a href="<?php echo esc_url( $btn_u ); ?>" class="pk-cta-btn">
+                        <?php echo esc_html( $btn_t ); ?>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
                     </a>
                 <?php endif; ?>
-                <?php if ( $btn2_t && $btn2_u ) : ?>
-                    <a href="<?php echo esc_url( $btn2_u ); ?>" class="btn btn-outline">
-                        <?php echo esc_html( $btn2_t ); ?>
-                    </a>
-                <?php endif; ?>
+                <div class="pk-cta-meta">
+                    <?php if ( $email ) : ?>
+                        <a href="mailto:<?php echo esc_attr( $email ); ?>" class="pk-cta-meta-link"><?php echo esc_html( $email ); ?></a>
+                    <?php endif; ?>
+                    <?php if ( $email && $phone ) : ?>
+                        <span class="pk-cta-meta-sep" aria-hidden="true">·</span>
+                    <?php endif; ?>
+                    <?php if ( $phone ) : ?>
+                        <a href="tel:<?php echo esc_attr( preg_replace( '/[^+\d]/', '', $phone ) ); ?>" class="pk-cta-meta-link"><?php echo esc_html( $phone ); ?></a>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>

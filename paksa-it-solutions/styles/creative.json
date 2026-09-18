@@ -1,0 +1,49 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "title": "Creative",
+  "styles": {
+    "color": { "background": "#fbf9ff", "text": "#1e1030" },
+    "typography": { "fontFamily": "var:preset|font-family|poppins" },
+    "elements": {
+      "button": { "border": { "radius": "24px" } },
+      "heading": { "color": { "text": "#1e1030" } }
+    }
+  },
+  "settings": {
+    "color": {
+      "palette": [
+        { "name": "Primary", "slug": "primary", "color": "#7148d8" },
+        { "name": "Primary Hover", "slug": "primary-hover", "color": "#5834b7" },
+        { "name": "Secondary", "slug": "secondary", "color": "#1e1030" },
+        { "name": "Accent", "slug": "accent", "color": "#e056ad" },
+        { "name": "Accent Light", "slug": "accent-light", "color": "#f8efff" },
+        { "name": "Background", "slug": "bg", "color": "#fbf9ff" },
+        { "name": "Background Alt", "slug": "bg-alt", "color": "#f3eeff" },
+        { "name": "Background Dark", "slug": "bg-dark", "color": "#1e1030" },
+        { "name": "Surface", "slug": "surface", "color": "#ffffff" },
+        { "name": "Surface Alt", "slug": "surface-alt", "color": "#f8efff" },
+        { "name": "Text Primary", "slug": "text", "color": "#1e1030" },
+        { "name": "Text Secondary", "slug": "text-secondary", "color": "#5a4a70" },
+        { "name": "Text Muted", "slug": "muted", "color": "#9a8ab0" },
+        { "name": "Text Inverse", "slug": "text-inverse", "color": "#ffffff" },
+        { "name": "Border", "slug": "border", "color": "#e0d4f5" },
+        { "name": "Success", "slug": "success", "color": "#12b76a" },
+        { "name": "Warning", "slug": "warning", "color": "#f79009" },
+        { "name": "Error", "slug": "error", "color": "#f04438" },
+        { "name": "Info", "slug": "info", "color": "#7148d8" }
+      ],
+      "gradients": [
+        { "name": "Primary Flow", "slug": "primary-flow", "gradient": "linear-gradient(135deg, #7148d8 0%, #e056ad 100%)" },
+        { "name": "Deep Surface", "slug": "deep-surface", "gradient": "linear-gradient(135deg, #1e1030 0%, #3a1a5c 100%)" },
+        { "name": "Soft Accent", "slug": "soft-accent", "gradient": "linear-gradient(135deg, #f8efff 0%, #fff0f8 100%)" }
+      ]
+    },
+    "custom": {
+      "radius-sm": "10px",
+      "radius-md": "16px",
+      "radius-lg": "24px",
+      "radius-xl": "32px"
+    }
+  }
+}

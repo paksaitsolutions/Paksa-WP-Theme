@@ -4,27 +4,22 @@
  *
  * Template Name: Services / IT Solutions
  *
- * Content is edited via the block editor (Pages → Services → Edit).
- * Use Paksa Services block patterns to build sections.
- *
  * @package paksa-it-solutions
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 get_header();
 ?>
 <main id="main-content" class="pk-services-page">
-    <?php
-    if ( have_posts() ) :
-        while ( have_posts() ) :
-            the_post();
-            the_content();
-        endwhile;
-    endif;
-    ?>
+    <?php get_template_part( 'template-parts/services/hero' ); ?>
+    <?php get_template_part( 'template-parts/services/stats' ); ?>
+    <?php get_template_part( 'template-parts/services/portfolio' ); ?>
+    <?php get_template_part( 'template-parts/services/capabilities' ); ?>
+    <?php get_template_part( 'template-parts/services/process' ); ?>
+    <?php get_template_part( 'template-parts/services/technology' ); ?>
+    <?php get_template_part( 'template-parts/services/industries' ); ?>
+    <?php get_template_part( 'template-parts/services/cta' ); ?>
 </main>
 <?php
 get_footer();

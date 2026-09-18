@@ -1,6 +1,6 @@
 <?php
 /**
- * Nexus Business Theme — Generic Theme API
+ * Paksa Theme — Generic Theme API
  *
  * Provides a stable, business-neutral API for reading site configuration.
  * All functions resolve through the existing Customizer option keys (paksa_*)
