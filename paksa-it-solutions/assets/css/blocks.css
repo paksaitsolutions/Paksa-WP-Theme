@@ -1139,3 +1139,119 @@
     .pk-site-editor-hero--product,
     .pk-site-editor-hero--service { animation: none; }
 }
+
+/* ============================================================
+   Phase 20 — Composable card blocks & responsive utilities
+   ============================================================ */
+
+/* paksa/product-card & paksa/service-card -------------------------------- */
+.wp-block-paksa-product-card,
+.wp-block-paksa-service-card,
+.pk-composable-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: clamp(1.25rem, 2.5vw, 2rem);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-lg);
+    background: var(--pk-surface);
+    box-shadow: var(--pk-shadow-sm);
+    transition: border-color var(--pk-transition-base), box-shadow var(--pk-transition-base), transform var(--pk-transition-base);
+}
+
+.wp-block-paksa-product-card:hover,
+.wp-block-paksa-service-card:hover,
+.pk-composable-card:hover {
+    border-color: color-mix(in srgb, var(--pk-primary) 42%, var(--pk-border));
+    box-shadow: var(--pk-shadow-md);
+    transform: translateY(-3px);
+}
+
+.pk-composable-card > :first-child { margin-top: 0; }
+.pk-composable-card > :last-child  { margin-bottom: 0; }
+
+/* Variant: dark */
+.pk-composable-card--dark,
+.is-style-dark.wp-block-paksa-product-card,
+.is-style-dark.wp-block-paksa-service-card {
+    border-color: rgba(255,255,255,.12);
+    color: var(--pk-text-inverse);
+    background: var(--pk-surface-dark);
+}
+.pk-composable-card--dark h2,
+.pk-composable-card--dark h3,
+.pk-composable-card--dark h4 { color: var(--pk-text-inverse); }
+.pk-composable-card--dark p  { color: var(--pk-text-inverse-muted); }
+
+/* Variant: bordered */
+.pk-composable-card--bordered,
+.is-style-bordered.wp-block-paksa-product-card,
+.is-style-bordered.wp-block-paksa-service-card {
+    border-width: 2px;
+    border-color: var(--pk-primary);
+    box-shadow: none;
+}
+
+/* Variant: glass */
+.pk-composable-card--glass,
+.is-style-glass.wp-block-paksa-product-card,
+.is-style-glass.wp-block-paksa-service-card {
+    border-color: rgba(255,255,255,.18);
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Badge & category label */
+.pk-composable-card__badge {
+    position: absolute;
+    top: var(--pk-space-4);
+    right: var(--pk-space-4);
+}
+
+.pk-composable-card__category {
+    display: block;
+    margin-bottom: var(--pk-space-3);
+}
+
+/* Shadow presets applied via JS class */
+.pk-composable-card[class*="pk-shadow-sm"]  { box-shadow: var(--pk-shadow-sm); }
+.pk-composable-card[class*="pk-shadow-md"]  { box-shadow: var(--pk-shadow-md); }
+.pk-composable-card[class*="pk-shadow-lg"]  { box-shadow: var(--pk-shadow-lg); }
+
+/* Responsive column utilities from pkMobileCols / pkTabletCols attributes  */
+/* Applied via inline style on the block wrapper by the save() function.    */
+/* These classes are set by the frontend CSS based on data attributes.      */
+[data-pk-mobile-cols="2"] { --pk-cols-mobile: 2; }
+[data-pk-tablet-cols="1"] { --pk-cols-tablet: 1; }
+[data-pk-tablet-cols="3"] { --pk-cols-tablet: 3; }
+
+@media (max-width: 639px) {
+    .wp-block-columns.pk-stack-mobile { flex-direction: column; }
+    .wp-block-columns.pk-stack-mobile > .wp-block-column { flex-basis: 100% !important; }
+}
+
+/* Additional core/group card styles */
+.is-style-paksa-card-about,
+.is-style-paksa-card-contact,
+.is-style-paksa-card-faq {
+    height: 100%;
+    padding: clamp(1.5rem, 2.5vw, 2rem);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-lg);
+    background: var(--pk-surface);
+    box-shadow: var(--pk-shadow-sm);
+}
+
+.is-style-paksa-card-faq { background: var(--pk-bg-alt); }
+
+/* Reduced motion guard */
+@media (prefers-reduced-motion: reduce) {
+    .wp-block-paksa-product-card,
+    .wp-block-paksa-service-card,
+    .pk-composable-card { transition: none; }
+    .wp-block-paksa-product-card:hover,
+    .wp-block-paksa-service-card:hover,
+    .pk-composable-card:hover { transform: none; }
+}

@@ -92,3 +92,17 @@
 .editor-styles-wrapper .pk-site-editor-hero--product { background: linear-gradient(135deg, var(--pk-bg) 0%, var(--pk-accent-light) 100%); }
 .editor-styles-wrapper .pk-site-editor-hero--service { background: var(--pk-bg-dark); color: var(--pk-text-inverse); }
 .editor-styles-wrapper .pk-site-editor-main--landing { padding-block: 0; }
+
+/* Phase 20 — editor parity for composable card blocks */
+.editor-styles-wrapper .wp-block-paksa-product-card,
+.editor-styles-wrapper .wp-block-paksa-service-card,
+.editor-styles-wrapper .pk-composable-card {
+    padding: 1.5rem;
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-lg);
+    background: var(--pk-surface);
+}
+.editor-styles-wrapper .pk-composable-card--dark { background: var(--pk-bg-dark); color: var(--pk-text-inverse); }
+.editor-styles-wrapper .pk-composable-card--glass { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18); }
+.editor-styles-wrapper .pk-composable-card__badge { position: absolute; top: 1rem; right: 1rem; }
+.editor-styles-wrapper .pk-responsive-panel .components-panel__body-title { color: var(--pk-primary); }

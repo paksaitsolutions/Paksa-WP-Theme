@@ -157,7 +157,10 @@
       "core/group": { "spacing": { "blockGap": "var:preset|spacing|50" } },
       "core/columns": { "spacing": { "blockGap": "var:preset|spacing|60" } },
       "core/list": { "typography": { "lineHeight": "1.7" } },
-      "core/quote": { "border": { "left": { "color": "var(--pk-primary)", "width": "4px", "style": "solid" } } }
+      "core/quote": { "border": { "left": { "color": "var(--pk-primary)", "width": "4px", "style": "solid" } } },
+      "core/navigation": { "typography": { "fontSize": "0.9375rem", "fontWeight": "600" } },
+      "core/post-title": { "typography": { "fontWeight": "700", "lineHeight": "1.15" } },
+      "core/query": { "spacing": { "blockGap": "var:preset|spacing|60" } }
     },
     "css": "/* Paksa Theme visual tokens are shared with the frontend and editor. */"
   },

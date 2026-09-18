@@ -9,7 +9,7 @@ A complete visual website framework for technology, software, and service busine
 | Field | Details |
 |---|---|
 | **Theme Name** | Paksa IT Solutions |
-| **Version** | 1.9.0 |
+| **Version** | 2.0.0 |
 | **Text Domain** | `paksa-it-solutions` |
 | **Requires WordPress** | 6.1+ |
 | **Requires PHP** | 7.4+ (8.1+ recommended) |
@@ -23,7 +23,7 @@ A complete visual website framework for technology, software, and service busine
 ```
 paksa-it-solutions/
 ├── style.css                    # Theme header & metadata
-├── functions.php                # Theme setup, supports, image sizes (v1.9.0)
+├── functions.php                # Theme setup, supports, image sizes (v2.0.0)
 ├── theme.json                   # Design tokens, block settings, template registration
 ├── index.php                    # Fallback template
 ├── front-page.php               # Legacy Customizer homepage
@@ -94,7 +94,8 @@ paksa-it-solutions/
 │       ├── mobile-nav.js        # Mobile hamburger menu
 │       ├── animations.js        # IntersectionObserver scroll animations
 │       ├── editor-blocks.js     # Phase 17 block editor (IIFE)
-│       └── editor-phase18.js    # Phase 18 advanced editor controls (3 IIFEs)
+│       ├── editor-phase18.js    # Phase 18 advanced editor controls (3 IIFEs)
+│       └── editor-phase20.js    # Phase 20 composable cards, responsive controls, 8 variations
 │
 ├── inc/
 │   ├── enqueue.php              # Asset enqueueing
@@ -110,6 +111,7 @@ paksa-it-solutions/
 │   ├── blocks.php               # paksa/section, paksa/testimonial, paksa/cta
 │   ├── advanced-builder.php     # Phase 14–17 pattern library (80+ patterns)
 │   ├── composition.php          # Phase 19 compositions, query patterns, page starters
+│   ├── blocks-phase20.php       # Phase 20 composable card block registrations
 │   ├── parts.php                # Header/footer variant Customizer controls
 │   ├── style-variations.php     # Style variation registration
 │   ├── site-editor.php          # FSE bridge patterns
@@ -188,6 +190,8 @@ paksa-it-solutions/
 | `paksa/stat` | Animated counter with icon, prefix, suffix, label |
 | `paksa/breadcrumbs` | Dynamic breadcrumb trail using established `paksa_breadcrumbs()` |
 | `paksa/related-content` | Dynamic product/service relationship renderer |
+| `paksa/product-card` | Composable InnerBlocks product card — badge, variant, animation, hover |
+| `paksa/service-card` | Composable InnerBlocks service card — category label, variant, animation, hover |
 
 ---
 
@@ -224,6 +228,10 @@ fade, fade-up, fade-down, fade-left, fade-right, scale, reveal, stagger
 - `paksa-hero-section`, `paksa-feature-section`, `paksa-split-section`, `paksa-stats-section`
 - `paksa-testimonials-section`, `paksa-pricing-section`
 - `paksa-feature-card`, `paksa-service-card`, `paksa-team-card`
+
+8 additional block variations registered in `editor-phase20.js`:
+- `paksa-hero-minimal`, `paksa-about-split`, `paksa-blog-section`, `paksa-contact-section`
+- `paksa-faq-section`, `paksa-newsletter-section`, `paksa-product-card-grid`, `paksa-service-card-grid`
 
 ---
 
@@ -360,6 +368,7 @@ fade, fade-up, fade-down, fade-left, fade-right, scale, reveal, stagger
 - `animations.js` — IntersectionObserver scroll animations
 - `editor-blocks.js` — Phase 17 block editor registrations
 - `editor-phase18.js` — Phase 18 advanced editor (section, testimonial, CTA with 5–8 control panels each)
+- `editor-phase20.js` — Phase 20 composable card blocks, responsive BlockEdit filter, 8 new variations
 - All scripts loaded with `defer`
 
 ---
@@ -434,6 +443,7 @@ Content, Appearance, Primary Button, Secondary Button, Background Image, Animati
 | Phase 17 — Custom Blocks | ✅ Complete | paksa/section, paksa/testimonial, paksa/cta |
 | Phase 18 — Advanced Editor | ✅ Complete | Editor controls, hover system, bg image, block variations |
 | Phase 19 — Full-site Composition | ✅ Complete | All FSE templates, header/footer variants, query patterns, page starters |
+| Phase 20 — Advanced Site Builder | ✅ Complete | Composable card blocks, responsive controls, 8 new variations, global style expansion |
 
 ---
 

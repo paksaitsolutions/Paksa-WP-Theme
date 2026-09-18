@@ -599,6 +599,13 @@ function paksa_enqueue_visual_editor_assets() {
         PAKSA_THEME_VERSION,
         true
     );
+    wp_enqueue_script(
+        'paksa-editor-phase20',
+        PAKSA_THEME_URI . '/assets/js/editor-phase20.js',
+        array( 'paksa-editor-phase18', 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-element', 'wp-dom-ready', 'wp-hooks', 'wp-compose' ),
+        PAKSA_THEME_VERSION,
+        true
+    );
 
     $icons = array();
     foreach ( array_keys( paksa_icon_library() ) as $icon ) {
