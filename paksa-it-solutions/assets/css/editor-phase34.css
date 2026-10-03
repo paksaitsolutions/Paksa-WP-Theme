@@ -1,0 +1,101 @@
+/* Phase 34 — Advanced Visual Content Blocks (editor-only) */
+
+/* Testimonial rail editor preview */
+.pk-editor-rail-preview {
+    display: flex;
+    overflow-x: auto;
+    gap: var(--wp--preset--spacing--50);
+    padding: var(--wp--preset--spacing--40);
+    border: 1px dashed var(--wp--preset--color--border);
+    border-radius: var(--wp--preset--color--radius-md, 10px);
+    scroll-snap-type: x mandatory;
+}
+
+.pk-editor-rail-preview > .wp-block-paksa-testimonial {
+    flex: 0 0 min(20rem, 85vw);
+    scroll-snap-align: start;
+}
+
+.pk-editor-rail-preview::-webkit-scrollbar {
+    height: 6px;
+}
+
+.pk-editor-rail-preview::-webkit-scrollbar-thumb {
+    background: var(--wp--preset--color--border);
+    border-radius: 3px;
+}
+
+/* Logo strip editor preview */
+.pk-editor-logo-strip {
+    display: grid;
+    grid-template-columns: repeat(var(--pk-logo-cols, 5), minmax(0, 1fr));
+    gap: var(--pk-logo-gap, var(--wp--preset--spacing--50));
+    place-items: center;
+    padding: var(--wp--preset--spacing--60);
+    border: 1px dashed var(--wp--preset--color--border);
+    border-radius: var(--wp--preset--color--radius-md, 10px);
+}
+
+.pk-editor-logo-strip .wp-block-image img {
+    max-width: var(--pk-logo-size, 120px);
+    height: auto;
+}
+
+.pk-logo-strip--link-lightbox .wp-block-image {
+    cursor: zoom-in;
+}
+
+.pk-logo-strip--link-newtab .wp-block-image {
+    cursor: pointer;
+}
+
+/* Timeline editor preview */
+.pk-editor-timeline {
+    position: relative;
+    padding: var(--wp--preset--spacing--50);
+    border: 1px dashed var(--wp--preset--color--border);
+    border-radius: var(--wp--preset--color--radius-md, 10px);
+}
+
+.pk-editor-timeline .pk-timeline__item {
+    position: relative;
+    padding: var(--pk-timeline-spacing, var(--wp--preset--spacing--50));
+    border-left: 2px solid var(--wp--preset--color--border);
+}
+
+.pk-editor-timeline--orientation-horizontal {
+    display: flex;
+    gap: var(--wp--preset--spacing--50);
+    overflow-x: auto;
+}
+
+.pk-editor-timeline--marker-dot .pk-timeline__item {
+    border-left-color: var(--wp--preset--color--primary);
+}
+
+.pk-editor-timeline--marker-number .pk-timeline__item {
+    counter-reset: pk-timeline-step;
+}
+
+.pk-editor-timeline--marker-number .pk-timeline__item::before {
+    counter-increment: pk-timeline-step;
+    content: counter(pk-timeline-step);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    margin-left: calc(var(--pk-timeline-spacing, 1.5rem) * -1);
+    border-radius: var(--wp--preset--color--radius-full, 9999px);
+    background: var(--wp--preset--color--primary);
+    color: var(--wp--preset--color--text-inverse);
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+/* Responsive editor adjustments */
+@media (max-width: 780px) {
+    .pk-editor-logo-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

@@ -1,0 +1,351 @@
+/* ============================================================
+   PAKSA THEME — Phase 36: Forms & Conditional Content
+   Uses --pk-* tokens exclusively. No hardcoded colours.
+   ============================================================ */
+
+/* ── Form block wrapper ── */
+.pk-form-block {
+    background: var(--pk-bg);
+    border-radius: var(--pk-radius-xl);
+    padding: var(--pk-space-8);
+}
+
+.pk-form-block--dark {
+    background: #121619;
+    color: #fff;
+}
+
+.pk-form-block--minimal {
+    background: transparent;
+    padding: 0;
+}
+
+.pk-form-block--inline {
+    padding: var(--pk-space-4);
+}
+
+/* ── Notices ── */
+.pk-form-notices { margin-bottom: var(--pk-space-5); }
+
+.pk-form-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--pk-space-3);
+    padding: var(--pk-space-4) var(--pk-space-5);
+    border-radius: var(--pk-radius-md);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.pk-form-notice[hidden] { display: none; }
+
+.pk-form-notice--success {
+    background: rgba(18,183,106,0.08);
+    border: 1px solid rgba(18,183,106,0.25);
+    color: #0d7a4e;
+}
+
+.pk-form-notice--error {
+    background: rgba(240,68,56,0.07);
+    border: 1px solid rgba(240,68,56,0.2);
+    color: #b91c1c;
+}
+
+.pk-form-block--dark .pk-form-notice--success { color: #4ade80; }
+.pk-form-block--dark .pk-form-notice--error   { color: #f87171; }
+
+/* ── Fields grid ── */
+.pk-form-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pk-space-5);
+}
+
+.pk-form-fields--two-col .pk-form-group { flex: 1 1 calc(50% - var(--pk-space-5)); }
+
+/* Width modifiers */
+.pk-form-field--w100 { flex: 1 1 100%; }
+.pk-form-field--w50  { flex: 1 1 calc(50% - var(--pk-space-5)); min-width: 200px; }
+.pk-form-field--w33  { flex: 1 1 calc(33.333% - var(--pk-space-5)); min-width: 160px; }
+.pk-form-field--w25  { flex: 1 1 calc(25% - var(--pk-space-5)); min-width: 140px; }
+
+@media (max-width: 639px) {
+    .pk-form-field--w50,
+    .pk-form-field--w33,
+    .pk-form-field--w25 { flex: 1 1 100%; }
+}
+
+/* ── Form group ── */
+.pk-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pk-space-2);
+    flex: 1 1 100%;
+}
+
+/* ── Labels ── */
+.pk-form-label {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--pk-text);
+    line-height: 1.4;
+}
+
+.pk-form-block--dark .pk-form-label { color: rgba(255,255,255,0.85); }
+
+.pk-form-required {
+    color: var(--pk-error);
+    margin-left: 3px;
+}
+
+/* ── Inputs ── */
+.pk-form-input,
+.pk-form-select {
+    width: 100%;
+    padding: 11px var(--pk-space-4);
+    font-family: var(--pk-font-sans);
+    font-size: 0.9375rem;
+    color: var(--pk-text);
+    background: var(--pk-bg);
+    border: 1.5px solid var(--pk-border);
+    border-radius: var(--pk-radius-md);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    appearance: none;
+    line-height: 1.5;
+}
+
+.pk-form-input:focus,
+.pk-form-select:focus {
+    outline: none;
+    border-color: var(--pk-primary);
+    box-shadow: 0 0 0 3px rgba(97,146,248,0.18);
+}
+
+.pk-form-input[aria-invalid="true"],
+.pk-form-select[aria-invalid="true"] {
+    border-color: var(--pk-error);
+    box-shadow: 0 0 0 3px rgba(240,68,56,0.12);
+}
+
+.pk-form-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Dark variant inputs */
+.pk-form-block--dark .pk-form-input,
+.pk-form-block--dark .pk-form-select {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.15);
+    color: #fff;
+}
+
+.pk-form-block--dark .pk-form-input::placeholder { color: rgba(255,255,255,0.35); }
+
+.pk-form-block--dark .pk-form-input:focus,
+.pk-form-block--dark .pk-form-select:focus {
+    border-color: #6192F8;
+    box-shadow: 0 0 0 3px rgba(97,146,248,0.25);
+}
+
+/* Select arrow */
+.pk-form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpolyline points='2,4 6,8 10,4' fill='none' stroke='%23555f6d' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+/* ── Checkbox / Consent ── */
+.pk-form-checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--pk-space-3);
+    font-size: 0.9375rem;
+    color: var(--pk-text-secondary);
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.pk-form-block--dark .pk-form-checkbox-label { color: rgba(255,255,255,0.65); }
+
+.pk-form-checkbox {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: var(--pk-primary);
+    cursor: pointer;
+}
+
+/* ── Help text ── */
+.pk-form-help {
+    font-size: 0.8125rem;
+    color: var(--pk-text-muted);
+    line-height: 1.5;
+}
+
+.pk-form-block--dark .pk-form-help { color: rgba(255,255,255,0.4); }
+
+/* ── Context note ── */
+.pk-form-context-note {
+    font-size: 0.875rem;
+    color: var(--pk-text-secondary);
+    background: var(--pk-bg-alt);
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-md);
+    padding: var(--pk-space-3) var(--pk-space-4);
+    margin-bottom: var(--pk-space-4);
+}
+
+/* ── Footer / Submit ── */
+.pk-form-footer {
+    margin-top: var(--pk-space-6);
+}
+
+.pk-form-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--pk-space-2);
+    padding: 13px 28px;
+    background: var(--pk-primary);
+    color: #fff;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--pk-radius-md);
+    cursor: pointer;
+    transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+    position: relative;
+}
+
+.pk-form-submit:hover {
+    background: var(--pk-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(97,146,248,0.35);
+}
+
+.pk-form-submit:focus-visible {
+    outline: 3px solid rgba(97,146,248,0.5);
+    outline-offset: 3px;
+}
+
+.pk-form-submit:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Loading state */
+.pk-form-submit .pk-form-submit__loading { display: none; }
+
+.pk-form-submit.is-loading .pk-form-submit__label { display: none; }
+.pk-form-submit.is-loading .pk-form-submit__loading { display: inline; }
+.pk-form-submit.is-loading svg { display: none; }
+
+/* ── Honeypot ── */
+.pk-form-honeypot {
+    display: none !important;
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+}
+
+/* ── Validation inline errors ── */
+.pk-form-field-error {
+    font-size: 0.8125rem;
+    color: var(--pk-error);
+    margin-top: var(--pk-space-1);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ── Editor preview styles ── */
+.block-editor-block-list__block .pk-form-block {
+    border: 1px dashed rgba(97,146,248,0.3);
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+    .pk-form-submit,
+    .pk-form-input,
+    .pk-form-select { transition: none; }
+}
+
+/* ── Editor-only preview ── */
+.pk-form-preview-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--pk-primary, #6192f8);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--pk-border, #e6e8ea);
+}
+
+.pk-form-preview-variant {
+    background: rgba(97,146,248,0.1);
+    border: 1px solid rgba(97,146,248,0.2);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 0.6875rem;
+    margin-left: auto;
+}
+
+.pk-form-preview-empty {
+    color: var(--pk-text-muted, #8a94a0);
+    font-style: italic;
+    font-size: 0.875rem;
+    padding: 24px;
+    text-align: center;
+    border: 1px dashed var(--pk-border, #e6e8ea);
+    border-radius: 8px;
+    width: 100%;
+}
+
+.pk-form-hidden-preview {
+    font-size: 0.75rem;
+    color: var(--pk-text-muted, #8a94a0);
+    font-style: italic;
+    padding: 4px 8px;
+    background: var(--pk-bg-alt, #f8f9fc);
+    border-radius: 4px;
+}
+
+/* Field editor in inspector */
+.pk-field-editor {
+    border: 1px solid var(--pk-border, #e6e8ea);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+    background: var(--pk-bg-alt, #f8f9fc);
+}
+
+.pk-field-editor__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.pk-field-editor__label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--pk-text, #1d1d1d);
+}
+
+.pk-field-editor__actions {
+    display: flex;
+    gap: 4px;
+}
+
+/* Visibility panel badge */
+.pk-visibility-panel .components-panel__body-title {
+    position: relative;
+}

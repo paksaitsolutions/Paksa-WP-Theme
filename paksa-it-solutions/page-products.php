@@ -24,12 +24,15 @@ if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) :
 </div>
 <?php endif; ?>
 
+<?php
 /* ── Query all published products ordered by menu_order ── */
 $products_query = new WP_Query( array(
-    'post_type'      => 'paksa_product',
-    'post_status'    => 'publish',
-    'posts_per_page' => -1,
-    'orderby'        => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
+    'post_type'              => 'paksa_product',
+    'post_status'            => 'publish',
+    'posts_per_page'         => -1,
+    'orderby'                => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
+    'no_found_rows'          => true,
+    'update_post_term_cache' => false,
 ) );
 
 /* ── Accent palette cycles through products ── */
@@ -42,9 +45,9 @@ $accent_palette = array(
     array( 'color' => '#ec4899', 'bg' => 'rgba(236,72,153,0.08)',  'border' => 'rgba(236,72,153,0.2)' ),
 );
 
-$product_count = $products_query->found_posts;
+$product_count = $products_query->post_count;
 ?>
-<main id="main-content" class="pk-products-page">
+<main id="main-content" tabindex="-1" class="pk-products-page">
 
     <?php /* ── Breadcrumb ── */ ?>
     <nav class="pk-breadcrumb" aria-label="Breadcrumb">

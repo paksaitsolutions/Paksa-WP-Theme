@@ -1,0 +1,308 @@
+/* ============================================================
+   Phase 28 — Visual Navigator, Container Workflow & Layout Editing
+   All rules editor-only. No frontend impact.
+   ============================================================ */
+
+/* ── Navigator sidebar ───────────────────────────────────────────────────── */
+.pk-navigator-sidebar .components-panel__body { padding: 0; }
+
+.pk-navigator {
+    font-size: 12px;
+    line-height: 1.4;
+    user-select: none;
+}
+
+.pk-navigator__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px 8px;
+    border-bottom: 1px solid #e6e8ea;
+    background: #f8f9fc;
+}
+
+.pk-navigator__title {
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #1d1d1d;
+}
+
+.pk-navigator__hint {
+    font-size: 10px;
+    color: #8a94a0;
+}
+
+.pk-navigator__tree {
+    padding: 4px 0 8px;
+    overflow-y: auto;
+    max-height: calc(100vh - 160px);
+}
+
+.pk-navigator-empty {
+    padding: 16px 12px;
+    color: #8a94a0;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* ── Navigator tree nodes ────────────────────────────────────────────────── */
+.pk-nav-node { position: relative; }
+
+.pk-nav-node__row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-block: 4px;
+    padding-right: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 1px 4px;
+    transition: background 100ms ease;
+    outline: none;
+}
+
+.pk-nav-node__row:hover { background: #eef3fe; }
+.pk-nav-node__row:focus-visible { box-shadow: 0 0 0 2px #6192f8; }
+
+.pk-nav-node.is-selected > .pk-nav-node__row {
+    background: #eef3fe;
+    border-left: 3px solid #6192f8;
+    padding-left: calc(var(--pk-nav-indent, 8px) - 3px);
+}
+
+/* Toggle button */
+.pk-nav-node__toggle {
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 10px;
+    color: #8a94a0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    transition: background 100ms;
+}
+
+.pk-nav-node__toggle:hover { background: rgba(97,146,248,.15); color: #6192f8; }
+
+/* Icon */
+.pk-nav-node__icon {
+    flex: 0 0 16px;
+    font-size: 11px;
+    text-align: center;
+    color: #8a94a0;
+}
+
+/* Label */
+.pk-nav-node__label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    color: #1d1d1d;
+}
+
+.pk-nav-node.is-selected > .pk-nav-node__row .pk-nav-node__label {
+    font-weight: 600;
+    color: #6192f8;
+}
+
+/* Action buttons */
+.pk-nav-node__actions {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 100ms;
+}
+
+.pk-nav-node__row:hover .pk-nav-node__actions,
+.pk-nav-node.is-selected > .pk-nav-node__row .pk-nav-node__actions {
+    opacity: 1;
+}
+
+.pk-nav-action {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 11px;
+    color: #555f6d;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 100ms, color 100ms;
+}
+
+.pk-nav-action:hover { background: rgba(97,146,248,.15); color: #6192f8; }
+.pk-nav-action--danger:hover { background: rgba(240,68,56,.12); color: #f04438; }
+
+/* Children container */
+.pk-nav-node__children {
+    border-left: 1px dashed rgba(97,146,248,.25);
+    margin-left: 20px;
+}
+
+/* Depth-specific icon colors */
+.pk-nav-node__row[style*="padding-left: 8px"] .pk-nav-node__icon { color: #6192f8; }   /* depth 0 */
+.pk-nav-node__row[style*="padding-left: 22px"] .pk-nav-node__icon { color: #7c5cfc; }  /* depth 1 */
+.pk-nav-node__row[style*="padding-left: 36px"] .pk-nav-node__icon { color: #12b76a; }  /* depth 2 */
+
+/* ── Visual layout picker ────────────────────────────────────────────────── */
+.pk-layout-picker {
+    padding: 12px;
+    min-width: 220px;
+}
+
+.pk-layout-picker__title {
+    margin: 0 0 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #1d1d1d;
+}
+
+.pk-layout-picker__hint {
+    margin: 0 0 10px;
+    font-size: 11px;
+    color: #8a94a0;
+    line-height: 1.4;
+}
+
+.pk-layout-picker__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.pk-layout-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 6px;
+    border: 1px solid #e6e8ea;
+    border-radius: 6px;
+    background: #f8f9fc;
+    cursor: pointer;
+    transition: border-color 100ms, background 100ms;
+    text-align: center;
+}
+
+.pk-layout-option:hover {
+    border-color: #6192f8;
+    background: #eef3fe;
+}
+
+.pk-layout-option.is-active {
+    border-color: #6192f8;
+    background: #eef3fe;
+    box-shadow: 0 0 0 2px rgba(97,146,248,.25);
+}
+
+.pk-layout-option__diagram {
+    font-family: monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #6192f8;
+    line-height: 1;
+}
+
+.pk-layout-option__label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #555f6d;
+    white-space: nowrap;
+}
+
+/* ── Add Container menu ──────────────────────────────────────────────────── */
+.pk-add-container-menu {
+    padding: 10px;
+    min-width: 180px;
+}
+
+.pk-add-container-menu__title {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #1d1d1d;
+}
+
+.pk-add-container-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 6px 8px;
+    border: none;
+    border-radius: 4px;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 100ms;
+}
+
+.pk-add-container-option:hover { background: #eef3fe; }
+
+.pk-add-container-option__icon {
+    flex: 0 0 24px;
+    font-size: 13px;
+    color: #6192f8;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.pk-add-container-option__label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #1d1d1d;
+}
+
+/* ── Refined depth indicators (extends Phase 26/27) ─────────────────────── */
+/* Top-level paksa/section — strong blue */
+.editor-styles-wrapper > .is-root-container > .wp-block-paksa-section.is-selected,
+.editor-styles-wrapper > .is-root-container > .wp-block-paksa-section.has-child-selected {
+    outline: 2px solid rgba(97,146,248,.8);
+    outline-offset: 4px;
+}
+
+/* Depth-0 group (direct child of root) — blue */
+.editor-styles-wrapper > .is-root-container > .wp-block-group.is-selected,
+.editor-styles-wrapper > .is-root-container > .wp-block-group.has-child-selected {
+    outline: 1px dashed rgba(97,146,248,.6);
+    outline-offset: 3px;
+}
+
+/* Depth-1 group (inside section) — purple, already set in Phase 27 */
+/* Depth-2 group (inside column) — teal */
+.editor-styles-wrapper .wp-block-column .wp-block-group.is-selected,
+.editor-styles-wrapper .wp-block-column .wp-block-group.has-child-selected {
+    outline: 1px dashed rgba(18,183,106,.5);
+    outline-offset: 2px;
+}
+
+/* core/columns selection */
+.editor-styles-wrapper .wp-block-columns.is-selected,
+.editor-styles-wrapper .wp-block-columns.has-child-selected {
+    outline: 1px dashed rgba(97,146,248,.4);
+    outline-offset: 3px;
+}
+
+/* ── Navigator sidebar panel title ──────────────────────────────────────── */
+.pk-navigator-sidebar .interface-complementary-area-header__title {
+    font-weight: 700;
+}

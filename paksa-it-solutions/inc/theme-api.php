@@ -149,11 +149,12 @@ function paksa_is_seo_plugin_active() {
  */
 function paksa_get_products( $args = array() ) {
     $defaults = array(
-        'post_type'      => 'paksa_product',
-        'post_status'    => 'publish',
-        'posts_per_page' => -1,
-        'orderby'        => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
-        'no_found_rows'  => true,
+        'post_type'              => 'paksa_product',
+        'post_status'            => 'publish',
+        'posts_per_page'         => -1,
+        'orderby'                => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
+        'no_found_rows'          => true,
+        'update_post_term_cache' => false,
     );
     $query = new WP_Query( wp_parse_args( $args, $defaults ) );
     return $query->posts;
@@ -167,11 +168,12 @@ function paksa_get_products( $args = array() ) {
  */
 function paksa_get_services( $args = array() ) {
     $defaults = array(
-        'post_type'      => 'paksa_service',
-        'post_status'    => 'publish',
-        'posts_per_page' => -1,
-        'orderby'        => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
-        'no_found_rows'  => true,
+        'post_type'              => 'paksa_service',
+        'post_status'            => 'publish',
+        'posts_per_page'         => -1,
+        'orderby'                => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
+        'no_found_rows'          => true,
+        'update_post_term_cache' => false,
     );
     $query = new WP_Query( wp_parse_args( $args, $defaults ) );
     return $query->posts;

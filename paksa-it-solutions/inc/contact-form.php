@@ -11,25 +11,25 @@ function paksa_handle_contact_submit() {
     }
 
     /* Honeypot */
-    if ( ! empty( $_POST['pk_hp'] ) ) {
+    if ( ! empty( $_POST['website_url'] ) ) {
         wp_send_json_success(); /* Silent discard */
     }
 
-    $name     = sanitize_text_field( $_POST['name']     ?? '' );
-    $email    = sanitize_email(      $_POST['email']    ?? '' );
-    $company  = sanitize_text_field( $_POST['company']  ?? '' );
-    $phone    = sanitize_text_field( $_POST['phone']    ?? '' );
-    $service  = sanitize_text_field( $_POST['service']  ?? '' );
-    $message  = sanitize_textarea_field( $_POST['message']  ?? '' );
-    $budget   = sanitize_text_field( $_POST['budget']   ?? '' );
-    $timeline = sanitize_text_field( $_POST['timeline'] ?? '' );
-    $interests= sanitize_text_field( $_POST['interests']?? '' );
+    $name     = sanitize_text_field( wp_unslash( $_POST['name']     ?? '' ) );
+    $email    = sanitize_email(      wp_unslash( $_POST['email']    ?? '' ) );
+    $company  = sanitize_text_field( wp_unslash( $_POST['company']  ?? '' ) );
+    $phone    = sanitize_text_field( wp_unslash( $_POST['phone']    ?? '' ) );
+    $service  = sanitize_text_field( wp_unslash( $_POST['service']  ?? '' ) );
+    $message  = sanitize_textarea_field( wp_unslash( $_POST['message']  ?? '' ) );
+    $budget   = sanitize_text_field( wp_unslash( $_POST['budget']   ?? '' ) );
+    $timeline = sanitize_text_field( wp_unslash( $_POST['timeline'] ?? '' ) );
+    $interests= sanitize_text_field( wp_unslash( $_POST['interests']?? '' ) );
 
     if ( ! $name || ! is_email( $email ) || ! $message ) {
         wp_send_json_error( 'Required fields missing' );
     }
 
-    $to      = 'info@paksa.com.pk';
+    $to      = get_theme_mod( 'paksa_email', 'info@paksa.com.pk' );
     $subject = '[Paksa Website] New Enquiry from ' . $name;
 
     $body  = "Name: {$name}\n";

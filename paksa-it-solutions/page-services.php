@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 get_header();
 ?>
-<main id="main-content" class="pk-services-page">
+<main id="main-content" tabindex="-1" class="pk-services-page">
     <?php get_template_part( 'template-parts/services/hero' ); ?>
     <?php get_template_part( 'template-parts/services/stats' ); ?>
     <?php get_template_part( 'template-parts/services/portfolio' ); ?>

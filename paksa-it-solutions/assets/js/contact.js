@@ -36,7 +36,7 @@
             var errorNotice = document.getElementById('pk-cf-error');
 
             /* Honeypot check */
-            if (form.querySelector('[name="pk_hp"]') && form.querySelector('[name="pk_hp"]').value) return;
+            if (form.querySelector('[name="website_url"]') && form.querySelector('[name="website_url"]').value) return;
 
             btn.classList.add('is-loading');
             btn.disabled = true;

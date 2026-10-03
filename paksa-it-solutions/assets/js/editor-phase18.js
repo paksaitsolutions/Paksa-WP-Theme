@@ -372,9 +372,10 @@
                     )
                 );
             },
-            save: function() {
-                return el( InnerBlocks.Content );
-            }
+            deprecated: [
+                { save: function() { return el( InnerBlocks.Content ); } }
+            ],
+            save: function() { return null; }
         } );
     } );
 
@@ -1061,6 +1062,55 @@
                 [ 'core/paragraph', { placeholder: 'Role or title', className: 'pk-component-meta' } ],
                 [ 'core/paragraph', { placeholder: 'Short bio or description' } ]
             ]
+        },
+        /* Phase 24 — split-ratio column compositions */
+        {
+            block: 'core/columns',
+            name: 'paksa-split-1-2',
+            title: 'Paksa 1/3 + 2/3 Split',
+            description: 'Narrow sidebar on the left, wide content on the right.',
+            attributes: { className: 'is-style-paksa-split-1-2', verticalAlignment: 'center' },
+            innerBlocks: [
+                [ 'core/column', { width: '33.33%' }, [ [ 'core/paragraph', { placeholder: 'Sidebar content' } ] ] ],
+                [ 'core/column', { width: '66.66%' }, [ [ 'core/paragraph', { placeholder: 'Main content' } ] ] ]
+            ]
+        },
+        {
+            block: 'core/columns',
+            name: 'paksa-split-2-1',
+            title: 'Paksa 2/3 + 1/3 Split',
+            description: 'Wide content on the left, narrow sidebar on the right.',
+            attributes: { className: 'is-style-paksa-split-2-1', verticalAlignment: 'center' },
+            innerBlocks: [
+                [ 'core/column', { width: '66.66%' }, [ [ 'core/paragraph', { placeholder: 'Main content' } ] ] ],
+                [ 'core/column', { width: '33.33%' }, [ [ 'core/paragraph', { placeholder: 'Sidebar content' } ] ] ]
+            ]
+        },
+        {
+            block: 'core/columns',
+            name: 'paksa-split-1-3',
+            title: 'Paksa 1/4 + 3/4 Split',
+            description: 'Narrow 1/4 column on the left, wide 3/4 content on the right.',
+            attributes: { className: 'is-style-paksa-split-1-3', verticalAlignment: 'top' },
+            innerBlocks: [
+                [ 'core/column', { width: '25%' }, [ [ 'core/paragraph', { placeholder: 'Narrow column' } ] ] ],
+                [ 'core/column', { width: '75%' }, [ [ 'core/paragraph', { placeholder: 'Wide content' } ] ] ]
+            ]
+        },
+        /* Phase 24 — section visual presets */
+        {
+            block: 'core/group',
+            name: 'paksa-section-elevated',
+            title: 'Paksa Elevated Section',
+            description: 'A contained section with elevated shadow and rounded corners.',
+            attributes: { align: 'wide', className: 'pk-section is-style-paksa-section-elevated', layout: { type: 'constrained' } }
+        },
+        {
+            block: 'core/group',
+            name: 'paksa-section-bordered',
+            title: 'Paksa Bordered Section',
+            description: 'A contained section with a visible border.',
+            attributes: { align: 'wide', className: 'pk-section is-style-paksa-section-bordered', layout: { type: 'constrained' } }
         }
     ];
 

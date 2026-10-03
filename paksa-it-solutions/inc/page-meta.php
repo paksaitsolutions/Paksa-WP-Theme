@@ -245,6 +245,21 @@ function paksa_about_meta_fields() {
                'key' => 'mission', 'label' => __( 'Mission Statement', 'paksa-it-solutions' ), 'type' => 'textarea' ),
         array( 'key' => 'vision',  'label' => __( 'Vision Statement', 'paksa-it-solutions' ),  'type' => 'textarea' ),
 
+        array( 'section' => __( 'Expertise', 'paksa-it-solutions' ),
+               'key' => 'expertise_content', 'label' => __( 'Expertise Content (one paragraph per line)', 'paksa-it-solutions' ), 'type' => 'textarea' ),
+        array( 'key' => 'about_image_id', 'label' => __( 'About Image ID (attachment ID)', 'paksa-it-solutions' ), 'type' => 'text',
+               'hint' => __( 'WordPress attachment ID for the split-layout image.', 'paksa-it-solutions' ) ),
+
+        array( 'section' => __( 'Our Approach', 'paksa-it-solutions' ),
+               'key' => 'approach_content', 'label' => __( 'Approach Intro Paragraph', 'paksa-it-solutions' ), 'type' => 'textarea' ),
+        array( 'key' => 'approach_steps', 'label' => __( 'Approach Steps (one per line: Title | Description)', 'paksa-it-solutions' ), 'type' => 'textarea',
+               'hint' => __( 'Format: Step Title | Short description. One item per line.', 'paksa-it-solutions' ) ),
+
+        array( 'section' => __( 'Why Choose Us', 'paksa-it-solutions' ),
+               'key' => 'why_intro', 'label' => __( 'Why Choose Intro Paragraph', 'paksa-it-solutions' ), 'type' => 'textarea' ),
+        array( 'key' => 'why_list', 'label' => __( 'Why Choose Items (one per line: Title | Description)', 'paksa-it-solutions' ), 'type' => 'textarea',
+               'hint' => __( 'Format: Item Title | Short description. One item per line.', 'paksa-it-solutions' ) ),
+
         array( 'section' => __( 'Values', 'paksa-it-solutions' ),
                'key' => 'values_list', 'label' => __( 'Values (one per line: Title | Description)', 'paksa-it-solutions' ), 'type' => 'textarea',
                'hint' => __( 'Format: Value Title | Short description. One item per line.', 'paksa-it-solutions' ) ),
@@ -258,9 +273,12 @@ function paksa_about_meta_fields() {
         array( 'key' => 'cta_btn2_url',    'label' => __( 'Secondary Button URL', 'paksa-it-solutions' ),               'type' => 'url' ),
 
         array( 'section' => __( 'Section Visibility', 'paksa-it-solutions' ),
-               'key' => 'show_story',  'label' => __( 'Show Company Story', 'paksa-it-solutions' ), 'type' => 'select', 'options' => $vis ),
-        array( 'key' => 'show_values', 'label' => __( 'Show Values', 'paksa-it-solutions' ),        'type' => 'select', 'options' => $vis ),
-        array( 'key' => 'show_cta',    'label' => __( 'Show CTA', 'paksa-it-solutions' ),           'type' => 'select', 'options' => $vis ),
+               'key' => 'show_story',    'label' => __( 'Show Company Story', 'paksa-it-solutions' ),  'type' => 'select', 'options' => $vis ),
+        array( 'key' => 'show_expertise','label' => __( 'Show Expertise', 'paksa-it-solutions' ),       'type' => 'select', 'options' => $vis ),
+        array( 'key' => 'show_approach', 'label' => __( 'Show Approach', 'paksa-it-solutions' ),        'type' => 'select', 'options' => $vis ),
+        array( 'key' => 'show_values',   'label' => __( 'Show Values', 'paksa-it-solutions' ),          'type' => 'select', 'options' => $vis ),
+        array( 'key' => 'show_why',      'label' => __( 'Show Why Choose Us', 'paksa-it-solutions' ),   'type' => 'select', 'options' => $vis ),
+        array( 'key' => 'show_cta',      'label' => __( 'Show CTA', 'paksa-it-solutions' ),             'type' => 'select', 'options' => $vis ),
     );
 }
 

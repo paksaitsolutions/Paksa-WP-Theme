@@ -135,10 +135,12 @@ function paksa_render_product_meta_box( $post ) {
             echo '</select>';
         } elseif ( $field['type'] === 'relationship_service' ) {
             $services     = get_posts( array(
-                'post_type'      => 'paksa_service',
-                'post_status'    => 'publish',
-                'posts_per_page' => -1,
-                'orderby'        => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
+                'post_type'              => 'paksa_service',
+                'post_status'            => 'publish',
+                'posts_per_page'         => -1,
+                'orderby'                => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
+                'no_found_rows'          => true,
+                'update_post_term_cache' => false,
             ) );
             $selected_ids = array_filter( array_map( 'absint', explode( ',', $value ) ) );
             echo '<select id="' . esc_attr( $meta_key ) . '" name="' . esc_attr( $meta_key ) . '[]" multiple style="height:120px;">';
@@ -259,6 +261,16 @@ function paksa_product_meta_fields() {
         array( 'key' => 'hero_cta1_url',     'label' => __( 'Primary CTA URL', 'paksa-it-solutions' ),    'type' => 'url' ),
         array( 'key' => 'hero_cta2_text',    'label' => __( 'Secondary CTA Text', 'paksa-it-solutions' ), 'type' => 'text' ),
         array( 'key' => 'hero_cta2_url',     'label' => __( 'Secondary CTA URL', 'paksa-it-solutions' ),  'type' => 'url' ),
+        array( 'key' => 'hero_trust_items',  'label' => __( 'Trust Items (one per line)', 'paksa-it-solutions' ), 'type' => 'textarea',
+               'hint' => __( 'Short trust signals shown below buttons. e.g. "FBR Compliant". Leave blank to hide.', 'paksa-it-solutions' ) ),
+        array( 'key' => 'stat1_val',   'label' => __( 'Stat 1 — Value',  'paksa-it-solutions' ), 'type' => 'text', 'hint' => __( 'e.g. 10+', 'paksa-it-solutions' ) ),
+        array( 'key' => 'stat1_label', 'label' => __( 'Stat 1 — Label',  'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'stat2_val',   'label' => __( 'Stat 2 — Value',  'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'stat2_label', 'label' => __( 'Stat 2 — Label',  'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'stat3_val',   'label' => __( 'Stat 3 — Value',  'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'stat3_label', 'label' => __( 'Stat 3 — Label',  'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'stat4_val',   'label' => __( 'Stat 4 — Value',  'paksa-it-solutions' ), 'type' => 'text' ),
+        array( 'key' => 'stat4_label', 'label' => __( 'Stat 4 — Label',  'paksa-it-solutions' ), 'type' => 'text' ),
 
         // --- Overview ---
         array( 'section' => __( 'Overview Section', 'paksa-it-solutions' ),

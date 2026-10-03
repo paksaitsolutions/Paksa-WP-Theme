@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 ?>
-<main id="main-content" class="pk-page">
+<main id="main-content" tabindex="-1" class="pk-page">
     <div class="container">
         <?php if (have_posts()): ?>
             <?php while (have_posts()): the_post(); ?>

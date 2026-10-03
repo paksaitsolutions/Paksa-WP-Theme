@@ -86,10 +86,12 @@ function paksa_render_service_meta_box( $post ) {
         } elseif ( $field['type'] === 'relationship' ) {
             // Related products — multi-select from published paksa_product posts
             $products = get_posts( array(
-                'post_type'      => 'paksa_product',
-                'post_status'    => 'publish',
-                'posts_per_page' => -1,
-                'orderby'        => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
+                'post_type'              => 'paksa_product',
+                'post_status'            => 'publish',
+                'posts_per_page'         => -1,
+                'orderby'                => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
+                'no_found_rows'          => true,
+                'update_post_term_cache' => false,
             ) );
             $selected_ids = array_filter( array_map( 'absint', explode( ',', $value ) ) );
             echo '<select id="' . esc_attr( $meta_key ) . '" name="' . esc_attr( $meta_key ) . '[]" multiple style="height:120px;">';

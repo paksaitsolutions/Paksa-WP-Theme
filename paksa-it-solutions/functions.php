@@ -3,14 +3,14 @@
  * Paksa IT Solutions — Theme Functions
  *
  * @package paksa-it-solutions
- * @version 1.0.0
+ * @version 3.6.0
  */
 
 if (!defined('ABSPATH')) {
     exit;
 }
 
-define('PAKSA_THEME_VERSION', '2.2.0');
+define('PAKSA_THEME_VERSION', '3.6.0');
 define('PAKSA_THEME_DIR', get_template_directory());
 define('PAKSA_THEME_URI', get_template_directory_uri());
 
@@ -19,6 +19,9 @@ define('PAKSA_THEME_URI', get_template_directory_uri());
  */
 function paksa_theme_setup() {
     load_theme_textdomain('paksa-it-solutions', PAKSA_THEME_DIR . '/languages');
+
+    global $content_width;
+    $content_width = 1280;
 
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
@@ -51,6 +54,17 @@ function paksa_theme_setup() {
         'assets/css/components.css',
         'assets/css/blocks.css',
         'assets/css/editor.css',
+        'assets/css/editor-phase25.css',
+        'assets/css/editor-phase26.css',
+        'assets/css/editor-phase28.css',
+        'assets/css/editor-phase29.css',
+        'assets/css/editor-phase30.css',
+        'assets/css/editor-phase31.css',
+        'assets/css/editor-phase32.css',
+        'assets/css/editor-phase33.css',
+        'assets/css/editor-phase34.css',
+        'assets/css/editor-phase35.css',
+        'assets/css/editor-phase36.css',
     ) );
 
     register_nav_menus(array(
@@ -99,6 +113,18 @@ require_once __DIR__ . '/inc/service-meta.php';
 require_once __DIR__ . '/inc/page-meta.php';
 require_once __DIR__ . '/inc/products-listing-meta.php';
 require_once __DIR__ . '/inc/contact-form.php';
+require_once __DIR__ . '/inc/editor-phase25.php';
+require_once __DIR__ . '/inc/editor-phase26.php';
+require_once __DIR__ . '/inc/editor-phase27.php';
+require_once __DIR__ . '/inc/editor-phase28.php';
+require_once __DIR__ . '/inc/editor-phase29.php';
+require_once __DIR__ . '/inc/editor-phase30.php';
+require_once __DIR__ . '/inc/editor-phase31.php';
+require_once __DIR__ . '/inc/editor-phase32.php';
+require_once __DIR__ . '/inc/editor-phase33.php';
+require_once __DIR__ . '/inc/editor-phase34.php';
+require_once __DIR__ . '/inc/editor-phase35.php';
+require_once __DIR__ . '/inc/editor-phase36.php';
 
 /**
  * Guide the legacy Customizer-driven home page without preventing normal
@@ -177,6 +203,25 @@ function paksa_register_block_patterns() {
         'home-outcomes',
         'home-faq',
         'home-final-cta',
+        'testimonial-rail',
+        'logo-strip',
+        'timeline',
+        'comparison-matrix',
+        'faq-accordion',
+        'case-studies-grid',
+        'team-grid',
+        'timeline-process',
+        'dynamic-product-grid',
+        'dynamic-service-grid',
+        'dynamic-blog-grid',
+        'product-query-filter',
+        'service-query-filter',
+        'products-featured-latest',
+        'contact-section',
+        'lead-capture',
+        'quote-request',
+        'product-inquiry',
+        'newsletter-signup',
     );
 
     foreach ( $pattern_files as $file ) {

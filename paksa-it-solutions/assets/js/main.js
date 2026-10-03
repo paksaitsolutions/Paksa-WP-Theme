@@ -10,55 +10,93 @@
 
     // =========================================================
     // Header scroll state + sticky behavior
+    // Uses IntersectionObserver sentinels to avoid scroll-jank.
+    // Falls back to rAF scroll listener when IO is unavailable.
     // =========================================================
     var header = document.querySelector('.site-header, .pk-site-editor-header');
-    var ticking = false;
-    var lastScrollY = 0;
     var body = document.body;
 
     var isStickyCompact  = body.classList.contains('paksa-header-behavior--sticky-compact');
     var isHideOnScroll   = body.classList.contains('paksa-header-behavior--hide-on-scroll');
     var isStatic         = body.classList.contains('paksa-header-behavior--static');
+    var prefersReduced   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Compensate for sticky header height so anchors don't hide under it
     function setScrollPadding() {
         if ( !header || isStatic ) return;
-        var h = header.getBoundingClientRect().height;
-        document.documentElement.style.scrollPaddingTop = h + 'px';
+        document.documentElement.style.scrollPaddingTop = header.getBoundingClientRect().height + 'px';
     }
 
-    function updateHeaderState() {
-        if (!header) return;
-        var scrollY = window.scrollY || window.pageYOffset;
-        var scrollingDown = scrollY > lastScrollY;
+    if ( header && !isStatic && window.IntersectionObserver ) {
+        // Sentinel at top of page — when it leaves viewport, header is scrolled
+        var sentinel = document.createElement('div');
+        sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;';
+        sentinel.setAttribute('aria-hidden', 'true');
+        document.body.insertBefore(sentinel, document.body.firstChild);
 
-        header.classList.toggle('is-scrolled', scrollY > 10);
+        // Sentinel for compact threshold (80px)
+        var sentinelCompact = document.createElement('div');
+        sentinelCompact.style.cssText = 'position:absolute;top:80px;left:0;width:1px;height:1px;pointer-events:none;';
+        sentinelCompact.setAttribute('aria-hidden', 'true');
+        document.body.insertBefore(sentinelCompact, document.body.firstChild);
+
+        new IntersectionObserver(function(entries) {
+            var isScrolled = !entries[0].isIntersecting;
+            header.classList.toggle('is-scrolled', isScrolled);
+            setScrollPadding();
+        }).observe(sentinel);
 
         if ( isStickyCompact ) {
-            header.classList.toggle('is-compact', scrollY > 80);
+            new IntersectionObserver(function(entries) {
+                header.classList.toggle('is-compact', !entries[0].isIntersecting);
+                setScrollPadding();
+            }).observe(sentinelCompact);
         }
 
-        if ( isHideOnScroll ) {
-            if ( scrollY > 120 && scrollingDown ) {
-                header.classList.add('is-hidden');
-            } else if ( !scrollingDown ) {
-                header.classList.remove('is-hidden');
+        // hide-on-scroll still needs scroll direction — use rAF for this only
+        if ( isHideOnScroll && !prefersReduced ) {
+            var lastScrollY = 0;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        var scrollY = window.scrollY || window.pageYOffset;
+                        if ( scrollY > 120 && scrollY > lastScrollY ) {
+                            header.classList.add('is-hidden');
+                        } else if ( scrollY < lastScrollY ) {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastScrollY = scrollY;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+        }
+
+    } else if ( header && !isStatic ) {
+        // Fallback: rAF scroll listener
+        var lastScrollY = 0;
+        var ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    var scrollY = window.scrollY || window.pageYOffset;
+                    var scrollingDown = scrollY > lastScrollY;
+                    header.classList.toggle('is-scrolled', scrollY > 10);
+                    if ( isStickyCompact ) header.classList.toggle('is-compact', scrollY > 80);
+                    if ( isHideOnScroll && !prefersReduced ) {
+                        if ( scrollY > 120 && scrollingDown ) header.classList.add('is-hidden');
+                        else if ( !scrollingDown ) header.classList.remove('is-hidden');
+                    }
+                    lastScrollY = scrollY;
+                    setScrollPadding();
+                    ticking = false;
+                });
+                ticking = true;
             }
-        }
-
-        lastScrollY = scrollY;
-        setScrollPadding();
-        ticking = false;
+        }, { passive: true });
     }
 
-    window.addEventListener('scroll', function () {
-        if (!ticking) {
-            window.requestAnimationFrame(updateHeaderState);
-            ticking = true;
-        }
-    }, { passive: true });
-
-    updateHeaderState();
     setScrollPadding();
 
     // =========================================================
@@ -163,4 +201,35 @@
         });
     });
 
+})();
+
+// =========================================================
+// Back to Top
+// =========================================================
+(function () {
+    var btn = document.getElementById('pk-back-to-top');
+    if (!btn) return;
+
+    var visible = false;
+
+    function update() {
+        var shouldShow = (window.scrollY || window.pageYOffset) > 400;
+        if (shouldShow === visible) return;
+        visible = shouldShow;
+        if (visible) {
+            btn.removeAttribute('hidden');
+        } else {
+            btn.setAttribute('hidden', '');
+        }
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+
+    btn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Move focus to top landmark for accessibility
+        var main = document.getElementById('main-content') || document.querySelector('main');
+        if (main) main.focus({ preventScroll: true });
+    });
 })();

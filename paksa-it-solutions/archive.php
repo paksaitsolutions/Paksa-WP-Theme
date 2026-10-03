@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 ?>
-<main id="main-content" class="pk-archive">
+<main id="main-content" tabindex="-1" class="pk-archive">
     <div class="container">
         <header class="pk-archive-header">
             <h1 class="pk-page-title">

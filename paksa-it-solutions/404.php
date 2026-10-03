@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 ?>
-<main id="main-content" class="pk-error-page">
+<main id="main-content" tabindex="-1" class="pk-error-page">
     <div class="container">
         <section class="pk-error-404">
             <h1 class="pk-page-title"><?php esc_html_e('Page Not Found', 'paksa-it-solutions'); ?></h1>

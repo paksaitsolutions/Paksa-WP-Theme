@@ -684,9 +684,14 @@
                 )
             );
         },
-        save: function() {
-            return el( InnerBlocks.Content );
-        }
+        deprecated: [
+            {
+                save: function() {
+                    return el( InnerBlocks.Content );
+                }
+            }
+        ],
+        save: function() { return null; }
     } );
 
     /* ── paksa/testimonial ──────────────────────────────────────────────── */

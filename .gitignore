@@ -27,3 +27,8 @@ d:/wp.bat
 /fuel/app/logs/*/*/*
 /fuel/app/cache/*/*
 /fuel/app/config/crypt.php
+
+# Environment variables and API keys
+.env
+.env.local
+.env.*.local

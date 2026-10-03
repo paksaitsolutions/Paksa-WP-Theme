@@ -6,8 +6,9 @@
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
+$contact_email = get_theme_mod( 'paksa_email', 'info@paksa.com.pk' );
 ?>
-<main id="main-content" class="pk-contact-page">
+<main id="main-content" tabindex="-1" class="pk-contact-page">
 
 <!-- ═══ HERO ═══ -->
 <section class="pk-contact-hero" aria-labelledby="pk-contact-h1">
@@ -64,13 +65,13 @@ get_header();
                     </div>
                 </div>
                 <div class="pk-contact-channels">
-                    <a href="mailto:info@paksa.com.pk" class="pk-contact-channel">
+                    <a href="mailto:<?php echo esc_attr( $contact_email ); ?>" class="pk-contact-channel">
                         <div class="pk-contact-channel-icon pk-contact-channel-icon--email">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                         </div>
                         <div>
                             <div class="pk-contact-channel-label">Email</div>
-                            <div class="pk-contact-channel-value">info@paksa.com.pk</div>
+                            <div class="pk-contact-channel-value"><?php echo esc_html( $contact_email ); ?></div>
                         </div>
                     </a>
                     <a href="tel:+923057772572" class="pk-contact-channel">
@@ -127,12 +128,12 @@ get_header();
                 </div>
                 <div id="pk-cf-error" class="pk-cf-notice pk-cf-notice--error" role="alert">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                    <span>Something went wrong. Please email us directly at <a href="mailto:info@paksa.com.pk">info@paksa.com.pk</a>.</span>
+                    <span>Something went wrong. Please email us directly at <a href="mailto:<?php echo esc_attr( $contact_email ); ?>"><?php echo esc_html( $contact_email ); ?></a>.</span>
                 </div>
 
                 <form id="pk-contact-form" novalidate>
                     <?php wp_nonce_field( 'paksa_contact_nonce', 'pk_nonce' ); ?>
-                    <input type="text" name="pk_hp" class="pk-cf-honeypot" tabindex="-1" autocomplete="off">
+                    <input type="text" name="website_url" class="pk-cf-honeypot" tabindex="-1" autocomplete="off">
                     <input type="hidden" id="pk-cf-interests-val" name="interests" value="">
 
                     <div class="pk-cf-grid">
@@ -182,7 +183,7 @@ get_header();
                         </div>
                         <div class="pk-cf-group pk-cf-full">
                             <label class="pk-cf-label" for="pk-cf-message">Tell Us About Your Project <span aria-hidden="true">*</span></label>
-                            <textarea id="pk-cf-message" name="message" class="pk-cf-input pk-cf-textarea" placeholder="Describe what you're trying to build or solve. The more detail you give us, the more useful our response will be — what's the problem, what have you tried, what does success look like?" required></textarea>
+                             <textarea id="pk-cf-message" name="message" class="pk-cf-input pk-cf-textarea" placeholder="Describe what you're trying to build or solve. The more detail you give us, the more useful our response will be — what's the problem, what have you tried, what does success look like?" required autocomplete="off"></textarea>
                         </div>
                         <div class="pk-cf-group pk-cf-full">
                             <label class="pk-cf-label" for="pk-cf-timeline">Project Timeline</label>
@@ -225,7 +226,7 @@ get_header();
                             </div>
                             <div>
                                 <div class="pk-contact-info-label">General Enquiries</div>
-                                <div class="pk-contact-info-value"><a href="mailto:info@paksa.com.pk">info@paksa.com.pk</a></div>
+                                <div class="pk-contact-info-value"><a href="mailto:<?php echo esc_attr( $contact_email ); ?>"><?php echo esc_html( $contact_email ); ?></a></div>
                             </div>
                         </li>
                         <li class="pk-contact-info-item">

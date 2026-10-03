@@ -105,6 +105,25 @@ function paksa_enqueue_assets() {
         true
     );
 
+    // Phase 36 form handler — loaded globally for paksa/form blocks on any page
+    wp_enqueue_script(
+        'paksa-forms',
+        PAKSA_THEME_URI . '/assets/js/editor-phase36.js',
+        array(),
+        $version,
+        true
+    );
+
+    // Blog index + single post
+    if ( is_home() || is_singular( 'post' ) || is_category() || is_tag() ) {
+        wp_enqueue_style(
+            'paksa-blog',
+            PAKSA_THEME_URI . '/assets/css/blog.css',
+            array( 'paksa-main' ),
+            $version
+        );
+    }
+
     // Homepage-specific assets
     if ( is_front_page() ) {
         wp_enqueue_style(
@@ -135,6 +154,12 @@ function paksa_enqueue_assets() {
             array( 'paksa-main' ),
             $version
         );
+        wp_enqueue_style(
+            'paksa-archive',
+            PAKSA_THEME_URI . '/assets/css/archive.css',
+            array( 'paksa-main' ),
+            $version
+        );
         // home.css provides .pk-product-card, .pk-industries-grid, .pk-faq-*, .pk-final-cta
         wp_enqueue_style(
             'paksa-home',
@@ -144,12 +169,12 @@ function paksa_enqueue_assets() {
         );
         // home.js provides the FAQ accordion
         wp_enqueue_script(
-            'paksa-home',
-            PAKSA_THEME_URI . '/assets/js/home.js',
-            array( 'paksa-main' ),
-            $version,
-            true
-        );
+                'paksa-home',
+                PAKSA_THEME_URI . '/assets/js/home.js',
+                array( 'paksa-main' ),
+                $version,
+                true
+            );
         // products.js (JS category filter) only on the marketing listing page
         // Archive and taxonomy use native <a> navigation — no JS filter needed
         if ( is_page_template( 'page-products.php' ) ) {
@@ -184,11 +209,71 @@ function paksa_enqueue_assets() {
         ) );
     }
 
+    // Trading Bots listing + single bot pages
+    if ( is_page_template( 'page-trading-bots.php' ) || is_page_template( 'page-bot-single.php' ) ) {
+        wp_enqueue_style(
+            'paksa-products',
+            PAKSA_THEME_URI . '/assets/css/products.css',
+            array( 'paksa-main' ),
+            $version
+        );
+        wp_enqueue_style(
+            'paksa-trading-bots',
+            PAKSA_THEME_URI . '/assets/css/trading-bots.css',
+            array( 'paksa-main', 'paksa-products' ),
+            $version
+        );
+        wp_enqueue_style(
+            'paksa-bot-single',
+            PAKSA_THEME_URI . '/assets/css/bot-single-sections.css',
+            array( 'paksa-trading-bots' ),
+            $version
+        );
+    }
+
+    // Case Studies page + single case study
+    if ( is_page_template( 'page-case-studies.php' ) || is_singular( 'case_study' ) ) {
+        wp_enqueue_style(
+            'paksa-case-studies',
+            PAKSA_THEME_URI . '/assets/css/case-studies.css',
+            array( 'paksa-main' ),
+            $version
+        );
+        wp_enqueue_style(
+            'paksa-products',
+            PAKSA_THEME_URI . '/assets/css/products.css',
+            array( 'paksa-main' ),
+            $version
+        );
+    }
+
+    // Open Source page
+    if ( is_page_template( 'page-opensource.php' ) ) {
+        wp_enqueue_style(
+            'paksa-about',
+            PAKSA_THEME_URI . '/assets/css/about.css',
+            array( 'paksa-main' ),
+            $version
+        );
+        wp_enqueue_style(
+            'paksa-products',
+            PAKSA_THEME_URI . '/assets/css/products.css',
+            array( 'paksa-main' ),
+            $version
+        );
+        wp_enqueue_style(
+            'paksa-opensource',
+            PAKSA_THEME_URI . '/assets/css/opensource.css',
+            array( 'paksa-main', 'paksa-about', 'paksa-products' ),
+            $version
+        );
+    }
+
     // About page assets
     if ( is_page_template( 'page-about.php' ) ) {
         wp_enqueue_style(
-            'paksa-archive',
-            PAKSA_THEME_URI . '/assets/css/archive.css',
+            'paksa-about',
+            PAKSA_THEME_URI . '/assets/css/about.css',
             array( 'paksa-main' ),
             $version
         );
@@ -283,7 +368,7 @@ function paksa_enqueue_assets() {
         );
     }
 
-    if (is_singular() && comments_open() && get_comment_thread_rss()) {
+    if (is_singular() && comments_open()) {
         wp_enqueue_script('comment-reply');
     }
 

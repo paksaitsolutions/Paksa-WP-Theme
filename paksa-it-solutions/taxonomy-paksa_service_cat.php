@@ -27,7 +27,7 @@ $sibling_cats = get_terms( array(
     'hide_empty' => true,
 ) );
 ?>
-<main id="main-content" class="pk-service-taxonomy">
+<main id="main-content" tabindex="-1" class="pk-service-taxonomy">
 
     <?php get_template_part( 'template-parts/components/breadcrumbs' ); ?>
 

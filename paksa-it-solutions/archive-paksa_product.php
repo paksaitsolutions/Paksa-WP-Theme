@@ -33,7 +33,7 @@ $archive_cats = get_terms( array(
     'hide_empty' => true,
 ) );
 ?>
-<main id="main-content" class="pk-product-archive">
+<main id="main-content" tabindex="-1" class="pk-product-archive">
 
     <?php get_template_part( 'template-parts/components/breadcrumbs' ); ?>
 

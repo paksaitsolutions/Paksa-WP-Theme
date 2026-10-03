@@ -117,3 +117,28 @@
 /* Ensure section spacing body classes don't affect editor layout */
 .editor-styles-wrapper .pk-pattern-section,
 .editor-styles-wrapper .pk-component-section { margin-block: 1rem; }
+
+/* Phase 24 — editor parity */
+.editor-styles-wrapper .is-style-paksa-section-elevated {
+    border-radius: var(--pk-radius-xl);
+    background: var(--pk-surface);
+    box-shadow: var(--pk-shadow-lg);
+    overflow: hidden;
+}
+
+.editor-styles-wrapper .is-style-paksa-section-bordered {
+    border: 1px solid var(--pk-border);
+    border-radius: var(--pk-radius-xl);
+    background: var(--pk-surface);
+}
+
+/* Responsive visibility — show all in editor so content remains editable */
+.editor-styles-wrapper .pk-hide-mobile,
+.editor-styles-wrapper .pk-hide-tablet,
+.editor-styles-wrapper .pk-hide-desktop { display: revert !important; }
+
+/* Split-ratio columns — editor preview */
+.editor-styles-wrapper .is-style-paksa-split-1-2.wp-block-columns > .wp-block-column:first-child  { flex: 0 0 33.33%; }
+.editor-styles-wrapper .is-style-paksa-split-2-1.wp-block-columns > .wp-block-column:last-child   { flex: 0 0 33.33%; }
+.editor-styles-wrapper .is-style-paksa-split-1-3.wp-block-columns > .wp-block-column:first-child  { flex: 0 0 25%; }
+.editor-styles-wrapper .is-style-paksa-split-3-1.wp-block-columns > .wp-block-column:last-child   { flex: 0 0 25%; }

@@ -8,7 +8,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-$heading     = paksa_get_option( 'paksa_hero_heading',            __( 'AI-Powered IT Solutions for Data-Driven Businesses', 'paksa-it-solutions' ) );
+$heading     = paksa_get_option( 'paksa_hero_heading',            __( 'AI-Powered IT Solutions &amp; Enterprise Software for Data-Driven Businesses', 'paksa-it-solutions' ) );
 $subheading  = paksa_get_option( 'paksa_hero_subheading',         "Build Smarter.\nOperate Better.\nGrow With Confidence." );
 $description = paksa_get_option( 'paksa_hero_description',        __( 'Paksa IT Solutions delivers intelligent, scalable, and secure technology services with a strong focus on Data Science, Artificial Intelligence (AI/ML), and AI Automation.', 'paksa-it-solutions' ) );
 $cta1_text   = paksa_get_option( 'paksa_hero_cta_primary_text',   __( 'Get Started', 'paksa-it-solutions' ) );

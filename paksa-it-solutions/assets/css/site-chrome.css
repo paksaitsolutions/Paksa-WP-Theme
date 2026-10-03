@@ -1,14 +1,14 @@
 /* ============================================================
-   Paksa Theme — Site Chrome (Phase 22)
+   Paksa Theme — Site Chrome (Phase 22 + Phase 23)
    Header & Footer customization via body classes.
 
    Architecture:
-   - All rules are keyed on body.paksa-header--* and body.paksa-footer--*
-   - These body classes are set by inc/parts.php for every page load
+   - All rules keyed on body.paksa-header--* and body.paksa-footer--*
+   - Body classes set by inc/parts.php for every page load
    - Both classic PHP (header.php) and FSE block templates inherit body classes
-   - CSS variables --pk-header-min-height and --pk-header-py are set by PHP
-   - No JavaScript is required for appearance/variant changes
-   - Sticky/compact behavior uses a small JS enhancement in main.js
+   - CSS variables --pk-header-min-height and --pk-header-py set by PHP
+   - Sticky/compact behavior uses IntersectionObserver sentinel in main.js
+   - Phase 23: navigation block styles, footer grid, announcement bar
    ============================================================ */
 
 /* ── Base header tokens ──────────────────────────────────────────────────── */
@@ -22,6 +22,13 @@
     --pk-header-nav-text: var(--pk-text-secondary);
     --pk-header-nav-hover: var(--pk-primary);
     --pk-header-z: 100;
+    --pk-announcement-bg: var(--pk-primary);
+    --pk-announcement-text: #ffffff;
+    --pk-footer-bg: var(--pk-bg-dark);
+    --pk-footer-text: var(--pk-text-inverse);
+    --pk-footer-muted: #a0aab4;
+    --pk-footer-border: rgba(255,255,255,.08);
+    --pk-footer-cols: 5;
 }
 
 /* ── Classic PHP header base ─────────────────────────────────────────────── */
@@ -38,7 +45,6 @@
                 box-shadow var(--pk-transition-base),
                 transform var(--pk-transition-base);
 }
-
 .site-header .header-inner {
     min-height: var(--pk-header-min-height);
     padding-block: var(--pk-header-py);
@@ -58,7 +64,6 @@
                 box-shadow var(--pk-transition-base),
                 transform var(--pk-transition-base);
 }
-
 .pk-site-editor-header__inner {
     min-height: var(--pk-header-min-height);
     padding-block: var(--pk-header-py);
@@ -157,7 +162,7 @@ body.paksa-header-appearance--bordered .pk-site-editor-header {
 
 /* ── Layout / variant body classes ───────────────────────────────────────── */
 
-/* Minimal — hide nav, show only logo + CTA */
+/* Minimal — hide nav, show only logo */
 body.paksa-header--minimal .site-header .main-nav { display: none; }
 body.paksa-header--minimal .site-header .header-inner { justify-content: space-between; }
 body.paksa-header--minimal .pk-site-editor-header .pk-site-editor-navigation { display: none; }
@@ -184,9 +189,7 @@ body.paksa-header-behavior--static .pk-site-editor-header {
     position: relative;
 }
 
-/* Sticky (default) — already set above */
-
-/* Sticky compact — JS adds .is-compact class on scroll */
+/* Sticky compact — JS adds .is-compact via IntersectionObserver sentinel */
 body.paksa-header-behavior--sticky-compact .site-header.is-compact,
 body.paksa-header-behavior--sticky-compact .pk-site-editor-header.is-compact {
     --pk-header-min-height: 3.25rem;
@@ -194,7 +197,7 @@ body.paksa-header-behavior--sticky-compact .pk-site-editor-header.is-compact {
     box-shadow: var(--pk-shadow-md);
 }
 
-/* Hide on scroll — JS adds .is-hidden class */
+/* Hide on scroll — JS adds .is-hidden */
 body.paksa-header-behavior--hide-on-scroll .site-header.is-hidden,
 body.paksa-header-behavior--hide-on-scroll .pk-site-editor-header.is-hidden {
     transform: translateY(-100%);
@@ -206,44 +209,241 @@ body.paksa-header-behavior--hide-on-scroll .pk-site-editor-header.is-hidden {
     box-shadow: var(--pk-shadow-md);
 }
 
+/* ── Announcement bar ────────────────────────────────────────────────────── */
+.pk-announcement,
+.pk-site-editor-announcement {
+    background: var(--pk-announcement-bg);
+    color: var(--pk-announcement-text);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    padding-block: 0.5rem;
+    position: relative;
+    z-index: calc(var(--pk-header-z) + 1);
+}
+.pk-announcement a,
+.pk-site-editor-announcement a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.pk-announcement a:hover,
+.pk-site-editor-announcement a:hover {
+    opacity: 0.85;
+}
+
+/* Hide announcement unless announcement variant is active */
+body:not(.paksa-header--announcement) .pk-announcement,
+body:not(.paksa-header--announcement) .pk-site-editor-announcement { display: none; }
+
+/* ── Header utility bar ──────────────────────────────────────────────────── */
+body:not(.paksa-header--contact):not(.paksa-header--social) .pk-header-utility { display: none; }
+
+/* ── Navigation block styles (Phase 23) ──────────────────────────────────── */
+
+/* Base nav link styling for FSE navigation block */
+.pk-site-editor-navigation .wp-block-navigation-item__content {
+    color: var(--pk-header-nav-text, var(--pk-text-secondary));
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: 0.375rem 0.625rem;
+    border-radius: var(--pk-radius-sm);
+    transition: color var(--pk-transition-fast), background var(--pk-transition-fast);
+    text-decoration: none;
+}
+.pk-site-editor-navigation .wp-block-navigation-item__content:hover,
+.pk-site-editor-navigation .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content {
+    color: var(--pk-header-nav-hover, var(--pk-primary));
+}
+
+/* Style: Underline */
+.pk-site-editor-navigation.is-style-pk-nav-underline .wp-block-navigation-item__content {
+    border-radius: 0;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 0.25rem;
+}
+.pk-site-editor-navigation.is-style-pk-nav-underline .wp-block-navigation-item__content:hover,
+.pk-site-editor-navigation.is-style-pk-nav-underline .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content {
+    border-bottom-color: var(--pk-primary);
+    background: transparent;
+}
+
+/* Style: Pill */
+.pk-site-editor-navigation.is-style-pk-nav-pill .wp-block-navigation-item__content {
+    border-radius: var(--pk-radius-full);
+    padding: 0.375rem 1rem;
+}
+.pk-site-editor-navigation.is-style-pk-nav-pill .wp-block-navigation-item__content:hover,
+.pk-site-editor-navigation.is-style-pk-nav-pill .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content {
+    background: var(--pk-accent-light);
+    color: var(--pk-primary);
+}
+
+/* Style: Minimal (no padding, just color change) */
+.pk-site-editor-navigation.is-style-pk-nav-minimal .wp-block-navigation-item__content {
+    padding: 0.25rem 0.375rem;
+    border-radius: 0;
+}
+
+/* ── Footer base ─────────────────────────────────────────────────────────── */
+.pk-site-editor-footer {
+    background: var(--pk-footer-bg);
+    color: var(--pk-footer-text);
+    padding-top: var(--pk-space-16);
+}
+
+/* ── Footer inner grid — responsive column system ────────────────────────── */
+.pk-site-editor-footer__inner {
+    display: grid;
+    grid-template-columns: repeat(var(--pk-footer-cols, 5), minmax(0, 1fr));
+    gap: var(--pk-space-8);
+    padding-bottom: var(--pk-space-12);
+    border-bottom: 1px solid var(--pk-footer-border);
+}
+
+/* Brand column takes more space */
+.pk-site-editor-footer__brand {
+    grid-column: span 1;
+}
+
+/* Nav columns */
+.pk-site-editor-footer__col {
+    grid-column: span 1;
+}
+
+/* ── Footer navigation styling ───────────────────────────────────────────── */
+.pk-site-editor-footer__navigation .wp-block-navigation-item__content {
+    color: var(--pk-footer-muted);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    padding: 0.25rem 0;
+    text-decoration: none;
+    transition: color var(--pk-transition-fast);
+    display: block;
+}
+.pk-site-editor-footer__navigation .wp-block-navigation-item__content:hover {
+    color: var(--pk-footer-text);
+}
+
+/* Footer column headings */
+.pk-site-editor-footer__col .wp-block-heading {
+    color: var(--pk-footer-text);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: var(--pk-space-4);
+}
+
+/* Footer brand text */
+.pk-site-editor-footer__brand .wp-block-site-title a,
+.pk-site-editor-footer__brand .wp-block-site-title {
+    color: var(--pk-footer-text);
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* ── Footer bottom bar ───────────────────────────────────────────────────── */
+.pk-site-editor-footer__bottom {
+    padding-block: var(--pk-space-6);
+    font-size: 0.875rem;
+    color: var(--pk-footer-muted);
+}
+.pk-site-editor-footer__bottom a {
+    color: var(--pk-footer-muted);
+    text-decoration: none;
+    transition: color var(--pk-transition-fast);
+}
+.pk-site-editor-footer__bottom a:hover {
+    color: var(--pk-footer-text);
+}
+
 /* ── Footer variant body classes ─────────────────────────────────────────── */
 
-/* Simple — single row */
-body.paksa-footer--simple .site-footer .footer-column,
-body.paksa-footer--simple .pk-site-editor-footer .pk-site-editor-footer__col { display: none; }
-body.paksa-footer--simple .site-footer .footer-grid,
-body.paksa-footer--simple .pk-site-editor-footer .pk-site-editor-footer__inner { grid-template-columns: 1fr; }
-body.paksa-footer--simple .site-footer .footer-brand,
-body.paksa-footer--simple .pk-site-editor-footer .pk-site-editor-footer__brand { max-width: 34rem; }
+/* Simple — single row, brand only */
+body.paksa-footer--simple .pk-site-editor-footer__inner {
+    grid-template-columns: 1fr;
+}
+body.paksa-footer--simple .pk-site-editor-footer__col { display: none; }
+body.paksa-footer--simple .pk-site-editor-footer__brand { max-width: 34rem; }
 
 /* Legal — bottom bar only */
-body.paksa-footer--legal .site-footer .footer-grid,
-body.paksa-footer--legal .pk-site-editor-footer .pk-site-editor-footer__inner { display: none; }
-body.paksa-footer--legal .site-footer { padding-top: var(--pk-space-6); }
+body.paksa-footer--legal .pk-site-editor-footer__inner { display: none; }
+body.paksa-footer--legal .pk-site-editor-footer { padding-top: var(--pk-space-6); }
 
-/* Social — brand + social, no columns */
-body.paksa-footer--social .site-footer .footer-column,
-body.paksa-footer--social .pk-site-editor-footer .pk-site-editor-footer__col { display: none; }
-body.paksa-footer--social .site-footer .footer-grid,
-body.paksa-footer--social .pk-site-editor-footer .pk-site-editor-footer__inner { grid-template-columns: 1fr; }
+/* Social — brand + social, no nav columns */
+body.paksa-footer--social .pk-site-editor-footer__inner {
+    grid-template-columns: 1fr;
+}
+body.paksa-footer--social .pk-site-editor-footer__col { display: none; }
 
-/* Company / contact — single column with contact info */
-body.paksa-footer--company .site-footer .footer-column,
-body.paksa-footer--contact .site-footer .footer-column { display: none; }
-body.paksa-footer--company .site-footer .footer-grid,
-body.paksa-footer--contact .site-footer .footer-grid { grid-template-columns: minmax(0,1fr); }
-body.paksa-footer--company .site-footer .footer-brand,
-body.paksa-footer--contact .site-footer .footer-brand { max-width: 40rem; }
-
-/* Dark — already dark by default; explicit override for light variations */
-body.paksa-footer--dark .site-footer,
+/* Dark — explicit dark override for light style variations */
 body.paksa-footer--dark .pk-site-editor-footer {
     background: var(--pk-bg-dark);
     color: var(--pk-text-inverse);
 }
 
+/* CTA band */
+.pk-site-editor-footer__cta-band {
+    padding-block: var(--pk-space-12);
+    border-bottom: 1px solid var(--pk-footer-border);
+}
+
+/* Footer CTA band — only show for cta variant */
+body:not(.paksa-footer--cta) .pk-site-editor-footer__cta-band { display: none; }
+body:not(.paksa-footer--newsletter) .pk-footer-newsletter { display: none; }
+body:not(.paksa-footer--cta) .pk-footer-cta { display: none; }
+
+/* ── Search block integration (Phase 23) ─────────────────────────────────── */
+.pk-site-editor-header .wp-block-search__inside-wrapper {
+    border-radius: var(--pk-radius-full);
+    border: 1px solid var(--pk-header-border);
+    overflow: hidden;
+    transition: border-color var(--pk-transition-fast), box-shadow var(--pk-transition-fast);
+}
+.pk-site-editor-header .wp-block-search__inside-wrapper:focus-within {
+    border-color: var(--pk-primary);
+    box-shadow: 0 0 0 3px rgba(97,146,248,.2);
+}
+.pk-site-editor-header .wp-block-search__input {
+    background: transparent;
+    border: none;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--pk-header-text);
+    min-width: 0;
+}
+.pk-site-editor-header .wp-block-search__button {
+    background: var(--pk-primary);
+    color: #fff;
+    border: none;
+    padding: 0.375rem 0.75rem;
+    cursor: pointer;
+    transition: background var(--pk-transition-fast);
+}
+.pk-site-editor-header .wp-block-search__button:hover {
+    background: var(--pk-primary-hover);
+}
+
 /* ── Responsive ──────────────────────────────────────────────────────────── */
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
+    .pk-site-editor-footer__inner {
+        --pk-footer-cols: 2;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .pk-site-editor-footer__brand {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 639px) {
+    .pk-site-editor-footer__inner {
+        --pk-footer-cols: 1;
+        grid-template-columns: 1fr;
+    }
+    .pk-site-editor-footer__brand {
+        grid-column: span 1;
+    }
     body.paksa-header--centered .site-header .header-inner {
         grid-template-columns: 1fr auto;
     }
@@ -265,28 +465,14 @@ body.paksa-footer--dark .pk-site-editor-footer {
         opacity: 0.01;
     }
 }
-
 body.paksa-motion--none .site-header,
 body.paksa-motion--none .pk-site-editor-header { transition: none; }
-
-/* ── Style variation integration ─────────────────────────────────────────── */
-/* Header/footer inherit --pk-* tokens automatically.
-   No per-variation overrides needed here — the token cascade handles it. */
-
-/* ── Announcement bar ────────────────────────────────────────────────────── */
-body:not(.paksa-header--announcement) .pk-announcement { display: none; }
-
-/* ── Header utility bar ──────────────────────────────────────────────────── */
-body:not(.paksa-header--contact):not(.paksa-header--social) .pk-header-utility { display: none; }
-
-/* ── Footer CTA band ─────────────────────────────────────────────────────── */
-body:not(.paksa-footer--cta) .pk-footer-cta { display: none; }
-
-/* ── Footer newsletter ───────────────────────────────────────────────────── */
-body:not(.paksa-footer--newsletter) .pk-footer-newsletter { display: none; }
 
 /* ── Editor parity ───────────────────────────────────────────────────────── */
 .editor-styles-wrapper .pk-site-editor-header {
     position: relative;
     min-height: var(--pk-header-min-height, 4.5rem);
+}
+.editor-styles-wrapper .pk-site-editor-footer {
+    padding-top: var(--pk-space-8);
 }

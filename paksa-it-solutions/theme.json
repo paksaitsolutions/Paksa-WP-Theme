@@ -172,13 +172,6 @@
     { "name": "paksa-product-archive","title": "Paksa Product Archive","postTypes": [ "page" ] },
     { "name": "paksa-service-archive","title": "Paksa Service Archive","postTypes": [ "page" ] }
   ],
-  "blockTemplates": [
-    { "name": "page",                       "title": "Default Page" },
-    { "name": "single-paksa_product",       "title": "Single Product" },
-    { "name": "single-paksa_service",       "title": "Single Service" },
-    { "name": "taxonomy-paksa_product_cat", "title": "Product Category" },
-    { "name": "taxonomy-paksa_service_cat", "title": "Service Category" }
-  ],
   "templateParts": [
     { "name": "header",          "title": "Header — Standard",       "area": "header" },
     { "name": "header-minimal",  "title": "Header — Minimal",        "area": "header" },

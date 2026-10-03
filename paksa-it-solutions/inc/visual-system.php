@@ -206,6 +206,46 @@ function paksa_register_visual_blocks() {
         'name'  => 'paksa-feature-row',
         'label' => __( 'Paksa Feature Row', 'paksa-it-solutions' ),
     ) );
+    register_block_style( 'core/navigation', array(
+        'name'  => 'pk-nav-underline',
+        'label' => __( 'Paksa Underline', 'paksa-it-solutions' ),
+    ) );
+    register_block_style( 'core/navigation', array(
+        'name'  => 'pk-nav-pill',
+        'label' => __( 'Paksa Pill', 'paksa-it-solutions' ),
+    ) );
+    register_block_style( 'core/navigation', array(
+        'name'  => 'pk-nav-minimal',
+        'label' => __( 'Paksa Minimal', 'paksa-it-solutions' ),
+    ) );
+
+    // Phase 24 — split-ratio column styles
+    register_block_style( 'core/columns', array(
+        'name'  => 'paksa-split-1-2',
+        'label' => __( 'Paksa 1/3 + 2/3', 'paksa-it-solutions' ),
+    ) );
+    register_block_style( 'core/columns', array(
+        'name'  => 'paksa-split-2-1',
+        'label' => __( 'Paksa 2/3 + 1/3', 'paksa-it-solutions' ),
+    ) );
+    register_block_style( 'core/columns', array(
+        'name'  => 'paksa-split-1-3',
+        'label' => __( 'Paksa 1/4 + 3/4', 'paksa-it-solutions' ),
+    ) );
+    register_block_style( 'core/columns', array(
+        'name'  => 'paksa-split-3-1',
+        'label' => __( 'Paksa 3/4 + 1/4', 'paksa-it-solutions' ),
+    ) );
+
+    // Phase 24 — section preset styles on core/group
+    $section_presets = array(
+        'paksa-section-elevated' => __( 'Paksa Elevated Section', 'paksa-it-solutions' ),
+        'paksa-section-bordered' => __( 'Paksa Bordered Section', 'paksa-it-solutions' ),
+    );
+    foreach ( $section_presets as $name => $label ) {
+        register_block_style( 'core/group', array( 'name' => $name, 'label' => $label ) );
+    }
+
     register_block_style( 'core/cover', array(
         'name'  => 'paksa-media-section',
         'label' => __( 'Paksa Media Section', 'paksa-it-solutions' ),
@@ -560,7 +600,12 @@ add_filter( 'paksa_icon_library', 'paksa_extend_visual_icon_library' );
 /**
  * Make the visual system available in the editor without depending on a build step.
  */
-function paksa_enqueue_visual_editor_assets() {
+/**
+ * Enqueue all editor CSS on enqueue_block_assets so styles reach the
+ * editor iframe canvas (required since WP 6.6 — enqueue_block_editor_assets
+ * no longer injects stylesheets into the iframe).
+ */
+function paksa_enqueue_editor_styles_for_iframe() {
     wp_enqueue_style(
         'paksa-editor-variables',
         PAKSA_THEME_URI . '/assets/css/variables.css',
@@ -585,6 +630,70 @@ function paksa_enqueue_visual_editor_assets() {
         array( 'paksa-blocks' ),
         PAKSA_THEME_VERSION
     );
+    wp_enqueue_style(
+        'paksa-editor-phase25',
+        PAKSA_THEME_URI . '/assets/css/editor-phase25.css',
+        array( 'paksa-editor' ),
+        PAKSA_THEME_VERSION
+    );
+    wp_enqueue_style(
+        'paksa-editor-phase26',
+        PAKSA_THEME_URI . '/assets/css/editor-phase26.css',
+        array( 'paksa-editor-phase25' ),
+        PAKSA_THEME_VERSION
+    );
+    wp_enqueue_style(
+        'paksa-editor-phase28',
+        PAKSA_THEME_URI . '/assets/css/editor-phase28.css',
+        array( 'paksa-editor-phase26' ),
+        PAKSA_THEME_VERSION
+    );
+    wp_enqueue_style(
+        'paksa-editor-phase29',
+        PAKSA_THEME_URI . '/assets/css/editor-phase29.css',
+        array( 'paksa-editor-phase28' ),
+        PAKSA_THEME_VERSION
+    );
+    wp_enqueue_style(
+        'paksa-editor-phase30',
+        PAKSA_THEME_URI . '/assets/css/editor-phase30.css',
+        array( 'paksa-editor-phase29' ),
+        PAKSA_THEME_VERSION
+    );
+    wp_enqueue_style(
+        'paksa-editor-phase31',
+        PAKSA_THEME_URI . '/assets/css/editor-phase31.css',
+        array( 'paksa-editor-phase30' ),
+        PAKSA_THEME_VERSION
+    );
+    wp_enqueue_style(
+        'paksa-editor-phase32',
+        PAKSA_THEME_URI . '/assets/css/editor-phase32.css',
+        array( 'paksa-editor-phase31' ),
+        PAKSA_THEME_VERSION
+    );
+    wp_enqueue_style(
+        'paksa-editor-phase33',
+        PAKSA_THEME_URI . '/assets/css/editor-phase33.css',
+        array( 'paksa-editor-phase32' ),
+        PAKSA_THEME_VERSION
+    );
+    wp_enqueue_style(
+        'paksa-editor-phase34',
+        PAKSA_THEME_URI . '/assets/css/editor-phase34.css',
+        array( 'paksa-editor-phase33' ),
+        PAKSA_THEME_VERSION
+    );
+    wp_enqueue_style(
+        'paksa-editor-phase35',
+        PAKSA_THEME_URI . '/assets/css/editor-phase35.css',
+        array( 'paksa-editor-phase34' ),
+        PAKSA_THEME_VERSION
+    );
+}
+add_action( 'enqueue_block_assets', 'paksa_enqueue_editor_styles_for_iframe' );
+
+function paksa_enqueue_visual_editor_assets() {
     wp_enqueue_script(
         'paksa-editor-blocks',
         PAKSA_THEME_URI . '/assets/js/editor-blocks.js',
@@ -634,6 +743,11 @@ function paksa_register_visual_pattern_categories() {
         'paksa-faq'          => __( 'Paksa FAQs', 'paksa-it-solutions' ),
         'paksa-contact'      => __( 'Paksa Contact', 'paksa-it-solutions' ),
         'paksa-layouts'      => __( 'Paksa Layouts', 'paksa-it-solutions' ),
+        'paksa-features'     => __( 'Paksa Features', 'paksa-it-solutions' ),
+        'paksa-blog'         => __( 'Paksa Blog', 'paksa-it-solutions' ),
+        'paksa-pricing'      => __( 'Paksa Pricing', 'paksa-it-solutions' ),
+        'paksa-team'         => __( 'Paksa Team', 'paksa-it-solutions' ),
+        'paksa-process'      => __( 'Paksa Process', 'paksa-it-solutions' ),
     );
 
     foreach ( $categories as $slug => $label ) {
@@ -778,10 +892,10 @@ function paksa_visual_faq_list() {
 }
 
 function paksa_visual_media_placeholder() {
-    return '<!-- wp:cover {"overlayColor":"dark","minHeight":360,"className":"pk-pattern-media"} -->'
-        . '<div class="wp-block-cover pk-pattern-media" style="min-height:360px"><span aria-hidden="true" class="wp-block-cover__background has-dark-background-color has-background-dim-70 has-background-dim"></span><div class="wp-block-cover__inner-container is-layout-flow wp-block-cover-is-layout-flow">'
-        . paksa_visual_paragraph( 'Replace this cover with an image or video from your Media Library.', 'has-text-align-center has-white-color has-text-color' )
-        . '</div></div><!-- /wp:cover -->';
+    $inner = paksa_visual_paragraph( 'Replace this cover with an image or video from your Media Library.', 'has-text-align-center has-white-color has-text-color' );
+    return '<!-- wp:cover {"overlayColor":"dark","dimRatio":100,"minHeight":360,"className":"pk-pattern-media"} -->'
+        . $inner
+        . '<!-- /wp:cover -->';
 }
 
 /**

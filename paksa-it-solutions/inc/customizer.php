@@ -60,7 +60,7 @@ function paksa_customizer_register( $wp_customize ) {
         __( 'Primary CTA Text', 'paksa-it-solutions' ),
         __( 'Get a Free Consultation', 'paksa-it-solutions' )
     );
-    paksa_customizer_text( $wp_customize, 'paksa_hero_cta_primary_url', 'paksa_hero',
+    paksa_customizer_url( $wp_customize, 'paksa_hero_cta_primary_url', 'paksa_hero',
         __( 'Primary CTA URL', 'paksa-it-solutions' ),
         '#contact'
     );
@@ -68,7 +68,7 @@ function paksa_customizer_register( $wp_customize ) {
         __( 'Secondary CTA Text', 'paksa-it-solutions' ),
         __( 'Explore Our Solutions', 'paksa-it-solutions' )
     );
-    paksa_customizer_text( $wp_customize, 'paksa_hero_cta_secondary_url', 'paksa_hero',
+    paksa_customizer_url( $wp_customize, 'paksa_hero_cta_secondary_url', 'paksa_hero',
         __( 'Secondary CTA URL', 'paksa-it-solutions' ),
         '#solutions'
     );
@@ -329,7 +329,7 @@ function paksa_customizer_register( $wp_customize ) {
         __( 'Primary Button Text', 'paksa-it-solutions' ),
         __( 'Get a Free Consultation', 'paksa-it-solutions' )
     );
-    paksa_customizer_text( $wp_customize, 'paksa_cta_primary_url', 'paksa_final_cta',
+    paksa_customizer_url( $wp_customize, 'paksa_cta_primary_url', 'paksa_final_cta',
         __( 'Primary Button URL', 'paksa-it-solutions' ),
         '#contact'
     );
@@ -337,7 +337,7 @@ function paksa_customizer_register( $wp_customize ) {
         __( 'Secondary Button Text', 'paksa-it-solutions' ),
         __( 'Discuss Your Project', 'paksa-it-solutions' )
     );
-    paksa_customizer_text( $wp_customize, 'paksa_cta_secondary_url', 'paksa_final_cta',
+    paksa_customizer_url( $wp_customize, 'paksa_cta_secondary_url', 'paksa_final_cta',
         __( 'Secondary Button URL', 'paksa-it-solutions' ),
         '#contact'
     );
@@ -432,7 +432,7 @@ function paksa_customizer_register( $wp_customize ) {
         __( 'Business Email', 'paksa-it-solutions' ), '' );
     paksa_customizer_text( $wp_customize, 'paksa_address', 'paksa_contact_info',
         __( 'Business Address', 'paksa-it-solutions' ), '' );
-    paksa_customizer_text( $wp_customize, 'paksa_whatsapp_url', 'paksa_contact_info',
+    paksa_customizer_url( $wp_customize, 'paksa_whatsapp_url', 'paksa_contact_info',
         __( 'WhatsApp URL', 'paksa-it-solutions' ), '' );
 
     // WhatsApp floating button visibility
@@ -456,13 +456,13 @@ function paksa_customizer_register( $wp_customize ) {
         'panel' => 'paksa_global',
     ) );
 
-    paksa_customizer_text( $wp_customize, 'paksa_social_facebook', 'paksa_social_section',
+    paksa_customizer_url( $wp_customize, 'paksa_social_facebook', 'paksa_social_section',
         __( 'Facebook URL', 'paksa-it-solutions' ), '' );
-    paksa_customizer_text( $wp_customize, 'paksa_social_twitter', 'paksa_social_section',
+    paksa_customizer_url( $wp_customize, 'paksa_social_twitter', 'paksa_social_section',
         __( 'Twitter/X URL', 'paksa-it-solutions' ), '' );
-    paksa_customizer_text( $wp_customize, 'paksa_social_linkedin', 'paksa_social_section',
+    paksa_customizer_url( $wp_customize, 'paksa_social_linkedin', 'paksa_social_section',
         __( 'LinkedIn URL', 'paksa-it-solutions' ), '' );
-    paksa_customizer_text( $wp_customize, 'paksa_social_github', 'paksa_social_section',
+    paksa_customizer_url( $wp_customize, 'paksa_social_github', 'paksa_social_section',
         __( 'GitHub URL', 'paksa-it-solutions' ), '' );
 }
 add_action( 'customize_register', 'paksa_customizer_register' );
@@ -496,6 +496,22 @@ function paksa_customizer_textarea( $wp_customize, $id, $section, $label, $defau
         'label'   => $label,
         'section' => $section,
         'type'    => 'textarea',
+    ) );
+}
+
+// =========================================================
+// HELPER: Register URL setting + control
+// =========================================================
+function paksa_customizer_url( $wp_customize, $id, $section, $label, $default = '' ) {
+    $wp_customize->add_setting( $id, array(
+        'default'           => $default,
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ) );
+    $wp_customize->add_control( $id, array(
+        'label'   => $label,
+        'section' => $section,
+        'type'    => 'url',
     ) );
 }
 

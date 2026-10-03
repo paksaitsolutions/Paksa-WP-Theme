@@ -523,7 +523,7 @@
                         } ),
                         el( ToggleControl, {
                             label: 'Stack on mobile',
-                            checked: a.pkStackMobile !== false,
+                            checked: !! a.pkStackMobile,
                             onChange: function( v ) { set( { pkStackMobile: v } ); }
                         } )
                     )
@@ -538,19 +538,24 @@
         withResponsiveControls
     );
 
-    /* Register the custom attributes so they persist */
+    /* Register the custom attributes so they persist.
+     * pkStackMobile defaults to FALSE so existing saved content
+     * (which has no pk-stack-mobile class) validates correctly.
+     * Editors can opt-in per block via the toggle. */
     addFilter(
         'blocks.registerBlockType',
         'paksa/responsive-attributes',
         function( settings, name ) {
             if ( SUPPORTED.indexOf( name ) === -1 ) return settings;
             settings.attributes = Object.assign( {}, settings.attributes, {
-                pkMobileCols:  { type: 'string', default: '1' },
-                pkTabletCols:  { type: 'string', default: '2' },
-                pkStackMobile: { type: 'boolean', default: true }
+                pkMobileCols:  { type: 'string',  default: '1' },
+                pkTabletCols:  { type: 'string',  default: '2' },
+                pkStackMobile: { type: 'boolean', default: false }
             } );
             return settings;
         }
     );
 
 } )( window.wp );
+
+/* Deprecation shim for core/cover dim-70 removed — caused Resolve Block dialogs */

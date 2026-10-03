@@ -132,6 +132,10 @@ if (!defined('ABSPATH')) {
 
     <?php get_template_part( 'template-parts/components/whatsapp-fab' ); ?>
 
+    <button class="pk-back-to-top" id="pk-back-to-top" aria-label="Back to top" hidden>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
     <?php wp_footer(); ?>
 </body>
 </html>

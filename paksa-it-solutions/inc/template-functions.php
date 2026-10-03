@@ -112,9 +112,9 @@ function paksa_organization_schema() {
     $schema = array(
         '@context' => 'https://schema.org',
         '@type' => 'Organization',
-        'name' => get_bloginfo('name', 'display'),
-        'url' => home_url('/'),
-        'description' => get_bloginfo('description', 'display'),
+        'name' => wp_strip_all_tags( get_bloginfo( 'name', 'display' ) ),
+        'url' => home_url( '/' ),
+        'description' => wp_strip_all_tags( get_bloginfo( 'description', 'display' ) ),
         'sameAs' => array_values( array_filter( array(
             paksa_get_option( 'paksa_social_facebook', '' ),
             paksa_get_option( 'paksa_social_twitter', '' ),
@@ -125,6 +125,86 @@ function paksa_organization_schema() {
     echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
 }
 add_action('wp_head', 'paksa_organization_schema', 2);
+
+/**
+ * Self-referencing canonical tag.
+ */
+function paksa_canonical_tag() {
+    if ( paksa_seo_plugin_active() || is_admin() ) {
+        return;
+    }
+    global $wp;
+    $canonical = home_url( add_query_arg( array(), $wp->request ) );
+    $page = get_query_var( 'paged' );
+    if ( $page > 1 ) {
+        $canonical = trailingslashit( $canonical ) . 'page/' . $page . '/';
+    }
+    echo '<link rel="canonical" href="' . esc_url( $canonical ) . '">' . "\n";
+}
+add_action( 'wp_head', 'paksa_canonical_tag', 2 );
+
+/**
+ * SoftwareApplication JSON-LD on single product pages.
+ */
+function paksa_software_application_schema() {
+    if ( ! is_singular( 'paksa_product' ) || paksa_seo_plugin_active() ) {
+        return;
+    }
+    $post_id     = get_the_ID();
+    $description = get_post_meta( $post_id, '_paksa_prod_hero_description', true );
+    if ( ! $description ) {
+        $description = get_the_excerpt();
+    }
+    $category = get_post_meta( $post_id, '_paksa_prod_category_label', true ) ?: 'Business Software';
+    $schema = array(
+        '@context'            => 'https://schema.org',
+        '@type'               => 'SoftwareApplication',
+        'name'                => wp_strip_all_tags( get_the_title() ),
+        'description'         => wp_strip_all_tags( $description ),
+        'url'                 => get_permalink(),
+        'applicationCategory' => $category,
+        'operatingSystem'     => 'Web',
+        'author'              => array( '@type' => 'Organization', 'name' => wp_strip_all_tags( get_bloginfo( 'name' ) ), 'url' => home_url( '/' ) ),
+    );
+    if ( has_post_thumbnail() ) {
+        $img = wp_get_attachment_image_src( get_post_thumbnail_id(), 'paksa-large' );
+        if ( $img ) {
+            $schema['image'] = $img[0];
+        }
+    }
+    echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
+}
+add_action( 'wp_head', 'paksa_software_application_schema', 2 );
+
+/**
+ * FAQPage JSON-LD on the homepage when FAQ items exist.
+ */
+function paksa_faqpage_schema() {
+    if ( ! is_front_page() || paksa_seo_plugin_active() ) {
+        return;
+    }
+    $raw = paksa_get_option( 'paksa_home_faq_items', '' );
+    if ( empty( $raw ) ) {
+        return;
+    }
+    $entities = array();
+    foreach ( array_filter( array_map( 'trim', explode( "\n", $raw ) ) ) as $line ) {
+        $parts = array_map( 'trim', explode( '|', $line, 2 ) );
+        if ( count( $parts ) === 2 && $parts[0] && $parts[1] ) {
+            $entities[] = array(
+                '@type'          => 'Question',
+                'name'           => wp_strip_all_tags( $parts[0] ),
+                'acceptedAnswer' => array( '@type' => 'Answer', 'text' => wp_strip_all_tags( $parts[1] ) ),
+            );
+        }
+    }
+    if ( empty( $entities ) ) {
+        return;
+    }
+    $schema = array( '@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $entities );
+    echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
+}
+add_action( 'wp_head', 'paksa_faqpage_schema', 2 );
 
 /**
  * Schema.org JSON-LD — WebSite with SearchAction
@@ -138,11 +218,11 @@ function paksa_website_schema() {
     $schema = array(
         '@context' => 'https://schema.org',
         '@type' => 'WebSite',
-        'name' => get_bloginfo('name', 'display'),
-        'url' => home_url('/'),
+        'name' => wp_strip_all_tags( get_bloginfo( 'name', 'display' ) ),
+        'url' => home_url( '/' ),
         'potentialAction' => array(
             '@type' => 'SearchAction',
-            'target' => home_url('/?s={search_term_string}'),
+            'target' => home_url( '/?s={search_term_string}' ),
             'query-input' => 'required name=search_term_string',
         ),
     );
@@ -181,8 +261,11 @@ function paksa_breadcrumbs() {
         // Primary taxonomy term
         $terms = get_the_terms( get_the_ID(), 'paksa_product_cat' );
         if ( $terms && ! is_wp_error( $terms ) ) {
-            $items[] = $sep;
-            $items[] = '<li><a href="' . esc_url( get_term_link( $terms[0] ) ) . '">' . esc_html( $terms[0]->name ) . '</a></li>';
+            $url = get_term_link( $terms[0] );
+            if ( ! is_wp_error( $url ) ) {
+                $items[] = $sep;
+                $items[] = '<li><a href="' . esc_url( $url ) . '">' . esc_html( $terms[0]->name ) . '</a></li>';
+            }
         }
         $items[] = $sep;
         $items[] = '<li aria-current="page">' . esc_html( get_the_title() ) . '</li>';
@@ -195,8 +278,11 @@ function paksa_breadcrumbs() {
         }
         $terms = get_the_terms( get_the_ID(), 'paksa_service_cat' );
         if ( $terms && ! is_wp_error( $terms ) ) {
-            $items[] = $sep;
-            $items[] = '<li><a href="' . esc_url( get_term_link( $terms[0] ) ) . '">' . esc_html( $terms[0]->name ) . '</a></li>';
+            $url = get_term_link( $terms[0] );
+            if ( ! is_wp_error( $url ) ) {
+                $items[] = $sep;
+                $items[] = '<li><a href="' . esc_url( $url ) . '">' . esc_html( $terms[0]->name ) . '</a></li>';
+            }
         }
         $items[] = $sep;
         $items[] = '<li aria-current="page">' . esc_html( get_the_title() ) . '</li>';

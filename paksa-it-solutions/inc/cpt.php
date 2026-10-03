@@ -144,3 +144,32 @@ function paksa_flush_rewrite_on_activation() {
     flush_rewrite_rules();
 }
 add_action( 'after_switch_theme', 'paksa_flush_rewrite_on_activation' );
+
+/**
+ * Register paksa_case_study post type.
+ */
+function paksa_register_case_study_cpt() {
+    register_post_type( 'case_study', array(
+        'labels'             => array(
+            'name'          => __( 'Case Studies', 'paksa-it-solutions' ),
+            'singular_name' => __( 'Case Study', 'paksa-it-solutions' ),
+            'add_new_item'  => __( 'Add New Case Study', 'paksa-it-solutions' ),
+            'edit_item'     => __( 'Edit Case Study', 'paksa-it-solutions' ),
+            'menu_name'     => __( 'Case Studies', 'paksa-it-solutions' ),
+        ),
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'query_var'          => true,
+        'rewrite'            => array( 'slug' => 'case-studies', 'with_front' => false ),
+        'capability_type'    => 'post',
+        'has_archive'        => false,
+        'hierarchical'       => false,
+        'menu_position'      => 6,
+        'menu_icon'          => 'dashicons-analytics',
+        'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ),
+    ) );
+}
+add_action( 'init', 'paksa_register_case_study_cpt' );

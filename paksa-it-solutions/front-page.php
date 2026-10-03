@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 get_header();
 ?>
-<main id="main-content" class="pk-front-page">
+<main id="main-content" tabindex="-1" class="pk-front-page">
 
     <?php if ( paksa_get_option( 'paksa_home_show_hero', '1' ) !== '0' ) get_template_part( 'template-parts/home/hero' ); ?>
     <?php if ( paksa_get_option( 'paksa_home_show_trust_strip', '1' ) !== '0' ) get_template_part( 'template-parts/home/trust-strip' ); ?>

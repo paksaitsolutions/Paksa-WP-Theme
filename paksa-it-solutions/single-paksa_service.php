@@ -141,7 +141,7 @@ $display_caps = ! empty( $caps_rich ) ? $caps_rich : array_map( function( $c ) {
     return array( 'title' => $c['title'], 'desc' => $c['desc'], 'metric_val' => '', 'metric_label' => '', 'deliverables' => array() );
 }, $caps );
 ?>
-<main id="main-content" class="pk-single-service">
+<main id="main-content" tabindex="-1" class="pk-single-service">
 
     <?php /* ── Admin notice for editors ── */
     if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) :

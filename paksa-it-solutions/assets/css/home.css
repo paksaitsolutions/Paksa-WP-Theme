@@ -496,6 +496,8 @@
 
 .pk-product-card--featured { border-color: var(--pk-primary); }
 
+.pk-product-card[hidden] { display: none !important; }
+
 @media (min-width: 1280px) {
     .pk-product-card--featured { grid-column: span 2; }
 }

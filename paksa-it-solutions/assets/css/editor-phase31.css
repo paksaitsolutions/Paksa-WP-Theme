@@ -1,0 +1,403 @@
+/* ============================================================
+   Phase 31 — Visual Canvas Interaction Layer
+   All rules editor-only. No frontend impact.
+   Scoped to .editor-styles-wrapper or .block-editor-block-list__layout.
+   ============================================================ */
+
+/* ── Canvas hover outline ────────────────────────────────────────────────── */
+/* Applied via JS class pk-canvas-hover on the data-block node.              */
+/* Uses CSS custom property --pk-hover-depth-color set per-block by JS.      */
+/* pointer-events: none so it never intercepts Gutenberg clicks.             */
+.editor-styles-wrapper [data-block].pk-canvas-hover {
+    outline: 2px solid var( --pk-hover-depth-color, rgba(97,146,248,.55) ) !important;
+    outline-offset: 2px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Suppress hover outline when block is already selected (Gutenberg handles it) */
+.editor-styles-wrapper [data-block].pk-canvas-hover.is-selected,
+.editor-styles-wrapper [data-block].pk-canvas-hover.has-child-selected {
+    outline: none !important;
+}
+
+/* ── Element label badge ─────────────────────────────────────────────────── */
+/* Positioned absolutely by JS. editor-only. pointer-events: none.           */
+.pk-canvas-label {
+    position: absolute;
+    z-index: 100001;
+    padding: 2px 7px;
+    background: var( --pk-label-color, #6192f8 );
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: 0 2px 6px rgba(18,22,25,.18);
+    line-height: 1.6;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    transition: opacity 80ms;
+}
+
+/* ── Selected block overlay outline ─────────────────────────────────────── */
+/* Positioned absolutely by JS over the selected block. pointer-events: none.*/
+.pk-overlay-outline {
+    position: absolute;
+    z-index: 100000;
+    pointer-events: none;
+    border: 2px solid #6192f8;
+    border-radius: 3px;
+    box-shadow: 0 0 0 3px rgba(97,146,248,.15);
+    transition: top 60ms, left 60ms, width 60ms, height 60ms;
+}
+
+/* ── Selected block overlay bar ─────────────────────────────────────────── */
+/* Floating action bar above the selected block.                             */
+.pk-overlay-bar {
+    position: absolute;
+    z-index: 100002;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: #1d1d1d;
+    border-radius: 5px;
+    box-shadow: 0 4px 16px rgba(18,22,25,.22);
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    height: 28px;
+    max-width: 480px;
+    white-space: nowrap;
+}
+
+/* Breadcrumb section */
+.pk-overlay-breadcrumb {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    gap: 3px;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.pk-overlay-crumb {
+    padding: 0 4px;
+    border: none;
+    background: none;
+    color: rgba(255,255,255,.6);
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 3px;
+    white-space: nowrap;
+    transition: color 80ms, background 80ms;
+    height: 22px;
+    display: flex;
+    align-items: center;
+}
+
+.pk-overlay-crumb:hover {
+    color: #fff;
+    background: rgba(97,146,248,.3);
+}
+
+.pk-overlay-crumb:focus-visible {
+    outline: 2px solid #6192f8;
+    outline-offset: 1px;
+}
+
+.pk-overlay-crumb-sep {
+    color: rgba(255,255,255,.3);
+    font-size: 10px;
+    flex-shrink: 0;
+}
+
+.pk-overlay-current {
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 0 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Actions section */
+.pk-overlay-actions {
+    display: flex;
+    align-items: center;
+    border-left: 1px solid rgba(255,255,255,.12);
+    flex-shrink: 0;
+}
+
+.pk-overlay-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: none;
+    color: rgba(255,255,255,.7);
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 80ms, color 80ms;
+    border-radius: 0;
+}
+
+.pk-overlay-btn:hover {
+    background: rgba(97,146,248,.25);
+    color: #fff;
+}
+
+.pk-overlay-btn:focus-visible {
+    outline: 2px solid #6192f8;
+    outline-offset: -2px;
+}
+
+.pk-overlay-btn.is-disabled,
+.pk-overlay-btn:disabled {
+    opacity: .35;
+    cursor: default;
+    pointer-events: none;
+}
+
+.pk-overlay-btn--delete:hover {
+    background: rgba(240,68,56,.25);
+    color: #f04438;
+}
+
+/* ── Spacing visualization ───────────────────────────────────────────────── */
+/* Canvas indicator bands rendered inside the Inspector panel.               */
+.pk-spacing-viz {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.pk-spacing-viz__band {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 1px dashed rgba(97,146,248,.5);
+    background: rgba(97,146,248,.06);
+    min-height: 32px;
+}
+
+.pk-spacing-viz__band--top  { border-top-color: #6192f8; }
+.pk-spacing-viz__band--bottom { border-bottom-color: #6192f8; }
+
+.pk-spacing-viz__value {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    color: #6192f8;
+    font-variant-numeric: tabular-nums;
+    padding: 2px 6px;
+    border-radius: 3px;
+    transition: background 80ms;
+}
+
+.pk-spacing-viz__value:hover {
+    background: rgba(97,146,248,.15);
+}
+
+.pk-spacing-viz__value:focus-visible {
+    outline: 2px solid #6192f8;
+    outline-offset: 1px;
+}
+
+.pk-spacing-viz__arrow {
+    font-size: 13px;
+    color: rgba(97,146,248,.7);
+}
+
+.pk-spacing-viz__input {
+    width: 100%;
+    padding: 4px 8px;
+    border: 1px solid #6192f8;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1d1d1d;
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(97,146,248,.2);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Canvas-level spacing viz indicator — shown on the block itself */
+.editor-styles-wrapper [data-block].pk-spacing-viz-active {
+    outline: 2px dashed rgba(97,146,248,.4) !important;
+    outline-offset: 0;
+}
+
+.editor-styles-wrapper [data-block].pk-spacing-viz-active::before,
+.editor-styles-wrapper [data-block].pk-spacing-viz-active::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(97,146,248,.25);
+    pointer-events: none;
+    z-index: 5;
+}
+
+.editor-styles-wrapper [data-block].pk-spacing-viz-active::before { top: 0; }
+.editor-styles-wrapper [data-block].pk-spacing-viz-active::after  { bottom: 0; }
+
+/* Spacing viz panel title */
+.pk-spacing-viz-panel .components-panel__body-title button {
+    color: var(--wp-admin-theme-color, #6192f8);
+    font-weight: 600;
+}
+
+/* ── Column width feedback badge ─────────────────────────────────────────── */
+/* Positioned absolutely by JS near the selected column.                     */
+.pk-width-badge {
+    position: absolute;
+    z-index: 100003;
+    padding: 2px 8px;
+    background: #121619;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    border-radius: 3px;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(18,22,25,.2);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Alignment guides ────────────────────────────────────────────────────── */
+/* Shown on core/columns when a column is selected. CSS-only guide lines.    */
+/* Uses column gap midpoints via a repeating gradient overlay.               */
+.editor-styles-wrapper .wp-block-columns.pk-alignment-guides-active {
+    position: relative;
+}
+
+.editor-styles-wrapper .wp-block-columns.pk-alignment-guides-active::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 4;
+    background-image: repeating-linear-gradient(
+        to right,
+        transparent 0,
+        transparent calc(50% - 0.5px),
+        rgba(97,146,248,.18) calc(50% - 0.5px),
+        rgba(97,146,248,.18) calc(50% + 0.5px),
+        transparent calc(50% + 0.5px),
+        transparent 100%
+    );
+}
+
+/* Column boundary highlight when alignment guides active */
+.editor-styles-wrapper .wp-block-columns.pk-alignment-guides-active .wp-block-column {
+    outline: 1px dashed rgba(97,146,248,.2);
+    outline-offset: -1px;
+}
+
+.editor-styles-wrapper .wp-block-columns.pk-alignment-guides-active .wp-block-column.is-selected {
+    outline: 2px solid rgba(97,146,248,.6);
+    outline-offset: -1px;
+}
+
+/* ── Container boundary guide ────────────────────────────────────────────── */
+/* Applied to ancestor containers when a child block is selected.            */
+.editor-styles-wrapper [data-block].pk-container-boundary {
+    outline: 1px dashed rgba(97,146,248,.25) !important;
+    outline-offset: 3px;
+}
+
+/* Stronger boundary for direct parent */
+.editor-styles-wrapper [data-block].pk-container-boundary.wp-block-paksa-section {
+    outline-color: rgba(97,146,248,.4) !important;
+    outline-width: 1px !important;
+}
+
+/* ── Container selected state ────────────────────────────────────────────── */
+/* Applied to the selected container block itself.                           */
+.editor-styles-wrapper [data-block].pk-container-selected {
+    outline: 2px solid rgba(97,146,248,.7) !important;
+    outline-offset: 3px;
+}
+
+/* ── Drop zone ready ─────────────────────────────────────────────────────── */
+/* Applied to empty containers when blocks are being dragged.                */
+.editor-styles-wrapper [data-block].pk-drop-zone-ready {
+    outline: 2px dashed #6192f8 !important;
+    outline-offset: 4px;
+    background: rgba(97,146,248,.04) !important;
+    transition: background 150ms, outline-color 150ms;
+}
+
+.editor-styles-wrapper [data-block].pk-drop-zone-ready::after {
+    content: 'Drop here';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+    font-size: 11px;
+    font-weight: 700;
+    color: #6192f8;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 6;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ── Responsive: narrow editor viewport ─────────────────────────────────── */
+@media ( max-width: 780px ) {
+    .pk-overlay-bar {
+        max-width: calc(100vw - 16px);
+        font-size: 10px;
+    }
+
+    .pk-overlay-breadcrumb {
+        max-width: 160px;
+    }
+
+    .pk-canvas-label {
+        font-size: 9px;
+        padding: 1px 5px;
+    }
+}
+
+/* ── Accessibility: focus states ─────────────────────────────────────────── */
+.pk-overlay-crumb:focus-visible,
+.pk-overlay-btn:focus-visible,
+.pk-spacing-viz__value:focus-visible {
+    outline: 2px solid #6192f8;
+    outline-offset: 1px;
+}
+
+/* ── Ensure overlay elements don't appear on frontend ───────────────────── */
+/* These elements are appended to document.body in the editor context only.  */
+/* The .block-editor class on body ensures they never appear on the frontend. */
+body:not(.block-editor-page) .pk-canvas-label,
+body:not(.block-editor-page) .pk-overlay-bar,
+body:not(.block-editor-page) .pk-overlay-outline,
+body:not(.block-editor-page) .pk-width-badge {
+    display: none !important;
+}

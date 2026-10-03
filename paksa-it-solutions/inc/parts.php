@@ -102,10 +102,19 @@ function paksa_site_chrome_tokens() {
     $h = paksa_get_header_height();
     $t = isset( $height_map[ $h ] ) ? $height_map[ $h ] : $height_map['standard'];
 
-    echo '<style id="paksa-site-chrome-tokens">:root{'
-        . '--pk-header-min-height:' . $t['min-height'] . ';'
-        . '--pk-header-py:' . $t['py'] . ';'
-        . '}</style>' . "\n";
+    $tokens = '--pk-header-min-height:' . $t['min-height'] . ';--pk-header-py:' . $t['py'];
+
+    $ann_bg = sanitize_hex_color( get_theme_mod( 'paksa_announcement_bg', '' ) );
+    if ( $ann_bg ) {
+        $tokens .= ';--pk-announcement-bg:' . $ann_bg;
+    }
+
+    $logo_w = absint( get_theme_mod( 'paksa_header_logo_width', 42 ) );
+    if ( $logo_w && $logo_w !== 42 ) {
+        $tokens .= ';--pk-header-logo-width:' . $logo_w . 'px';
+    }
+
+    echo '<style id="paksa-site-chrome-tokens">:root{' . $tokens . '}</style>' . "\n";
 }
 add_action( 'wp_head', 'paksa_site_chrome_tokens', 9 );
 
@@ -211,6 +220,22 @@ function paksa_register_part_customizer_settings( $wp_customize ) {
         __( 'Announcement text', 'paksa-it-solutions' ), '' );
     paksa_customizer_text( $wp_customize, 'paksa_announcement_url', 'paksa_header_options',
         __( 'Announcement link URL', 'paksa-it-solutions' ), '' );
+    paksa_customizer_text( $wp_customize, 'paksa_announcement_bg', 'paksa_header_options',
+        __( 'Announcement background color (hex)', 'paksa-it-solutions' ), '' );
+
+    /* Logo width */
+    $wp_customize->add_setting( 'paksa_header_logo_width', array(
+        'default'           => '42',
+        'sanitize_callback' => 'absint',
+        'transport'         => 'postMessage',
+    ) );
+    $wp_customize->add_control( 'paksa_header_logo_width', array(
+        'label'       => __( 'Header logo width (px)', 'paksa-it-solutions' ),
+        'description' => __( 'Width of the logo in the FSE header. Height scales automatically.', 'paksa-it-solutions' ),
+        'section'     => 'paksa_header_options',
+        'type'        => 'number',
+        'input_attrs' => array( 'min' => 20, 'max' => 300, 'step' => 2 ),
+    ) );
 
     /* ── Footer section ─────────────────────────────────────────────────── */
     $wp_customize->add_section( 'paksa_footer_options', array(
@@ -316,6 +341,21 @@ function paksa_site_chrome_preview_js() {
         } );
         wp.customize( 'paksa_footer_variant', function(v) {
             v.bind( function(val) { swapClass( footerClasses, 'paksa-footer--' + val ); } );
+        } );
+        wp.customize( 'paksa_announcement_bg', function(v) {
+            v.bind( function(val) {
+                var el = document.getElementById('paksa-site-chrome-tokens');
+                if ( el && val ) {
+                    el.textContent = el.textContent.replace(/--pk-announcement-bg:[^;]+;?/, '') + ';--pk-announcement-bg:' + val;
+                }
+            } );
+        } );
+        wp.customize( 'paksa_header_logo_width', function(v) {
+            v.bind( function(val) {
+                document.querySelectorAll('.pk-site-editor-header .wp-block-site-logo img, .pk-site-editor-header .custom-logo').forEach(function(img) {
+                    img.style.width = val + 'px';
+                });
+            } );
         } );
     } )();
     </script>

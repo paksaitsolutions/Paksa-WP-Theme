@@ -10,6 +10,15 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Google Fonts preconnect hints — eliminates connection setup latency.
+ */
+function paksa_fonts_preconnect() {
+    echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
+    echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+}
+add_action( 'wp_head', 'paksa_fonts_preconnect', 1 );
+
+/**
  * Enable Lazy Loading for Images (via WordPress native)
  * WordPress 6.5+ handles loading="lazy" and decoding="async" natively.
  * This filter only adds attributes when not already set by core.

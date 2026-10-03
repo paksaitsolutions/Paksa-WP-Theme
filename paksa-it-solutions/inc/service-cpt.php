@@ -161,8 +161,8 @@ function paksa_register_service_meta() {
             'single'            => true,
             'type'              => 'string',
             'sanitize_callback' => 'sanitize_text_field',
-            'auth_callback'     => function() {
-                return current_user_can( 'edit_posts' );
+            'auth_callback'     => function( $post_id ) {
+                return current_user_can( 'edit_post', $post_id );
             },
             'show_in_rest'      => true,
         ) );
@@ -182,8 +182,8 @@ function paksa_register_service_meta() {
             'single'            => true,
             'type'              => 'string',
             'sanitize_callback' => 'sanitize_textarea_field',
-            'auth_callback'     => function() {
-                return current_user_can( 'edit_posts' );
+            'auth_callback'     => function( $post_id ) {
+                return current_user_can( 'edit_post', $post_id );
             },
             'show_in_rest'      => false,
         ) );
@@ -209,8 +209,8 @@ function paksa_register_product_meta_rest() {
             'single'            => true,
             'type'              => 'string',
             'sanitize_callback' => 'sanitize_text_field',
-            'auth_callback'     => function() {
-                return current_user_can( 'edit_posts' );
+            'auth_callback'     => function( $post_id ) {
+                return current_user_can( 'edit_post', $post_id );
             },
             'show_in_rest'      => true,
         ) );
@@ -221,8 +221,8 @@ function paksa_register_product_meta_rest() {
         'single'            => true,
         'type'              => 'string',
         'sanitize_callback' => 'sanitize_text_field',
-        'auth_callback'     => function() {
-            return current_user_can( 'edit_posts' );
+        'auth_callback'     => function( $post_id ) {
+            return current_user_can( 'edit_post', $post_id );
         },
         'show_in_rest'      => false,
     ) );

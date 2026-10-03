@@ -25,6 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Paksa_Nav_Walker extends Walker_Nav_Menu {
 
+    private $current_parent_id = 0;
+
     /**
      * Start the element output.
      *
@@ -42,6 +44,7 @@ class Paksa_Nav_Walker extends Walker_Nav_Menu {
 
         if ( $has_children && $depth === 0 ) {
             $classes[] = 'pk-has-dropdown';
+            $this->current_parent_id = $item->ID;
         }
 
         $class_names = implode( ' ', array_filter( array_map( 'trim', $classes ) ) );
@@ -57,7 +60,6 @@ class Paksa_Nav_Walker extends Walker_Nav_Menu {
         $atts['target'] = ! empty( $item->target ) ? $item->target : '';
         $atts['rel']    = ! empty( $item->xfn ) ? $item->xfn : '';
         $atts['href']   = ! empty( $item->url ) ? $item->url : '';
-        $atts['role']   = 'menuitem';
 
         if ( in_array( 'current-menu-item', $classes, true ) || in_array( 'current-menu-ancestor', $classes, true ) ) {
             $atts['aria-current'] = 'page';
@@ -73,39 +75,17 @@ class Paksa_Nav_Walker extends Walker_Nav_Menu {
             }
         }
 
+        if ( ! empty( $item->target ) && '_blank' === $item->target && false === strpos( $attributes, ' rel="' ) ) {
+            $attributes .= ' rel="noopener noreferrer"';
+        }
+
         $title = apply_filters( 'the_title', $item->title, $item->ID );
         $title = apply_filters( 'nav_menu_item_title', $title, $item, $args, $depth );
 
         $item_output  = isset( $args->before ) ? $args->before : '';
         $item_output .= '<a' . $attributes . '>';
-        $item_output .= ( isset( $args->link_before ) ? $args->link_before : '' ) . $title . ( isset( $args->link_after ) ? $args->link_after : '' );
+        $item_output .= ( isset( $args->link_before ) ? $args->link_before : '' ) . esc_html( $title ) . ( isset( $args->link_after ) ? $args->link_after : '' );
         $item_output .= '</a>';
-
-        // Inject dropdown toggle button for top-level items with children.
-        if ( $has_children && $depth === 0 ) {
-            $submenu_id   = 'pk-submenu-' . $item->ID;
-            $item_output .= '<button'
-                . ' class="pk-dropdown-toggle"'
-                . ' aria-expanded="false"'
-                . ' aria-controls="' . esc_attr( $submenu_id ) . '"'
-                . ' aria-label="' . esc_attr(
-                    sprintf(
-                        /* translators: %s: menu item title */
-                        __( 'Open %s submenu', 'paksa-it-solutions' ),
-                        $title
-                    )
-                ) . '"'
-                . ' type="button">'
-                . '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-                . '<polyline points="2,4 6,8 10,4"></polyline>'
-                . '</svg>'
-                . '</button>';
-        }
-
-        $item_output .= isset( $args->after ) ? $args->after : '';
-
-        $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
-    }
 
     /**
      * Start the submenu output — add id and role for ARIA.
@@ -116,7 +96,8 @@ class Paksa_Nav_Walker extends Walker_Nav_Menu {
      */
     public function start_lvl( &$output, $depth = 0, $args = array() ) {
         $indent = str_repeat( "\t", $depth );
-        $output .= "\n$indent<ul class=\"pk-submenu\" role=\"menu\">\n";
+        $submenu_id = $this->current_parent_id ? ' id="pk-submenu-' . esc_attr( $this->current_parent_id ) . '"' : '';
+        $output .= "\n$indent<ul class=\"pk-submenu\"$submenu_id role=\"menu\">\n";
     }
 }
 

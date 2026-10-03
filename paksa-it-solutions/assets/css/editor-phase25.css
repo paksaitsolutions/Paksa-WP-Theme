@@ -1,0 +1,160 @@
+/* ============================================================
+   Phase 25 — Editor-only visual builder enhancements
+   All rules scoped to .editor-styles-wrapper or the editor UI.
+   No frontend rendering is affected.
+   ============================================================ */
+
+/* ── Visual selection affordance for paksa/section ──────────────────────── */
+.editor-styles-wrapper .wp-block-paksa-section {
+    outline: 2px dashed transparent;
+    outline-offset: 2px;
+    transition: outline-color 120ms ease;
+}
+
+.editor-styles-wrapper .wp-block-paksa-section.is-selected,
+.editor-styles-wrapper .wp-block-paksa-section.has-child-selected {
+    outline-color: var(--wp-admin-theme-color, #6192f8);
+}
+
+/* Block label badge on hover/select */
+.editor-styles-wrapper .wp-block-paksa-section::before {
+    content: 'Section';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    padding: 2px 8px;
+    background: var(--wp-admin-theme-color, #6192f8);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    border-radius: 0 0 4px 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 120ms ease;
+}
+
+.editor-styles-wrapper .wp-block-paksa-section.is-selected::before,
+.editor-styles-wrapper .wp-block-paksa-section.has-child-selected::before {
+    opacity: 1;
+}
+
+/* ── Live background preview in editor canvas ────────────────────────────── */
+/* bgColor / bgGradient are applied as inline style by the edit() function.
+   Ensure the section is always at least visible in the editor. */
+.editor-styles-wrapper .wp-block-paksa-section {
+    min-height: 4rem;
+    position: relative;
+}
+
+/* ── Spacing panel label styling ─────────────────────────────────────────── */
+.pk-visual-spacing-panel .components-panel__body-title button {
+    color: var(--wp-admin-theme-color, #6192f8);
+    font-weight: 600;
+}
+
+/* ── ColorPalette control label ──────────────────────────────────────────── */
+.pk-palette-control__label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: #1e1e1e;
+}
+
+/* ── Phase 25 new block style previews ───────────────────────────────────── */
+
+/* core/image — overlay on hover */
+.editor-styles-wrapper .is-style-paksa-overlay-hover {
+    position: relative;
+    overflow: hidden;
+}
+.editor-styles-wrapper .is-style-paksa-overlay-hover img {
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+/* core/columns — equal height */
+.editor-styles-wrapper .is-style-paksa-equal-height.wp-block-columns {
+    align-items: stretch;
+}
+.editor-styles-wrapper .is-style-paksa-equal-height.wp-block-columns > .wp-block-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* core/columns — tight gap */
+.editor-styles-wrapper .is-style-paksa-tight-gap.wp-block-columns {
+    gap: var(--pk-space-3, 0.75rem);
+}
+
+/* core/group — highlight band */
+.editor-styles-wrapper .is-style-paksa-highlight-band {
+    padding: 1.5rem;
+    border-left: 4px solid var(--pk-primary, #6192f8);
+    background: var(--pk-accent-light, #eef3fe);
+    border-radius: 0 var(--pk-radius-lg, 16px) var(--pk-radius-lg, 16px) 0;
+}
+
+/* core/group — sticky */
+.editor-styles-wrapper .is-style-paksa-sticky {
+    position: sticky;
+    top: 2rem;
+}
+
+/* core/paragraph — balanced */
+.editor-styles-wrapper .is-style-paksa-balanced {
+    text-wrap: balance;
+}
+
+/* core/heading — underline accent */
+.editor-styles-wrapper .is-style-paksa-underline {
+    position: relative;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--pk-primary, #6192f8);
+}
+
+/* core/button — large */
+.editor-styles-wrapper .is-style-paksa-button-large .wp-block-button__link {
+    padding: 1rem 2.5rem;
+    font-size: 1.0625rem;
+    font-weight: 700;
+}
+
+/* core/button — icon button */
+.editor-styles-wrapper .is-style-paksa-button-icon .wp-block-button__link {
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--pk-radius-md, 10px);
+}
+
+/* ── Responsive panel highlight (Phase 20 already adds this, reinforce) ──── */
+.pk-responsive-panel .components-panel__body-title button {
+    color: var(--wp-admin-theme-color, #6192f8);
+}
+
+/* ── Empty section insertion hint ────────────────────────────────────────── */
+.editor-styles-wrapper .wp-block-paksa-section > .block-editor-inner-blocks > .block-editor-block-list__layout:empty::before {
+    content: '+ Add blocks or insert a pattern';
+    display: block;
+    padding: 2rem;
+    text-align: center;
+    color: #8a94a0;
+    font-size: 0.875rem;
+    border: 2px dashed #e6e8ea;
+    border-radius: 8px;
+    margin: 1rem;
+}
+
+/* ── GradientPicker container spacing ────────────────────────────────────── */
+.components-gradient-picker {
+    margin-top: 4px;
+}

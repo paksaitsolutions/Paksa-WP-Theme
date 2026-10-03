@@ -706,7 +706,7 @@ p:last-child {
 /* Submenu panel */
 .pk-primary-menu .pk-submenu,
 .pk-submenu {
-    display: none;
+    display: block;
     position: absolute;
     top: calc(100% + 4px);
     left: 0;
@@ -719,10 +719,32 @@ p:last-child {
     z-index: 150;
     list-style: none;
     margin: 0;
+    /* Hidden by default — shown on hover or .is-open */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
 }
 
+/* Hover open — desktop only */
+@media (min-width: 1024px) {
+    .pk-primary-menu > li.pk-has-dropdown:hover > .pk-submenu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0s;
+    }
+}
+
+/* Click/keyboard open */
 .pk-submenu.is-open {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0s;
 }
 
 .pk-submenu li {
@@ -775,6 +797,12 @@ p:last-child {
     border-radius: 0;
     padding: 0;
     background: transparent;
+    /* Reset the desktop opacity/visibility transitions */
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    transition: none;
 }
 
 .pk-mobile-menu .pk-submenu.is-open {
@@ -2183,4 +2211,57 @@ p:last-child {
         min-width: 200px;
         justify-content: flex-start;
     }
+}
+
+/* --- Back to Top Button --- */
+.pk-back-to-top {
+    position: fixed;
+    bottom: calc(var(--pk-space-6) + 64px); /* sits above WhatsApp FAB */
+    right: var(--pk-space-6);
+    z-index: 89;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--pk-radius-full);
+    background: #121619;
+    border: 1px solid rgba(97,146,248,0.25);
+    color: #6192F8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.25s, transform 0.25s, background 0.15s, border-color 0.15s;
+    pointer-events: none;
+}
+
+.pk-back-to-top:not([hidden]) {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.pk-back-to-top:hover {
+    background: #6192F8;
+    border-color: #6192F8;
+    color: #fff;
+}
+
+.pk-back-to-top:focus-visible {
+    outline: 3px solid rgba(97,146,248,0.5);
+    outline-offset: 3px;
+}
+
+@media (max-width: 639px) {
+    .pk-back-to-top {
+        bottom: calc(var(--pk-space-4) + 60px);
+        right: var(--pk-space-4);
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pk-back-to-top { transition: none; }
 }

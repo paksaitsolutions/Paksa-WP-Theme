@@ -1,0 +1,334 @@
+/* ============================================================
+   Phase 30 — Inline Styling, Visual Controls & Advanced Canvas Editing
+   All rules editor-only. No frontend impact.
+   ============================================================ */
+
+/* ── Style popover ───────────────────────────────────────────────────────── */
+.pk-style-popover .components-popover__content {
+    min-width: 260px;
+    max-width: 320px;
+    padding: 0;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(18,22,25,.14);
+    overflow: hidden;
+}
+
+.pk-style-popover__inner {
+    display: flex;
+    flex-direction: column;
+}
+
+.pk-style-popover__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #f8f9fc;
+    border-bottom: 1px solid #e6e8ea;
+}
+
+.pk-style-popover__title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #1d1d1d;
+}
+
+.pk-style-popover__close {
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 11px;
+    color: #8a94a0;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 80ms, color 80ms;
+}
+
+.pk-style-popover__close:hover { background: rgba(240,68,56,.1); color: #f04438; }
+
+.pk-style-popover__body {
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+/* ── Shared control label ────────────────────────────────────────────────── */
+.pk-ctrl-label {
+    margin: 0 0 5px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: #555f6d;
+}
+
+/* ── Color swatches ──────────────────────────────────────────────────────── */
+.pk-color-swatches__grid,
+.pk-gradient-swatches__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.pk-swatch {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 80ms, border-color 80ms;
+    flex-shrink: 0;
+    outline: none;
+}
+
+.pk-swatch:hover { transform: scale(1.15); }
+.pk-swatch:focus-visible { box-shadow: 0 0 0 2px #6192f8; }
+
+.pk-swatch.is-active {
+    border-color: #6192f8;
+    box-shadow: 0 0 0 2px rgba(97,146,248,.35);
+}
+
+.pk-swatch--reset {
+    background: #f8f9fc;
+    border-color: #e6e8ea;
+    font-size: 10px;
+    color: #8a94a0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pk-swatch--reset:hover { background: rgba(240,68,56,.08); color: #f04438; border-color: #f04438; }
+
+/* ── Gradient swatches ───────────────────────────────────────────────────── */
+.pk-gradient-swatch {
+    width: 48px;
+    height: 22px;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 80ms, border-color 80ms;
+    outline: none;
+}
+
+.pk-gradient-swatch:hover { transform: scale(1.08); }
+.pk-gradient-swatch:focus-visible { box-shadow: 0 0 0 2px #6192f8; }
+.pk-gradient-swatch.is-active { border-color: #6192f8; }
+
+.pk-gradient-swatch--reset {
+    background: #f8f9fc;
+    border-color: #e6e8ea;
+    font-size: 10px;
+    color: #8a94a0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── Style chips ─────────────────────────────────────────────────────────── */
+.pk-style-chips__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.pk-chip {
+    padding: 3px 9px;
+    border: 1px solid #e6e8ea;
+    border-radius: 4px;
+    background: #f8f9fc;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 500;
+    color: #555f6d;
+    transition: background 80ms, border-color 80ms, color 80ms;
+    white-space: nowrap;
+    outline: none;
+}
+
+.pk-chip:hover { background: #eef3fe; border-color: #6192f8; color: #6192f8; }
+.pk-chip:focus-visible { box-shadow: 0 0 0 2px #6192f8; }
+
+.pk-chip.is-active {
+    background: #6192f8;
+    border-color: #6192f8;
+    color: #fff;
+    font-weight: 700;
+}
+
+/* ── Inline control row ──────────────────────────────────────────────────── */
+.pk-ctrl-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pk-ctrl-input {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid #e6e8ea;
+    border-radius: 4px;
+    font-size: 12px;
+    background: #fff;
+    color: #1d1d1d;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.pk-ctrl-input:focus { border-color: #6192f8; box-shadow: 0 0 0 2px rgba(97,146,248,.2); }
+
+/* ── Reset button ────────────────────────────────────────────────────────── */
+.pk-reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border: 1px solid #e6e8ea;
+    border-radius: 4px;
+    background: #f8f9fc;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    color: #555f6d;
+    transition: background 80ms, border-color 80ms, color 80ms;
+    margin-top: 4px;
+}
+
+.pk-reset-btn:hover { background: rgba(240,68,56,.08); border-color: #f04438; color: #f04438; }
+
+/* ── Quick Style Inspector panel ─────────────────────────────────────────── */
+.pk-quick-style-panel .components-panel__body-title button {
+    color: var(--wp-admin-theme-color, #6192f8);
+    font-weight: 600;
+}
+
+/* ── Background panel ────────────────────────────────────────────────────── */
+.pk-bg-panel .components-panel__body-title button {
+    color: var(--wp-admin-theme-color, #6192f8);
+    font-weight: 600;
+}
+
+/* ── Border panel ────────────────────────────────────────────────────────── */
+.pk-border-panel .components-panel__body-title button {
+    color: var(--wp-admin-theme-color, #6192f8);
+    font-weight: 600;
+}
+
+/* ── Hover state panel ───────────────────────────────────────────────────── */
+.pk-hover-panel .components-panel__body-title button {
+    color: var(--wp-admin-theme-color, #6192f8);
+    font-weight: 600;
+}
+
+.pk-hover-state-switcher {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.pk-state-chip {
+    flex: 1;
+    padding: 5px 8px;
+    border: 1px solid #e6e8ea;
+    border-radius: 5px;
+    background: #f8f9fc;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    color: #555f6d;
+    text-align: center;
+    transition: background 80ms, border-color 80ms, color 80ms;
+}
+
+.pk-state-chip:hover { background: #eef3fe; border-color: #6192f8; color: #6192f8; }
+
+.pk-state-chip.is-active {
+    background: #6192f8;
+    border-color: #6192f8;
+    color: #fff;
+}
+
+.pk-hover-preview-notice {
+    margin: 0 0 8px;
+    padding: 6px 8px;
+    background: rgba(97,146,248,.1);
+    border-left: 3px solid #6192f8;
+    border-radius: 0 4px 4px 0;
+    font-size: 11px;
+    color: #555f6d;
+    line-height: 1.4;
+}
+
+/* ── Toolbar state buttons ───────────────────────────────────────────────── */
+.pk-state-btn {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    min-width: 52px !important;
+    letter-spacing: .02em;
+}
+
+.pk-state-btn--hover.is-active,
+.pk-state-btn--hover.is-pressed {
+    background: rgba(97,146,248,.15) !important;
+    color: #6192f8 !important;
+}
+
+/* ── Hover preview — editor-only canvas state ────────────────────────────── */
+/* When pk-hover-preview is applied to a block wrapper, simulate hover state */
+.editor-styles-wrapper [data-block].pk-hover-preview.wp-block-paksa-section,
+.editor-styles-wrapper [data-block].pk-hover-preview.wp-block-group {
+    filter: brightness(1.04);
+    outline: 2px solid rgba(97,146,248,.6) !important;
+    outline-offset: 3px;
+}
+
+/* Hover effect previews — mirror the frontend pk-hover-* classes */
+.editor-styles-wrapper [data-block].pk-hover-preview.pk-hover-lift,
+.editor-styles-wrapper [data-block].pk-hover-preview [class*="pk-hover-lift"] {
+    transform: translateY(-4px);
+}
+
+.editor-styles-wrapper [data-block].pk-hover-preview.pk-hover-scale,
+.editor-styles-wrapper [data-block].pk-hover-preview [class*="pk-hover-scale"] {
+    transform: scale(1.02);
+}
+
+.editor-styles-wrapper [data-block].pk-hover-preview.pk-hover-glow,
+.editor-styles-wrapper [data-block].pk-hover-preview [class*="pk-hover-glow"] {
+    box-shadow: 0 8px 32px rgba(97,146,248,.35);
+}
+
+/* ── Toolbar button ──────────────────────────────────────────────────────── */
+.pk-tb-btn {
+    font-size: 11px !important;
+}
+
+/* ── Canvas selection outline improvements ───────────────────────────────── */
+/* Reinforce heading/paragraph selection for better visual feedback */
+.editor-styles-wrapper .wp-block-heading.is-selected,
+.editor-styles-wrapper .wp-block-paragraph.is-selected {
+    outline: 1px dashed rgba(97,146,248,.4);
+    outline-offset: 2px;
+}
+
+/* Button selection */
+.editor-styles-wrapper .wp-block-button.is-selected .wp-block-button__link {
+    outline: 2px solid rgba(97,146,248,.5);
+    outline-offset: 2px;
+}
+
+/* Image selection */
+.editor-styles-wrapper .wp-block-image.is-selected img {
+    outline: 2px solid rgba(97,146,248,.5);
+    outline-offset: 2px;
+}

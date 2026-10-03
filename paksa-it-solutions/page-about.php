@@ -4,9 +4,6 @@
  *
  * Template Name: About Us
  *
- * Content is edited via the block editor (Pages → About Us → Edit).
- * Use Paksa block patterns to build sections.
- *
  * @package paksa-it-solutions
  */
 
@@ -16,18 +13,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 ?>
-<main id="main-content" class="pk-about-page">
-    <?php get_template_part( 'template-parts/components/breadcrumbs' ); ?>
-    <div class="pk-page-content">
-        <?php
-        if ( have_posts() ) :
-            while ( have_posts() ) :
-                the_post();
-                the_content();
-            endwhile;
-        endif;
-        ?>
-    </div>
+<main id="main-content" tabindex="-1" class="pk-about-page">
+    <?php
+    while ( have_posts() ) :
+        the_post();
+        get_template_part( 'template-parts/about/hero' );
+        get_template_part( 'template-parts/about/story' );
+        get_template_part( 'template-parts/about/expertise' );
+        get_template_part( 'template-parts/about/approach' );
+        get_template_part( 'template-parts/about/mission' );
+        get_template_part( 'template-parts/about/values' );
+        get_template_part( 'template-parts/about/why-choose' );
+        get_template_part( 'template-parts/about/cta' );
+    endwhile;
+    ?>
 </main>
 <?php
 get_footer();

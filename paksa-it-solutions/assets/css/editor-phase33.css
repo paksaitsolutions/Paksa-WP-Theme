@@ -1,0 +1,715 @@
+/* ============================================================
+   Phase 33 — Global Style Manager, Design Tokens & Site-Wide Editing
+   All rules editor-only. No frontend impact.
+   ============================================================ */
+
+/* ── Site Styles sidebar ─────────────────────────────────────────────────── */
+.pk-gs-sidebar .components-panel__body { padding: 0; }
+
+.pk-gs-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-size: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.pk-gs-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px 8px;
+    border-bottom: 1px solid #e6e8ea;
+    background: #f8f9fc;
+    flex-shrink: 0;
+}
+
+.pk-gs-header-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #1d1d1d;
+}
+
+.pk-gs-save-btn {
+    padding: 4px 10px;
+    border: 1px solid #6192f8;
+    border-radius: 4px;
+    background: #6192f8;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 100ms;
+}
+
+.pk-gs-save-btn:hover { background: #4a7ef5; border-color: #4a7ef5; }
+.pk-gs-save-btn:focus-visible { outline: 2px solid #6192f8; outline-offset: 2px; }
+
+/* ── Tab bar ─────────────────────────────────────────────────────────────── */
+.pk-gs-tabs {
+    display: flex;
+    border-bottom: 1px solid #e6e8ea;
+    background: #f8f9fc;
+    flex-shrink: 0;
+}
+
+.pk-gs-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 7px 3px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: none;
+    cursor: pointer;
+    font-size: 9px;
+    font-weight: 600;
+    color: #555f6d;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    transition: color 100ms, border-color 100ms, background 100ms;
+}
+
+.pk-gs-tab:hover { color: #6192f8; background: #eef3fe; }
+
+.pk-gs-tab.is-active {
+    color: #6192f8;
+    border-bottom-color: #6192f8;
+    background: #fff;
+}
+
+.pk-gs-tab:focus-visible { outline: 2px solid #6192f8; outline-offset: -2px; }
+.pk-gs-tab-label { font-size: 8px; }
+
+/* ── Tab panels ──────────────────────────────────────────────────────────── */
+.pk-gs-tab-panels {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.pk-gs-tab-content {
+    padding: 10px 12px 16px;
+}
+
+/* ── Shared labels + hints ───────────────────────────────────────────────── */
+.pk-gs-label {
+    margin: 0 0 6px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: #555f6d;
+}
+
+.pk-gs-section-hint {
+    margin: 0 0 10px;
+    font-size: 11px;
+    color: #8a94a0;
+    line-height: 1.5;
+}
+
+.pk-gs-section-hint--action {
+    margin-top: 10px;
+    padding: 6px 8px;
+    background: rgba(97,146,248,.07);
+    border-left: 3px solid #6192f8;
+    border-radius: 0 4px 4px 0;
+    color: #555f6d;
+}
+
+.pk-gs-notice { margin: 0 0 10px; font-size: 11px; }
+
+/* ── Style variations grid ───────────────────────────────────────────────── */
+.pk-gs-variations-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pk-gs-variation-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid #e6e8ea;
+    border-radius: 7px;
+    background: #f8f9fc;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 100ms, background 100ms, box-shadow 100ms;
+    width: 100%;
+}
+
+.pk-gs-variation-card:hover {
+    border-color: #6192f8;
+    background: #eef3fe;
+    box-shadow: 0 0 0 2px rgba(97,146,248,.12);
+}
+
+.pk-gs-variation-card:focus-visible { outline: 2px solid #6192f8; outline-offset: 1px; }
+
+.pk-gs-variation-preview {
+    display: flex;
+    gap: 3px;
+    flex-shrink: 0;
+}
+
+.pk-gs-variation-swatch {
+    width: 14px;
+    height: 28px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,.08);
+    display: block;
+}
+
+.pk-gs-variation-swatch--bg   { width: 10px; }
+.pk-gs-variation-swatch--text { width: 10px; }
+
+.pk-gs-variation-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1d1d1d;
+    display: block;
+    flex: 1;
+}
+
+.pk-gs-variation-desc {
+    font-size: 10px;
+    color: #8a94a0;
+    display: block;
+    flex: 2;
+}
+
+/* ── Color groups ────────────────────────────────────────────────────────── */
+.pk-gs-color-group { margin-bottom: 10px; }
+
+.pk-gs-color-swatches {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.pk-gs-color-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
+}
+
+.pk-gs-color-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,.1);
+    flex-shrink: 0;
+    display: block;
+}
+
+.pk-gs-color-name {
+    flex: 1;
+    font-size: 11px;
+    font-weight: 500;
+    color: #1d1d1d;
+}
+
+.pk-gs-color-value {
+    font-size: 10px;
+    color: #8a94a0;
+    font-variant-numeric: tabular-nums;
+    font-family: monospace;
+}
+
+/* ── Gradient row ────────────────────────────────────────────────────────── */
+.pk-gs-gradient-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pk-gs-gradient-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.pk-gs-gradient-swatch {
+    width: 48px;
+    height: 28px;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,.08);
+    display: block;
+}
+
+/* ── Typography ──────────────────────────────────────────────────────────── */
+.pk-gs-font-families {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.pk-gs-font-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 8px;
+    background: #f8f9fc;
+    border-radius: 5px;
+    border: 1px solid #e6e8ea;
+}
+
+.pk-gs-font-preview {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1d1d1d;
+    flex-shrink: 0;
+    width: 28px;
+    text-align: center;
+}
+
+.pk-gs-font-name {
+    flex: 1;
+    font-size: 11px;
+    font-weight: 600;
+    color: #1d1d1d;
+}
+
+.pk-gs-font-slug {
+    font-size: 9px;
+    color: #8a94a0;
+    background: #f0f1f3;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+}
+
+.pk-gs-size-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.pk-gs-size-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
+}
+
+.pk-gs-size-name {
+    width: 64px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #1d1d1d;
+    flex-shrink: 0;
+}
+
+.pk-gs-size-value {
+    flex: 1;
+    font-size: 10px;
+    color: #555f6d;
+    font-family: monospace;
+}
+
+/* ── Layout widths ───────────────────────────────────────────────────────── */
+.pk-gs-layout-widths {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pk-gs-layout-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pk-gs-layout-label {
+    width: 52px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #1d1d1d;
+    flex-shrink: 0;
+}
+
+.pk-gs-layout-value {
+    width: 52px;
+    font-size: 10px;
+    color: #8a94a0;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+}
+
+.pk-gs-layout-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: #6192f8;
+    opacity: .6;
+}
+
+.pk-gs-layout-bar--content { width: 72%; }
+.pk-gs-layout-bar--wide    { width: 88%; }
+.pk-gs-layout-bar--narrow  { width: 44%; }
+
+/* ── Spacing scale ───────────────────────────────────────────────────────── */
+.pk-gs-spacing-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pk-gs-spacing-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pk-gs-spacing-name {
+    width: 28px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #555f6d;
+    flex-shrink: 0;
+}
+
+.pk-gs-spacing-size {
+    width: 80px;
+    font-size: 10px;
+    color: #8a94a0;
+    font-family: monospace;
+    flex-shrink: 0;
+}
+
+.pk-gs-spacing-bar {
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(97,146,248,.5);
+    min-width: 4px;
+}
+
+/* ── Radius row ──────────────────────────────────────────────────────────── */
+.pk-gs-radius-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pk-gs-radius-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.pk-gs-radius-preview {
+    width: 28px;
+    height: 28px;
+    background: #6192f8;
+    opacity: .7;
+    display: block;
+}
+
+.pk-gs-radius-name {
+    font-size: 9px;
+    font-weight: 600;
+    color: #555f6d;
+    text-align: center;
+}
+
+.pk-gs-radius-value {
+    font-size: 9px;
+    color: #8a94a0;
+    font-family: monospace;
+}
+
+/* ── Shadows ─────────────────────────────────────────────────────────────── */
+.pk-gs-shadow-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pk-gs-shadow-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px;
+    background: #f8f9fc;
+    border-radius: 5px;
+}
+
+.pk-gs-shadow-preview {
+    width: 32px;
+    height: 20px;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid #e6e8ea;
+    flex-shrink: 0;
+    display: block;
+}
+
+.pk-gs-shadow-name {
+    flex: 1;
+    font-size: 11px;
+    font-weight: 600;
+    color: #1d1d1d;
+}
+
+/* ── Transitions ─────────────────────────────────────────────────────────── */
+.pk-gs-transition-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pk-gs-transition-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+}
+
+.pk-gs-transition-name {
+    width: 36px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #1d1d1d;
+    flex-shrink: 0;
+}
+
+.pk-gs-transition-value {
+    flex: 1;
+    font-size: 10px;
+    color: #555f6d;
+    font-family: monospace;
+}
+
+/* ── Customizer summary ──────────────────────────────────────────────────── */
+.pk-gs-customizer-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px 10px;
+    background: #f8f9fc;
+    border: 1px solid #e6e8ea;
+    border-radius: 5px;
+}
+
+.pk-gs-customizer-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pk-gs-customizer-key {
+    width: 60px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #555f6d;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    flex-shrink: 0;
+}
+
+.pk-gs-customizer-val {
+    font-size: 11px;
+    color: #1d1d1d;
+    font-weight: 500;
+}
+
+/* ── Local override panel ────────────────────────────────────────────────── */
+.pk-override-panel .components-panel__body-title button {
+    color: #f79009;
+    font-weight: 700;
+}
+
+.pk-override-hint {
+    margin: 0 0 8px;
+    font-size: 11px;
+    color: #555f6d;
+    line-height: 1.5;
+}
+
+.pk-override-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.pk-override-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 8px;
+    background: rgba(247,144,9,.06);
+    border: 1px solid rgba(247,144,9,.2);
+    border-radius: 4px;
+}
+
+.pk-override-item__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.pk-override-item__label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #1d1d1d;
+}
+
+.pk-override-item__value {
+    font-size: 10px;
+    color: #8a94a0;
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pk-override-reset-btn {
+    width: 22px;
+    height: 22px;
+    border: 1px solid #e6e8ea;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    color: #555f6d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 80ms, color 80ms, border-color 80ms;
+}
+
+.pk-override-reset-btn:hover {
+    background: rgba(247,144,9,.1);
+    color: #f79009;
+    border-color: #f79009;
+}
+
+.pk-override-reset-btn:focus-visible { outline: 2px solid #6192f8; outline-offset: 1px; }
+
+.pk-override-reset-all-btn { margin-top: 2px; }
+
+/* ── Design token reference panel (PluginDocumentSettingPanel) ───────────── */
+.pk-token-doc-panel .components-panel__body { padding: 0; }
+
+.pk-token-panel {
+    font-size: 11px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.pk-token-section { border-bottom: 1px solid #f0f1f3; }
+
+.pk-token-section__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 7px 12px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    color: #1d1d1d;
+    text-align: left;
+    transition: background 80ms;
+}
+
+.pk-token-section__toggle:hover { background: #f8f9fc; }
+.pk-token-section__toggle:focus-visible { outline: 2px solid #6192f8; outline-offset: -2px; }
+
+.pk-token-section__body {
+    padding: 6px 12px 10px;
+    background: #fafbfc;
+}
+
+.pk-token-color-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.pk-token-color-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pk-token-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,.1);
+    flex-shrink: 0;
+    display: block;
+}
+
+.pk-token-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.pk-token-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 0;
+}
+
+.pk-token-name {
+    width: 52px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #1d1d1d;
+    flex-shrink: 0;
+}
+
+.pk-token-val {
+    flex: 1;
+    font-size: 10px;
+    color: #555f6d;
+    font-family: monospace;
+}
+
+.pk-token-code {
+    font-size: 9px;
+    color: #8a94a0;
+    background: #f0f1f3;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
+    display: block;
+}
+
+/* ── Responsive: narrow editor ───────────────────────────────────────────── */
+@media ( max-width: 780px ) {
+    .pk-gs-variations-grid { gap: 4px; }
+    .pk-gs-variation-desc  { display: none; }
+}
+
+/* ── Frontend leak prevention ────────────────────────────────────────────── */
+body:not(.block-editor-page) .pk-gs-panel,
+body:not(.block-editor-page) .pk-token-panel,
+body:not(.block-editor-page) .pk-override-panel { display: none !important; }
