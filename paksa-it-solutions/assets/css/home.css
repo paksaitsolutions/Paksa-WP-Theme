@@ -1111,6 +1111,8 @@
    14 — FAQ
    ============================================================ */
 
+.pk-faq { background: var(--pk-bg); }
+
 .pk-faq-inner {
     display: grid;
     grid-template-columns: 1fr;
@@ -1118,38 +1120,49 @@
     align-items: start;
 }
 
-@media (min-width: 1024px) { .pk-faq-inner { grid-template-columns: 300px 1fr; } }
+@media (min-width: 1024px) {
+    .pk-faq-inner { grid-template-columns: 280px 1fr; }
+}
 
 .pk-faq-list {
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--pk-border);
-    border-radius: var(--pk-radius-lg);
-    overflow: hidden;
-    box-shadow: var(--pk-shadow-sm);
+    border-top: 1px solid var(--pk-border);
 }
 
-.pk-faq-item { border-bottom: 1px solid var(--pk-border); }
-.pk-faq-item:last-child { border-bottom: none; }
+.pk-faq-item {
+    border-bottom: 1px solid var(--pk-border);
+}
 
 .pk-faq-trigger {
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
-    gap: var(--pk-space-4);
-    padding: var(--pk-space-5) var(--pk-space-6);
+    gap: var(--pk-space-6);
+    padding: var(--pk-space-6) 0;
     background: none;
     border: none;
     cursor: pointer;
     text-align: left;
-    transition: background var(--pk-transition-fast);
+    transition: color var(--pk-transition-fast);
 }
 
-.pk-faq-trigger:hover { background: var(--pk-bg-alt); }
-.pk-faq-trigger:focus-visible { outline: 3px solid var(--pk-primary); outline-offset: -3px; }
+.pk-faq-trigger:hover { color: var(--pk-primary); }
 
-.pk-faq-question { font-size: 0.9375rem; font-weight: 600; color: var(--pk-text); line-height: 1.4; }
+.pk-faq-trigger:focus-visible {
+    outline: 3px solid var(--pk-primary);
+    outline-offset: 4px;
+    border-radius: var(--pk-radius-sm);
+}
+
+.pk-faq-question {
+    font-size: clamp(1rem, 0.875rem + 0.5vw, 1.125rem);
+    font-weight: 700;
+    color: var(--pk-text);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
 
 .pk-faq-icon {
     color: var(--pk-text-muted);
@@ -1157,12 +1170,30 @@
     transition: transform var(--pk-transition-fast), color var(--pk-transition-fast);
 }
 
-.pk-faq-item.is-open .pk-faq-icon { transform: rotate(45deg); color: var(--pk-primary); }
-.pk-faq-icon-v { transition: opacity var(--pk-transition-fast); }
+.pk-faq-item.is-open .pk-faq-icon {
+    transform: rotate(45deg);
+    color: var(--pk-primary);
+}
+
+.pk-faq-icon-v {
+    transition: opacity var(--pk-transition-fast);
+}
+
 .pk-faq-item.is-open .pk-faq-icon-v { opacity: 0; }
+
 .pk-faq-panel[hidden] { display: none; }
-.pk-faq-answer { padding: 0 var(--pk-space-6) var(--pk-space-5); }
-.pk-faq-answer p { font-size: 0.9375rem; color: var(--pk-text-secondary); line-height: 1.7; margin: 0; }
+
+.pk-faq-answer {
+    padding: 0 0 var(--pk-space-6);
+    max-width: 640px;
+}
+
+.pk-faq-answer p {
+    font-size: 0.9375rem;
+    color: var(--pk-text-secondary);
+    line-height: 1.7;
+    margin: 0;
+}
 
 /* ============================================================
    15 — GLOBAL CTA

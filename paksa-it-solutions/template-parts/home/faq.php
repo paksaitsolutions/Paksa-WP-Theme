@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $eyebrow = paksa_get_option( 'paksa_faq_eyebrow', __( 'FAQ', 'paksa-it-solutions' ) );
-$heading = paksa_get_option( 'paksa_faq_heading', __( 'Common Questions', 'paksa-it-solutions' ) );
+$heading = paksa_get_option( 'paksa_faq_heading', __( 'Real Questions, Straight Answers', 'paksa-it-solutions' ) );
 
 /**
  * Filter: paksa_faq_items
@@ -20,36 +20,20 @@ $heading = paksa_get_option( 'paksa_faq_heading', __( 'Common Questions', 'paksa
  */
 $faqs = apply_filters( 'paksa_homepage_faq_items', array(
     array(
-        'question' => __( 'What does Paksa IT Solutions do?', 'paksa-it-solutions' ),
-        'answer'   => __( 'Paksa IT Solutions builds enterprise software, custom applications, AI-powered systems and business intelligence platforms for businesses that need serious, purpose-built technology.', 'paksa-it-solutions' ),
+        'question' => __( 'How long does a custom ERP implementation take?', 'paksa-it-solutions' ),
+        'answer'   => __( 'Most ERP implementations take 3–6 months from requirements sign-off to go-live. We phase delivery so you\'re using core modules within 6–8 weeks, not waiting for a big-bang launch. A single-department deployment moves faster than a multi-branch rollout.', 'paksa-it-solutions' ),
     ),
     array(
-        'question' => __( 'What types of software does Paksa build?', 'paksa-it-solutions' ),
-        'answer'   => __( 'We build ERP systems, custom business applications, AI and machine learning solutions, business intelligence dashboards, ecommerce platforms and system integrations — all designed around specific business requirements.', 'paksa-it-solutions' ),
+        'question' => __( 'Can you integrate with our existing systems?', 'paksa-it-solutions' ),
+        'answer'   => __( 'Yes. We\'ve connected Paksa ERP and custom platforms to SAP, QuickBooks, WooCommerce, Shopify, and payment gateways used across Pakistan and the UK. If you have REST APIs, database access, or even flat-file exports, we can build the bridge — typically within 2–3 weeks per integration point.', 'paksa-it-solutions' ),
     ),
     array(
-        'question' => __( 'Do you build custom enterprise software?', 'paksa-it-solutions' ),
-        'answer'   => __( 'Yes. Custom enterprise software is a core capability. We design and build platforms tailored to your specific operational workflows, data requirements and business processes.', 'paksa-it-solutions' ),
+        'question' => __( 'What support is available after deployment?', 'paksa-it-solutions' ),
+        'answer'   => __( 'Every project includes 30 days of post-launch support. After that, we offer structured maintenance plans starting at 15% of project value per month, covering bug fixes, security patches, and minor enhancements. We also provide training documentation and video walkthroughs for your team.', 'paksa-it-solutions' ),
     ),
     array(
-        'question' => __( 'Does Paksa provide AI and machine learning solutions?', 'paksa-it-solutions' ),
-        'answer'   => __( 'Yes. We apply AI and machine learning where they create genuine business value — including predictive analytics, intelligent automation, anomaly detection and recommendation systems.', 'paksa-it-solutions' ),
-    ),
-    array(
-        'question' => __( 'Can Paksa integrate existing business systems?', 'paksa-it-solutions' ),
-        'answer'   => __( 'Yes. System integration is a core service. We connect ERP systems, ecommerce platforms, APIs and business applications so data and workflows move without friction across your operations.', 'paksa-it-solutions' ),
-    ),
-    array(
-        'question' => __( 'Do you work with ecommerce businesses?', 'paksa-it-solutions' ),
-        'answer'   => __( 'Yes. We build and integrate ecommerce platforms, connect them to operational systems and develop the backend infrastructure that supports serious ecommerce operations.', 'paksa-it-solutions' ),
-    ),
-    array(
-        'question' => __( 'Can solutions be customized after delivery?', 'paksa-it-solutions' ),
-        'answer'   => __( 'Yes. We design solutions with modular architecture specifically so they can evolve as your business grows and requirements change — without requiring complete rebuilds.', 'paksa-it-solutions' ),
-    ),
-    array(
-        'question' => __( 'How do we start a project with Paksa?', 'paksa-it-solutions' ),
-        'answer'   => __( 'The first step is a consultation to understand your business, requirements and objectives. Contact us to arrange an initial discussion — there is no obligation and no cost for the initial conversation.', 'paksa-it-solutions' ),
+        'question' => __( 'Do you work with businesses outside Pakistan?', 'paksa-it-solutions' ),
+        'answer'   => __( 'Yes. Paksa ERP and our salon management platform are deployed in Pakistan, the UK, and the USA. We handle timezone differences with dedicated overlap hours, and all contracts are available in GBP and USD. For international clients, we use milestone-based billing with clear delivery checkpoints.', 'paksa-it-solutions' ),
     ),
 ) );
 
@@ -64,6 +48,7 @@ if ( empty( $faqs ) ) {
             get_template_part( 'template-parts/components/section-header', null, array(
                 'eyebrow'     => $eyebrow,
                 'heading'     => $heading,
+                'description' => __( 'The things clients actually ask before signing a contract — no padding, no fluff.', 'paksa-it-solutions' ),
                 'align'       => 'left',
             ) );
             ?>
