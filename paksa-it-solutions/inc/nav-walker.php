@@ -87,6 +87,17 @@ class Paksa_Nav_Walker extends Walker_Nav_Menu {
         $item_output .= ( isset( $args->link_before ) ? $args->link_before : '' ) . esc_html( $title ) . ( isset( $args->link_after ) ? $args->link_after : '' );
         $item_output .= '</a>';
 
+        if ( $has_children && $depth === 0 ) {
+            $toggle_id    = 'pk-toggle-' . esc_attr( $item->ID );
+            $submenu_id   = 'pk-submenu-' . esc_attr( $item->ID );
+            $item_output .= '<button class="pk-dropdown-toggle" aria-expanded="false" aria-controls="' . $submenu_id . '" id="' . $toggle_id . '" aria-label="' . esc_attr( sprintf( __( 'Toggle %s submenu', 'paksa-it-solutions' ), $title ) ) . '"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+        }
+
+        $item_output .= isset( $args->after ) ? $args->after : '';
+
+        $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+    }
+
     /**
      * Start the submenu output — add id and role for ARIA.
      *
